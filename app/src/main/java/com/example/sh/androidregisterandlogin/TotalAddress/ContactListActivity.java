@@ -37,7 +37,7 @@ public class ContactListActivity extends Activity {
 
     private ListView lv_contactlist;
     TextView address_sum_number;
-    public static int address_count = 0;
+    public static int address_coffhfunt = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
