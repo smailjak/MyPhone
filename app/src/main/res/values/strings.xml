@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">happy</string>
+
+    <string name="speech_prompt">혀니 : 말하세요 ! !&#8230;</string>
+    <string name="speech_not_supported"> 뭐라고?</string>
+    <!--<string name="app_intro">\n 안녕하세요. myBook 입니다 .보다 다양한 메모장 어플을 만들고 싶어서 만들어 봤습니다.</string>-->
+    <string name="app_intro">\n 안녕하세요. Myphone 입니다 .폰 내부 파일 관리에 대한 폰 입니다.</string>
+    <string name="long_text">안녕하세요 myphone 의 첫번째 이미지입니다 !!! ^ ^ 까꿍 행복하세요 까까까꿍</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

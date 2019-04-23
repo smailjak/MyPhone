@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TotalApp.UserAppsActivity">
+
+    <!--TextView to show totall no of installed apps-->
+    <TextView
+        android:id="@+id/appsCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg_edge"
+        android:gravity="center"
+        android:text="count"
+        android:textColor="@color/colorGrin"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+    <!--ListView to show list of installed apps-->
+
+    <ListView
+        android:id="@+id/installed_app_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="whiteTrans">#aaaaaa</color>
+    <color name="colorGrin">#088A29</color>
+    <color name="colorYellow">#D7DF01</color>
+    <color name="colorTransParent">@android:color/transparent</color>
+    <color name="colorRed">#B40431</color>
+    <color name="colorText">#000000</color>
+    <color name="colorDarkBlue">#106991</color>
+    <color name="colorDarkBlue2">#1984b4</color>
+
+    <color name="tabtextcolor">#D81B60</color>
+
+
+</resources>

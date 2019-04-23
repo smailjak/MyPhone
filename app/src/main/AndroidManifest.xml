@@ -1,0 +1,67 @@
+<?xml version="1.1" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.sh.androidregisterandlogin">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.DIAL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:name=".TotalAudio.AudioApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/default_pic"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Design.Light.NoActionBar">
+
+        <service
+            android:name=".TotalAudio.AudioService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="REWIND" />
+                <action android:name="TOGGLE_PLAY" />
+                <action android:name="FORWARD" />
+                <action android:name="CLOSE" />
+            </intent-filter>
+        </service>
+        <activity android:name=".ToTalHome.CollectActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".TotalAudio.MusicPlayer" />
+        <activity android:name=".AdvertisingActivity" />
+        <activity android:name=".AndroidActivity" />
+        <activity android:name=".TotalPhoto.PhotosActivity" />
+        <activity android:name=".TotalPhoto.TotalPhotoActivity" />
+        <activity android:name=".Total_Intro.Detail_intro" />
+        <activity android:name=".TotalMessage.Sms.SmsActivity" />
+        <activity android:name=".TotalMessage.Chat.ChatActivity" />
+        <activity android:name=".TotalAudio.TotalMusicActivity" />
+        <activity android:name=".TotalAddress.ContactListActivity" />
+        <activity android:name=".TotalManage.ManageActivity" />
+        <activity android:name=".TotalBattery.BatteryActivity" />
+        <activity android:name=".TotalPhoneInfo.GeneralActivity" />
+        <activity android:name=".TotalApp.UserAppsActivity" />
+        <activity android:name=".MemoryActivity" />
+        <activity android:name=".Total_Intro.AppintroActivity"></activity>
+
+    </application>
+</manifest>

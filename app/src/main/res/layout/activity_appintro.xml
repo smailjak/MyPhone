@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Total_Intro.AppintroActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:clickable="true">
+
+    </android.support.v4.view.ViewPager>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CEF6D8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#CEF6D8"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_bg_edge"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="앱설명 "
+                    android:textColor="#000000"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="\n 위의 사진들을 클릭하면 ,상세페이지로 크게 볼 수 있습니다.\n\n상세 페이지로 가서 해당 사진을 클릭하면  해당 액티비로 갑니다. "
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/intro_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\n\n 1.사진화면 입니다.\n   위에 보이시는 숫자는 사진의 개수 입니다. "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/intro_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\n 2.연락처화면 입니다.\n 위에 보이시는 숫자는 연락처의 개수입니다."
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/intro_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\n 3.메시지화면 입니다.\n 위에 보이시는 숫자는 저한테 문자를 보낸 사용자의 \n 개수입니다. "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/intro_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\n 4.음악화면 입니다.\n 위에 보이시는 숫자는 음악 개수입니다."
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\n 5.음성인식 입니다.\n 하고자하는 기능과 화면으로 갈 수있습니다."
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
