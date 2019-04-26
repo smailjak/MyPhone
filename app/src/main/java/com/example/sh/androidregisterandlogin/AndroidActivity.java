@@ -10,6 +10,8 @@ public class AndroidActivity extends AppCompatActivity {
 
     private WebView webView;
 
+//    databing 적용해볼까 ??? 해보자 
+
 
 //    주석이다 한번 /.
 
