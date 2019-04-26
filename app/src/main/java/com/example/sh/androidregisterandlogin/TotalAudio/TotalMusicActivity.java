@@ -28,10 +28,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
 import com.example.sh.androidregisterandlogin.R;
-import com.squareup.picasso.Picasso;
-
 
 public class TotalMusicActivity extends AppCompatActivity implements View.OnClickListener {
     private final static int LOADER_ID = 0x001;
@@ -124,17 +123,19 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
 
     public void updateUI() {
         if (AudioApplication.getInstance().getServiceInterface().isPlaying()) {
-//            재생중이면 pause 라는 그림을 보여주게됩니다.
             mBtnPlayPause.setImageResource(R.drawable.pause);
         } else {
-//            그게 아니라면 play 그림을 보여줍니다.
             mBtnPlayPause.setImageResource(R.drawable.play);
         }
+
         AudioAdapter.AudioItem audioItem = AudioApplication.getInstance().getServiceInterface().getAudioItem();
+
         if (audioItem != null) {
 //           null 이 아니라면
             Uri albumArtUri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), audioItem.mAlbumId);
-            Picasso.get().load(albumArtUri).error(R.drawable.music).into(mImgAlbumArt);
+            Glide.with(this)
+                    .load(albumArtUri)
+                    .into(mImgAlbumArt);
             mTxtTitle.setText(audioItem.mTitle);
         } else {
             mImgAlbumArt.setImageResource(R.drawable.music);

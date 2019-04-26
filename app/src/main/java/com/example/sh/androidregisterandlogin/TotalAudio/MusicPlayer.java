@@ -22,9 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import com.bumptech.glide.Glide;
 import com.example.sh.androidregisterandlogin.R;
-import com.squareup.picasso.Picasso;
 
 public class MusicPlayer extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,7 +46,6 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
             } else {
-                // READ_EXTERNAL_STORAGE 에 대한 권한이 있음.
                 getAudioListFromMediaDatabase();
             }
         }
@@ -86,11 +84,11 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
         }
         AudioAdapter.AudioItem audioItem = AudioApplication.getInstance().getServiceInterface().getAudioItem();
         if (audioItem != null) {
-//           null 이 아니라면
             Uri albumArtUri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), audioItem.mAlbumId);
-            Picasso.get().load(albumArtUri).error(R.drawable.music).into(img_albumart);
+            Glide.with(this )
+                    .load(albumArtUri)
+                    .into(img_albumart);
             music_title.setText(audioItem.mTitle);
-//            음악 제목 이 박히는 부분 music_title.setText(audioItem.mTitle);
         } else {
             img_albumart.setImageResource(R.drawable.music);
             music_title.setText("재생중인 음악이 없습니다.");

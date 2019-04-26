@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
 
 import java.util.ArrayList;
@@ -73,13 +74,10 @@ public class GridViewAdapter extends ArrayAdapter<Model_images> {
         }
 
         viewHolder.tv_foldern.setVisibility(View.GONE);
-//        여기서 사진 이름을 안불러왔으니깐 VISIBLE해도 보이진 않아 .
         viewHolder.tv_foldersize.setVisibility(View.GONE);
-//       만약에 내가 Camera 로 갔을때 , 사진이 하나씩하나씩 나오는 곳인데 ,
-//       여기를 VISIBLE 로 해서 한개씩 보여줄 필요가 없기때문에 GONE 을 해야해 ,
         Glide.with(context).load("file://" + al_menu.get(int_position).getAl_imagepath().get(position))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
+                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                .apply(RequestOptions.skipMemoryCacheOf(true))
                 .into(viewHolder.iv_image);
         return convertView;
     }
@@ -87,6 +85,5 @@ public class GridViewAdapter extends ArrayAdapter<Model_images> {
     private static class ViewHolder {
         TextView tv_foldern, tv_foldersize;
         ImageView iv_image;
-
     }
 }
