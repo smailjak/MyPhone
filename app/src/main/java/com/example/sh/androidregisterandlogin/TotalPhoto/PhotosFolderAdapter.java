@@ -41,13 +41,14 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
         return viewHolder;
     }
 
+
     @Override
     public void onBindView(ViewHolder viewHolder, int position) {
         viewHolder.tvFolderName.setText(String.valueOf(getItem(position).getAl_imagepath()));
         viewHolder.tvFolderCount.setText(getItem(position).getStr_folder());
-        Glide.with(context)
-                .load("file://" + getItem(position)
-                        .getAl_imagepath().get(0));
+        Glide.with(context).load("file://" + getItem(position)
+                        .getAl_imagepath().get(0))
+                        .into(viewHolder.ivImage);
 
     }
 
