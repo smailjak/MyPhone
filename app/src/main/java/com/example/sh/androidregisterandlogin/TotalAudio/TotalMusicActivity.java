@@ -11,21 +11,21 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import android.widget.Toast;
 
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
@@ -35,6 +35,7 @@ import com.squareup.picasso.Picasso;
 
 public class TotalMusicActivity extends AppCompatActivity implements View.OnClickListener {
     private final static int LOADER_ID = 0x001;
+
 
     private RecyclerView mRecyclerView;
     public static AudioAdapter mAdapter; // 질문 .
@@ -99,29 +100,18 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         int start = intent.getIntExtra("music_start", 0);
 //        여기부분은 "노래재생" , "음악재생" 이라고 말했을경우에 여기로 들어와서 실행시키게 할려고 만들었습니다.
 //        키값으로 받아오는것이 만약에 없다면 defaultValue를 사용하게된다 .==> start ==1 이 아니라서 못들어 오게된다 .
-        Log.d("TotalMusicActivity.qwe", "start : " + start);
-
         if (start == 1) {
             Log.d("TotalMusicActivity.qwer", "1");
             AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
             Log.d("TotalMusicActivity.qwer", "2");
         }
 
+//       노래 제목을 얘기했을 경우
         String music_title = intent.getStringExtra("music_title");
-//        여기는 "노래틀어줘" , "음악틀어줘" 라고 말했을경우 노래혹은 음악이 실행되게 하기위해서 만들었습니다.
-//        "뭐뭐 틀어줘~" 이것은 원래 제목을 얘기해야하지만 , CollectActivity 에서 저는 "틀어줘"라는 말을 빼버렸습니다. 그렇게해서 제목을 추출하는데
-//        "노래틀어줘~" 라고했을경우 노래가 추출되게 됩니다. 그럴경우 그냥 노래가 실행되게 하기위해서 만들었습니다.
-//        intent 참조변수를 불러와서 , getStringExtra 라는 함수를 불러오게 됩니다.
-//        getStringExtra 안에 매개변수로 키 이름 = > "music_title " 를 넣어줍니다.
-//        그리고 music_title 에 넣어줍니다.
-//        이부분에서 노래 제목을 추출해 줘야합니다. ==> music_title 에는 노래 제목이 적혀있습니다.
         Log.d("TotalMusicActivity.qwer", "music_title : " + music_title);
-//        노래 틀어줘~~ 라고 말했을때 , 위에 start==1 로 들어가는것이 아니라 여기 로그로 music_title 이 "노래" 찍히게 된다 .
-//        그래서 여기다가 조건문을 걸어서 String title = "노래 " 해서 if 문 같으면 노래가 실행되게 해야겠습니다 .
         String title = "노래";
         String title2 = "음악";
         if (title.equals(music_title) || title2.equals(music_title)) {
-            Log.d("TotalMusicActivity.qwer", "title.equals(music_title) 로 들어오는 곳입니다. ");
             AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
         }
 
@@ -157,13 +147,6 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         mBtnPlayPause.setImageResource(R.drawable.pause);
 //               AudioAdapter 에서 사용 ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
     }
-
-//      AudioAdapter 에서 position 을 선택하고 , 그 음악이 끝나면 다음 음악을 실행하게 되는 부분
-//      ==> AudioAdapter 에서 onClick ==> 해당하는 postion을 클릭해서 클릭된 음악을 실행시킨다.
-//      ==> 음악을 실행하면서 updateUI() 라는 함수를 실행시키고 UI를 update 한다 그리고 변하지 않은 재생 버튼 그림은
-//      public void updatePlay() 라는 함수를 호출시켜서 실행 시킨다 .
-//      음악 이 끝나게 되면 public void forward 라는 함수를 호출시켜서 다음 음악을 실행하게 한다 .
-
 
     public void updateForward() {
 //         이함수 안에는 어댑터에서 해당 position 을 클릭하게 되면 ,
@@ -202,43 +185,18 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
                 if (data != null && data.getCount() > 0) {
                     while (data.moveToNext()) {
 //                       음악 총 개수를 구하기 위해 더합니다.
-
                         music_count++;
-//                        여기로그는 음악의 제목을 찍어주는 Log 입니다.
-                        Log.d("qwe", "Title:" + data.getString(data.getColumnIndex(MediaStore.Audio.Media.TITLE)));
-//                        Log.d("Total.qweqwe", "music_title 3 : " + music_title);
                         String change = data.getString(data.getColumnIndex(MediaStore.Audio.Media.TITLE)).replaceAll(" ", "");
-                        Log.d("change.music_title1", "change : " + change);
-//                        Log.d("change.music_title2", "change : " + music_title);
-//                        전체 한바퀴 돌다가 change.music_title1 하고 change.music_title2 하고 제목이 같아져도 if 문으로 안들어오게 됩니다.
-//                        어떻게 된거지 ??
-//                        String 은 변수가 아닙니다 String 은 클래스 입니다
-//                        따라서 ~ 연산자 == 이것을 사용하면 안됩니다. equals 를 사용해야합니다.
                         Intent intent = getIntent();
                         String music_title = intent.getStringExtra("music_title");
-//                       getIntent 를 사용해서 music_title 에 music_title 키값을 넣게된다. 이것은 CollectActivity 에서 전달 해준겁니다.
-                        Log.d("change.music_title2", "change : " + music_title);
                         if (music_title != null) {
-//                            만약에 제목이 null 이 아니라면 ==> 여기 if 문이 있는 이유는 만약에 음성인식이 아니라 그냥 클릭했을 경우
-//                            music_title 이 null 값으로 잡히게 된다. 그럴 경우 에러가 생긴다 .그래서 만약에 음악이라는 버튼을 클릭했을때는
-//                            여기 if문으로 안 들어오게 된다. 반면 음성인식으로 노래를 틀게되면 여기 if 문으로 들어오게된다.
                             if (music_title.equals(change)) {
-//                                제목이 있어도 내 폰에 저장되어있는 제목이 없을 수도 있다
-//                                그래서 if문을 걸어주고 내폰에 포함되어있는 제목인지 확인해주기위해 여기 if문이 존재한다.
-                                Log.d("Total.들어옴1", "title 들어옴 : " + data.getString(data.getColumnIndex(MediaStore.Audio.Media.TITLE)));
                                 String music_date_confirm = data.getString(data.getColumnIndex(MediaStore.Audio.Media.TITLE)).replaceAll(" ", "");
-//                               내폰에 저장되어있는 음악 제목들을 보면 띄어쓰기가 있는것이 있다 .그것들을 전부 띄어쓰기를 붙여주기위해서 music_date_confirm 이 존재한다
-                                Log.d("Total.들어옴2", "내폰에 저장되어있는 제목 띄어쓰기 줄이기 : " + music_date_confirm);
-                                Log.d("Total.들어옴3", "title 들어옴 music_title : " + music_title);
-                                Log.d("Total.들어옴4", "music_count 포지션은 몇일까 그럼  : " + music_count);
                                 AudioApplication.getInstance().getServiceInterface().setPlayList(mAdapter.getAudioIds()); // 재생목록등록
-//                              어댑터안에있는  public ArrayList<Long> getAudioIds() 를 불러옵니다. 재생목록에 색칠해 주기 위해서 불러왔습니다.
                                 AudioApplication.getInstance().getServiceInterface().play(music_count - 1); // 선택한 오디오재생
-//                                재생목록에 색칠을 해줬으면 이제 그것을 실행을 해줘야합니다.
 //                                index 값에 -1 을 해줘야 합니다. music_count 를 초기화 1 로해줬기때문입니다. music_count=1;
 //                                왜냐면 원래 index 는 0 부터 시작하다 음악개수를 세야하기때문에 1 부터 시작을 해야 적절하게 개수가 나오게 됩니다.
                                 updateUI();
-//                                updateUI() 라는 함수를 불러와서 재생목록에 있는 UI를 바꿔주게 됩니다. 이것이 없으면 재생목록 UI가 바꿔지거나 그려지지앖습니다
                                 updatePlay();
 //                                updatePlay() 라는 함수를 불러오는 이유는 updateUI로 그려줄때 , updateUI 로는 재생과 일시정지 UI가 제대로 바껴지지않아서
 //                                updatePlay() 라는 함수를 만들어서 , 재생버튼이 바뀌도록 만들었습니다.
@@ -247,9 +205,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
                     }
                 }
 //               개수를 구하기 위한 Log 와 String music = String.valuOf(music_count) 입니다 .
-//                music_number.setText(mAdapter.getAudioIds().size() + "");
                 music_number.setText(Integer.toString(mAdapter.getAudioIds().size()));
-                Log.d("musicCountVoiceResult", "musicCountVoiceResult : " + musicCountVoiceResult);
             }
 
             @Override

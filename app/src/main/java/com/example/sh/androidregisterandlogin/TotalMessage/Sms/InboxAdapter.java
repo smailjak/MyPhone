@@ -43,7 +43,7 @@ class InboxAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        InboxViewHolder holder = null;
+        InboxViewHolder holder =null;
         if (convertView == null) {
 
             holder = new InboxViewHolder();

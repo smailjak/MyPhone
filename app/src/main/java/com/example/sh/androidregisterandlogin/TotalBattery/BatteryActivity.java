@@ -4,35 +4,22 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import androidx.databinding.DataBindingUtil;
 import android.os.BatteryManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.databinding.ActivityBatteryBinding;
 
 public class BatteryActivity extends AppCompatActivity {
-
-    //    Views
-    TextView textView1, textView2, batteryPercentage, mTextViewPercentage;
-
-    private double batteryCapacity;
-    private ProgressBar mProgressBar;
-    private int mProgressStatus = 0;
-
+    private ActivityBatteryBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_battery);
-
-        batteryPercentage = findViewById(R.id.battery_percentage);
-        textView1 = findViewById(R.id.textView1);
-        textView2 = findViewById(R.id.textView2);
-        mTextViewPercentage = findViewById(R.id.tv_percentage);
-        mProgressBar = findViewById(R.id.pb);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_battery);
 
         Context context = getApplicationContext();
         IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -50,22 +37,12 @@ public class BatteryActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            batteryCapacity = (Double) Class
-                    .forName(POWER_PROFILE_CLASS)
-                    .getMethod("getAveragePower", String.class)
-                    .invoke(mPowerProfile, "battery.capacity");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed(); // goto previous activity when backbutton from actionbar is clicked
+        onBackPressed();
         return true;
     }
 
@@ -119,12 +96,14 @@ public class BatteryActivity extends AppCompatActivity {
                 charging_status = "충전안했어!";
             }
 
+
+
 //            Display the output of battery status
-            batteryPercentage.setText("배터리 : " + level + "%");
-            textView1.setText("상태:\n\n" +
+            binding.tvPercentage.setText("배터리 : " + level + "%");
+            binding.tvTitle.setText("상태:\n\n" +
                     "온도:\n\n" +
                     "충전상태:\n\n");
-            textView2.setText(battery_condition + "\n\n" +
+            binding.tvDescription.setText(battery_condition + "\n\n" +
                     "" + temperature_c + "" + (char) 0x00B0 + "C/" + temperature_f + "" + (char) 0x00B0 + "F\n\n" +
                     "" + charging_status + "\n\n");
 
@@ -132,10 +111,9 @@ public class BatteryActivity extends AppCompatActivity {
             int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
             float percentage = levels / (float) scale;
 //            update the progress bar to display current battery charged percentage
-            mProgressStatus = (int) ((percentage) * 100);
-            mTextViewPercentage.setText("" + mProgressStatus + "%");
-            mProgressBar.setProgress(mProgressStatus);
+            int mProgressStatus = (int) ((percentage) * 100);
+            binding.tvBatterPercent.setText("" + mProgressStatus + "%");
+            binding.pb.setProgress(mProgressStatus);
         }
     };
-
 }

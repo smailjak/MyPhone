@@ -1,6 +1,6 @@
 package com.example.sh.androidregisterandlogin;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;

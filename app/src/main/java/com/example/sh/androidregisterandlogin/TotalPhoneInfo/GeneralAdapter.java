@@ -1,41 +1,51 @@
 package com.example.sh.androidregisterandlogin.TotalPhoneInfo;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
-public class GeneralAdapter extends ArrayAdapter<String> {
+import java.util.ArrayList;
+
+public class GeneralAdapter extends BaseRecylcerViewAdapter<GeneralItem, GeneralAdapter.ViewHolder> {
     Context context;
-    String myTitles[];
-    String myDescrpitions[];
-    GeneralActivity generalActivity =new GeneralActivity();
 
-    GeneralAdapter(Context c, String[] titles, String[] descriptions) {
-        super(c, R.layout.tworow, R.id.title, titles);
-        this.context = c;
-        this.myTitles = titles;
-        this.myDescrpitions = descriptions;
+
+    GeneralAdapter(ArrayList<GeneralItem> items, Context context) {
+        super(items);
+        this.context = context;
+    }
+
+    @Override
+    public void onBindView(ViewHolder viewHolder, int position) {
+        viewHolder.titleTv.setText(getItem(position).getTitle());
+        viewHolder.descTv.setText(getItem(position).getContent());
+
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = layoutInflater.inflate(R.layout.tworow, parent, false);
-//            vies in tworow.xml
-        TextView myTitle = row.findViewById(R.id.titleTv);
-        TextView myDescription = row.findViewById(R.id.descTv);
-//            set text to views
-        myTitle.setText(generalActivity.titles[position]);
-        myDescription.setText(generalActivity.descriptions[position]);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.tworow,viewGroup,false);
+        ViewHolder viewHolder = new ViewHolder(view);
 
-        return row;
+
+        return viewHolder;
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView titleTv, descTv;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            titleTv = itemView.findViewById(R.id.title_tv);
+            descTv = itemView.findViewById(R.id.desc_tv);
+        }
     }
 }

@@ -1,30 +1,49 @@
 package com.example.sh.androidregisterandlogin.TotalPhoneInfo;
 
-import android.content.Context;
+import androidx.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.ListView;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.databinding.ActivityGeneralBinding;
+
+import java.util.ArrayList;
 
 public class GeneralActivity extends AppCompatActivity {
 
-    public String titles[] = {"폰이름", "제조사", "기계", "Board", "하드웨어", "브랜드"};
-    public String descriptions[] = {Build.MODEL, Build.MANUFACTURER, Build.DEVICE, Build.BOARD, Build.HARDWARE, Build.BRAND};
-    //        titles = new String[]{"폰이름", "제조사", "기계", "Board", "하드웨어", "브랜드"};
-//        descriptions = new String[]{Build.MODEL, Build.MANUFACTURER, Build.DEVICE, Build.BOARD, Build.HARDWARE, Build.BRAND};
+    private ActivityGeneralBinding binding;
+    GeneralAdapter generalAdapter;
+    ArrayList<GeneralItem> generalList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_general);
-//        Actionbar
-        ListView list = findViewById(R.id.generalList);
-        GeneralAdapter generalAdapter = new GeneralAdapter(this, titles, descriptions);
-//        질문 여기서 this 가 아니라 context 를 넣어서 보내면 오류가 발생한다 왜그런거지 ??
-        list.setAdapter(generalAdapter);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_general);
+        initRv(binding.generalRcv);
         initActionbar();
+    }
+
+    private void initRv(RecyclerView rv) {
+        generalAdapter = new GeneralAdapter(getGeneralItem(), this);
+        rv.setAdapter(generalAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        rv.setLayoutManager(layoutManager);
+        rv.setHasFixedSize(true);
+    }
+
+    private ArrayList<GeneralItem> getGeneralItem() {
+
+        generalList = new ArrayList<>();
+        String titles[] = {"폰이름", "제조사", "기계", "Board", "하드웨어", "브랜드"};
+        String descriptions[] = {Build.MODEL, Build.MANUFACTURER, Build.DEVICE, Build.BOARD, Build.HARDWARE, Build.BRAND};
+
+        for (int i = 0; i < titles.length; i++) {
+            generalList.add(new GeneralItem(titles[i], descriptions[i]));
+        }
+        return generalList;
     }
 
     public void initActionbar() {

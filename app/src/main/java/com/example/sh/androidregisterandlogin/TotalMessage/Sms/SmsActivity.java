@@ -1,29 +1,26 @@
 package com.example.sh.androidregisterandlogin.TotalMessage.Sms;
 
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.MergeCursor;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalMessage.Chat.ChatActivity;
 import com.example.sh.androidregisterandlogin.TotalMessage.Function;
 import com.example.sh.androidregisterandlogin.TotalMessage.MapComparator;
+import com.example.sh.androidregisterandlogin.databinding.ActivitySmsBinding;
 import com.lifeofcoding.cacheutlislibrary.CacheUtils;
 
 import java.util.ArrayList;
@@ -32,15 +29,13 @@ import java.util.HashMap;
 
 public class SmsActivity extends AppCompatActivity {
 
+    private ActivitySmsBinding binding;
     static final int REQUEST_PERMISSION_KEY = 1;
-    ArrayList<HashMap<String, String>> smsList = new ArrayList<HashMap<String, String>>();
-    ArrayList<HashMap<String, String>> tmpList = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> smsList = new ArrayList<>();
+    ArrayList<HashMap<String, String>> tmpList = new ArrayList<>();
     static SmsActivity inst;
     LoadSmsAsyncTask loadSmsAsyncTask;
     InboxAdapter adapter, tmpadapter;
-    ListView listView;
-    ProgressBar loader;
-    TextView message_sum;
 
     // 나한테 메세지를 보냈는 사람의 총 갯수 변수
     int name_count = 0;
@@ -49,14 +44,10 @@ public class SmsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sms);
-
-        listView = (ListView) findViewById(R.id.listView);
-        loader = (ProgressBar) findViewById(R.id.loader);
-        message_sum = (TextView) findViewById(R.id.message_sum);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_sms);
 
         CacheUtils.configureCache(this);
-        listView.setEmptyView(loader);
+        binding.listView.setEmptyView(binding.loadingBar);
 
     } // onCreate
 
@@ -82,11 +73,11 @@ public class SmsActivity extends AppCompatActivity {
             tmpList = (ArrayList<HashMap<String, String>>) Function.readCachedFile(SmsActivity.this, "smsapp");
             Log.d("SmsActivity.qwe", "tmpList : " + tmpList.size());
             String sms_sum = String.valueOf(tmpList.size());
-            message_sum.setText(sms_sum);
+            binding.messageSumTxt.setText(sms_sum);
             tmpadapter = new InboxAdapter(SmsActivity.this, tmpList);
-            listView.setAdapter(tmpadapter);
+            binding.listView.setAdapter(tmpadapter);
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         final int position, long id) {
                     loadSmsAsyncTask.cancel(true);
@@ -125,8 +116,8 @@ public class SmsActivity extends AppCompatActivity {
                 if (c.moveToFirst()) {
 
                     for (int i = 0; i < c.getCount(); i++) {
-                        String name ="";
-                        String phone ="";
+                        String name = "";
+                        String phone = "";
 
                         String _id = c.getString(c.getColumnIndexOrThrow("_id"));
                         String thread_id = c.getString(c.getColumnIndexOrThrow("thread_id"));
@@ -175,8 +166,8 @@ public class SmsActivity extends AppCompatActivity {
 
             if (!tmpList.equals(smsList)) {
                 adapter = new InboxAdapter(SmsActivity.this, smsList);
-                listView.setAdapter(adapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                binding.listView.setAdapter(adapter);
+                binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View view,
                                             final int position, long id) {
                         Intent intent = new Intent(SmsActivity.this, ChatActivity.class);
