@@ -15,7 +15,7 @@ public class AndroidActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android);
-
+wedqwexqwexqwexwqexwqexwqex
         webView = findViewById(R.id.teamNova_webview);
 
 
