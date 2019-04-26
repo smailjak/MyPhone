@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalPhoto;
+package com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder;
 
 import android.Manifest;
 import android.content.Intent;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class TotalPhotoActivity extends AppCompatActivity {
     private ActivityTotalPhotoBinding binding;
-    public static ArrayList<Model_images> al_images = new ArrayList<>();
+    public ArrayList<Model_images> al_images = new ArrayList<>();
     private static final int REQUEST_PERMISSIONS = 100;
     boolean boolean_folder;
     private PhotosFolderAdapter adapter;
@@ -105,7 +105,6 @@ public class TotalPhotoActivity extends AppCompatActivity {
             }
         }
 
-        Log.e("#$Total", "9");
         int imageCount = 0;
         for (int i = 0; i < al_images.size(); i++) {
             for (int j = 0; j < al_images.get(i).getAl_imagepath().size(); j++) {
@@ -114,7 +113,6 @@ public class TotalPhotoActivity extends AppCompatActivity {
         }
         Log.e("#$Total", "10");
         binding.totalPhotoNumber.setText(Integer.toString(imageCount));
-        Log.e("#$Total", "image count : " + imageCount);
         return al_images;
     }
 

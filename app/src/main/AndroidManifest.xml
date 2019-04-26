@@ -49,8 +49,8 @@
         <activity android:name=".TotalAudio.MusicPlayer" />
         <activity android:name=".AdvertisingActivity" />
         <activity android:name=".AndroidActivity" />
-        <activity android:name=".TotalPhoto.PhotosActivity" />
-        <activity android:name=".TotalPhoto.TotalPhotoActivity" />
+        <activity android:name=".TotalPhoto.DetailFile.PhotosActivity" />
+        <activity android:name=".TotalPhoto.TotalFolder.TotalPhotoActivity" />
         <activity android:name=".TotalMessage.Sms.SmsActivity" />
         <activity android:name=".TotalMessage.Chat.ChatActivity" />
         <activity android:name=".TotalAddress.ContactListActivity"/>

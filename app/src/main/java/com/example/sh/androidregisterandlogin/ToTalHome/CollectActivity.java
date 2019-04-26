@@ -33,7 +33,7 @@ import com.example.sh.androidregisterandlogin.TotalBattery.BatteryActivity;
 import com.example.sh.androidregisterandlogin.TotalManage.ManageActivity;
 import com.example.sh.androidregisterandlogin.TotalMessage.Sms.SmsActivity;
 import com.example.sh.androidregisterandlogin.TotalPhoneInfo.GeneralActivity;
-import com.example.sh.androidregisterandlogin.TotalPhoto.TotalPhotoActivity;
+import com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder.TotalPhotoActivity;
 import com.example.sh.androidregisterandlogin.databinding.ActivityCollectionBinding;
 
 import java.util.ArrayList;
