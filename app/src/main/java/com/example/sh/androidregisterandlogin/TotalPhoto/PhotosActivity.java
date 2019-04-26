@@ -5,10 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.widget.GridView;
 import com.example.sh.androidregisterandlogin.R;
 
-/**
- * Created by deepshikha on 20/3/17.
- */
-
 public class PhotosActivity extends AppCompatActivity {
     int int_position;
     private GridView gridView;

@@ -13,12 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.example.sh.androidregisterandlogin.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
+    Context context;
     public static ArrayList<Long> audioIds;
     public AudioAdapter(Context context, Cursor cursor) {
         super(context, cursor);
@@ -141,7 +144,9 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
             mTxtSubTitle.setText(item.mArtist + "(" + item.mAlbum + ")");
             mTxtDuration.setText(DateFormat.format("mm:ss", item.mDuration));
             Uri albumArtUri = ContentUris.withAppendedId(artworkUri, item.mAlbumId);
-            Picasso.get().load(albumArtUri).error(R.drawable.music).into(mImgAlbumArt);
+            Glide.with(context)
+                    .load(albumArtUri)
+                    .into(mImgAlbumArt);
         }
     }
 
