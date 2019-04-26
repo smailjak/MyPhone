@@ -11,11 +11,12 @@ public class AndroidActivity extends AppCompatActivity {
     private WebView webView;
 
 
+//    주석이다 한번 /.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android);
-
         webView = findViewById(R.id.teamNova_webview);
 
 
