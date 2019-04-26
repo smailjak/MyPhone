@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,9 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.sh.androidregisterandlogin.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -129,20 +127,8 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
                 public void onClick(View v) {
                     AudioApplication.getInstance().getServiceInterface().setPlayList(getAudioIds()); // 재생목록등록
                     AudioApplication.getInstance().getServiceInterface().play(mPosition); // 선택한 오디오재생
-//                    Toast.makeText(v.getContext(), "Position : " + mPosition, Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(v.getContext(), "getItemCount : " + getItemCount(), Toast.LENGTH_SHORT).show();
                     ((TotalMusicActivity) TotalMusicActivity.mContext).updateUI();
                     ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
-//                    mBtnPlayPause.setImageResource(R.drawable.pause);
-//                    View 라는 onject 안의 변수를 정하고 변수이름 v
-//                    v 안에 함수 get Context 를 불러옵니다. 얻는다 Context 를
-//                    그 포지션 값은 mPosition 입니다.
-//                    주의사항은  0 부터 시작합니다 . == > Position 값 0 부터 시작
-//                    for (int i = mPosition; i < getItemCount(); i++) {
-//                        Toast.makeText(v.getContext(), "i : " + i, Toast.LENGTH_SHORT).show();
-//                        Log.d("qwe", " i : " + i);
-//                        Toast.makeText(v.getContext(),)
-//                    }
                 }
             });
         }
@@ -156,7 +142,6 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
             mTxtDuration.setText(DateFormat.format("mm:ss", item.mDuration));
             Uri albumArtUri = ContentUris.withAppendedId(artworkUri, item.mAlbumId);
             Picasso.get().load(albumArtUri).error(R.drawable.music).into(mImgAlbumArt);
-
         }
     }
 

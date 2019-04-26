@@ -1,78 +1,78 @@
 package com.example.sh.androidregisterandlogin.TotalApp;
 
 import android.content.Context;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.sh.androidregisterandlogin.R;
-
+import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 import java.util.List;
 
-public class AppAdapter extends BaseAdapter {
-    LayoutInflater layoutInflater;
-    List<AppList> listStorage;
+public class AppAdapter extends BaseRecylcerViewAdapter<AppList, AppAdapter.ViewHolder> {
 
-    //        constructor
-    AppAdapter(Context context, List<AppList> customizedListView) {
-//            layout inflater
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        listStorage = customizedListView;
+    Context context;
+
+    public AppAdapter(List<AppList> customizedListView, Context context) {
+        super(customizedListView);
+        this.context = context;
     }
 
     @Override
-    public int getCount() {
-        return listStorage.size();
+    public void onBindView(ViewHolder viewHolder, int position) {
+        viewHolder.nameInListView.setText(getItem(position).getName());
+        viewHolder.packageInListView.setText(getItem(position).getPackages());
+        viewHolder.versionInListView.setText(getItem(position).getVersion());
+        viewHolder.imageInListView.setImageDrawable(getItem(position).getIcon());
 
     }
 
+    @NonNull
     @Override
-    public Object getItem(int position) {
-        return position;
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.modelapps, viewGroup, false);
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppList appList = getItem(viewHolder.getAdapterPosition());
+
+                if (appList == null) {
+                    return;
+                }
+            }
+        });
+
+        return viewHolder;
     }
+
 
     @Override
     public long getItemId(int position) {
         return position;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        //            Our views from modelapps xml
+        TextView nameInListView, packageInListView, versionInListView;
+        ImageView imageInListView;
+        LinearLayout linearLayout;
 
-        ViewHolder listViewHolder;
-        if (convertView == null) {
-            listViewHolder = new ViewHolder();
-            convertView = layoutInflater.inflate(R.layout.modelapps, parent, false);
-            listViewHolder.textInListView = convertView.findViewById(R.id.list_app_name);
-            listViewHolder.imageInListView = convertView.findViewById(R.id.app_icon);
-            listViewHolder.packageInListView = convertView.findViewById(R.id.app_package);
-            listViewHolder.versionInListView = convertView.findViewById(R.id.version);
 
-            convertView.setTag(listViewHolder);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
 
-        } else {
-            listViewHolder = (ViewHolder) convertView.getTag();
+            imageInListView = itemView.findViewById(R.id.app_icon);
+            nameInListView = itemView.findViewById(R.id.app_name);
+            packageInListView = itemView.findViewById(R.id.app_package);
+            versionInListView = itemView.findViewById(R.id.app_version);
+            linearLayout = itemView.findViewById(R.id.ll_main);
 
         }
-
-//            set data to our views
-        listViewHolder.textInListView.setText(listStorage.get(position).getName());
-        listViewHolder.imageInListView.setImageDrawable(listStorage.get(position).getIcon());
-        listViewHolder.packageInListView.setText(listStorage.get(position).getPackages());
-        listViewHolder.versionInListView.setText(listStorage.get(position).getVersion());
-
-        return convertView; // return the whole view
-    }
-
-    class ViewHolder {
-        //            Our views from modelapps xml
-        TextView textInListView;
-        ImageView imageInListView;
-        TextView packageInListView;
-        TextView versionInListView;
-
     }
 }

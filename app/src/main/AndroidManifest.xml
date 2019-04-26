@@ -51,17 +51,14 @@
         <activity android:name=".AndroidActivity" />
         <activity android:name=".TotalPhoto.PhotosActivity" />
         <activity android:name=".TotalPhoto.TotalPhotoActivity" />
-        <activity android:name=".Total_Intro.Detail_intro" />
         <activity android:name=".TotalMessage.Sms.SmsActivity" />
         <activity android:name=".TotalMessage.Chat.ChatActivity" />
+        <activity android:name=".TotalAddress.ContactListActivity"/>
         <activity android:name=".TotalAudio.TotalMusicActivity" />
-        <activity android:name=".TotalAddress.ContactListActivity" />
         <activity android:name=".TotalManage.ManageActivity" />
-        <activity android:name=".TotalBattery.BatteryActivity" />
-        <activity android:name=".TotalPhoneInfo.GeneralActivity" />
-        <activity android:name=".TotalApp.UserAppsActivity" />
+        <activity android:name=".TotalApp.UserAppsActivity"/>
         <activity android:name=".MemoryActivity" />
-        <activity android:name=".Total_Intro.AppintroActivity"></activity>
+        <activity android:name=".TotalPhoneInfo.GeneralActivity"/>
 
     </application>
 </manifest>

@@ -2,18 +2,16 @@ package com.example.sh.androidregisterandlogin;
 
 import android.app.ActivityManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import java.text.NumberFormat;
 
 public class MemoryActivity extends AppCompatActivity {
 
-    //    mTvUserdRam
-    //    declaring Views
     TextView mTvTotalRam, mTvFreeRam, mTvUsedRam;
-    TextView mTvTotalHeap;
     TextView mTvPercRam;
     ProgressBar mPBRam;
 
@@ -21,9 +19,6 @@ public class MemoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
-
-//        initializing views
-//        RAM
 
         mTvFreeRam = findViewById(R.id.freeRam);
         mTvUsedRam = findViewById(R.id.usedRam);
@@ -60,7 +55,7 @@ public class MemoryActivity extends AppCompatActivity {
 
 //        getting Java Heap
         Runtime rt = Runtime.getRuntime();
-        long maxMemory = rt.maxMemory();
+
 
         mTvPercRam.setText(mUsedMemPerc + "% Used");
         mPBRam.setProgress((int) usedMemPerc);

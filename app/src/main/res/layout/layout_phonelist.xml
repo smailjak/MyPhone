@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+    </data>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -40,7 +47,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_phonenumber"
+                android:id="@+id/tv_phoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -51,3 +58,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</layout>

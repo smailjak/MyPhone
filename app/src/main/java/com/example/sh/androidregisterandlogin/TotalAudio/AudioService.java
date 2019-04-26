@@ -23,7 +23,6 @@ public class AudioService extends Service {
     private int mCurrentPosition;
     private AudioAdapter.AudioItem mAudioItem;
 
-
     public class AudioServiceBinder extends Binder {
         AudioService getService() { // 서비스 객체 리턴
             return AudioService.this;

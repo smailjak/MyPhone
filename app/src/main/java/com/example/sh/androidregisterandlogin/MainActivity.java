@@ -7,25 +7,20 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView navigationView;
-//    HomeFragment homeFragment; // 원래라면 onCreate 메소드 안에서 final 선언을 해줌
-//    IntroFragment notificationFragment;
-//    AccountFragment accountFragment;
     private static final int LOADER_ID = 1;
 
     @Override
@@ -34,12 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         navigationView = findViewById(R.id.bottomNav);
-//        homeFragment = new HomeFragment();
-//        notificationFragment = new IntroFragment();
-//        accountFragment = new AccountFragment();
         sdkVersionPermission();
-//        bottomNavigationSelectedClick();
-        //      처음 빌드 했을때 home 에 내용이 보이게 하기위해서
         navigationView.setSelectedItemId(R.id.homeMenu);
     }
 
@@ -100,26 +90,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void bottomNavigationSelectedClick() {
-//        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//                int id = menuItem.getItemId(); // getItemId() 메소드 안에 들어가보면 식별자로 int 값을 return 함 .
-//                if (id == R.id.homeMenu) {
-//                    setFragment(homeFragment);
-//                    return true;
-//                } else if (id == R.id.artiMenu) {
-//                    setFragment(notificationFragment);
-//                    return true;
-//                } else if (id == R.id.introMenu) {
-//                    setFragment(accountFragment);
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-//    }
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

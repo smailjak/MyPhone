@@ -9,9 +9,5 @@
         android:id="@+id/artiMenu"
         android:icon="@drawable/ic_text_fields_black_24dp"
         android:title="인공지능" />
-    <item
-        android:id="@+id/introMenu"
-        android:icon="@drawable/app"
-        android:title="앱 설명" />
 
 </menu>

@@ -8,8 +8,13 @@ import java.util.ArrayList;
 
 public class Model_images {
     String str_folder;
-    // ArrayList 라는 함수 이며 < > 이것은 제레닉스를 말합니다.
     ArrayList<String> al_imagepath;
+
+    public Model_images(String str_folder, ArrayList<String> al_imagepath) {
+        this.str_folder = str_folder;
+        this.al_imagepath = al_imagepath;
+    }
+
     public String getStr_folder() {
         return str_folder;
     }

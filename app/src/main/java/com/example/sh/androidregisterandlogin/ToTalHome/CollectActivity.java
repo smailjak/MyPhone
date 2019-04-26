@@ -6,24 +6,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.sh.androidregisterandlogin.AdvertisingActivity;
 import com.example.sh.androidregisterandlogin.MemoryActivity;
 import com.example.sh.androidregisterandlogin.R;
@@ -35,43 +34,37 @@ import com.example.sh.androidregisterandlogin.TotalManage.ManageActivity;
 import com.example.sh.androidregisterandlogin.TotalMessage.Sms.SmsActivity;
 import com.example.sh.androidregisterandlogin.TotalPhoneInfo.GeneralActivity;
 import com.example.sh.androidregisterandlogin.TotalPhoto.TotalPhotoActivity;
-import com.example.sh.androidregisterandlogin.Total_Intro.AppintroActivity;
+import com.example.sh.androidregisterandlogin.databinding.ActivityCollectionBinding;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class CollectActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
-    private TextView txtSpeechInput;    // 검은색으로 적히는 부분
-    private Button btnSpeak;       // 마이크버튼
+
+    private ActivityCollectionBinding binding;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     // 위에서 말하게 되면 = > 그것을 전달 받아서 적히는 부분이 됨 .
     private TextToSpeech tts;
 
     private static final int LOADER_ID = 1;
     int music_count = 0;
-
     Context mContext;
-    LinearLayout myphoneInfoManageLayout;
-    Button phoneBookBtn, message_manage, picManageBtn, appManageBtn, batteryManageBtn, music_manage;
-    TextView ramManageBtn, myphone_device, myphone_manufacture, music_number, fileManageBtn, manage_screen;
     //side bar 메뉴
-    TextView question;
     ////////////////////////////////////////// 오디오 관리
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collection);
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_collection);
 
         mContext = getApplicationContext();
-        findViewByIdSettingMethod();
-        myphone_device.setText(Build.MODEL);
-        myphone_manufacture.setText(Build.MANUFACTURER);
+        tts = new TextToSpeech(this, this);
+        binding.myphoneDeviceTxt.setText(Build.MODEL);
+        binding.myphoneManufactureTxt.setText(Build.MANUFACTURER);
         sdkVersionPermission();
-        questionClick();
-        fileManageClick();
+        aiManagementTxtClick();
         appManageBtnClick();
         batteryManageBtnClick();
         ramManageBtnClick();
@@ -79,37 +72,10 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
         messageManageBtnClick();
         musicManageBtnClick();
         phoneBookManageBtnClick();
-        myphoneInfoManageBtnClick();
+        mpInfoManageBtnClick();
         speakBtnClick();
 
-
     } // onCreate 끝나는 부분
-
-
-    private void findViewByIdSettingMethod() {
-
-        txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);  // 내가 마이크에 말을 하면 = > 검은색으로 불러오게 된다 .
-        btnSpeak = findViewById(R.id.btn_speak);           //  마이크 버튼
-        //화면에 나와있는 것들
-        tts = new TextToSpeech(this, this);
-        question = (TextView) findViewById(R.id.question);
-        myphoneInfoManageLayout = (LinearLayout) findViewById(R.id.myphoneInfoManageLayout);
-        phoneBookBtn = findViewById(R.id.phoneBookBtn);   // 연락처 관리
-        message_manage = (Button) findViewById(R.id.message_manage); // 메세지 관리
-        music_manage = (Button) findViewById(R.id.music_manage);    // 오디오 관리
-        picManageBtn = (Button) findViewById(R.id.pic_manage);        // 사진 관리
-        ramManageBtn = (Button) findViewById(R.id.ram_btn); // Ram 관리
-        myphone_device = (TextView) findViewById(R.id.myphone_device); // 내폰 정보
-        myphone_manufacture = (TextView) findViewById(R.id.myphone_manufacture); // 제조사
-        appManageBtn = (Button) findViewById(R.id.app_btn); //어플관리
-        batteryManageBtn = (Button) findViewById(R.id.battery_btn); // 배터리
-        music_number = (TextView) findViewById(R.id.music_number); // 오디오 갯수.
-        fileManageBtn = (TextView) findViewById(R.id.file_management);
-        manage_screen = findViewById(R.id.manage_screen);
-        //사이드 바 버튼
-        // 사이드 바 메뉴
-
-    }
 
     private void sdkVersionPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -125,7 +91,7 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
     }
 
     private void speakBtnClick() {
-        btnSpeak.setOnClickListener(new View.OnClickListener() {    // 마이크 버튼을 클릭했을경우
+        binding.speakBtn.setOnClickListener(new View.OnClickListener() {    // 마이크 버튼을 클릭했을경우
             @Override
             public void onClick(View v) {
                 promptSpeechInput();    // 말하는거 시작하는 함수
@@ -133,8 +99,8 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
         });
     }
 
-    private void myphoneInfoManageBtnClick() {
-        myphoneInfoManageLayout.setOnClickListener(new View.OnClickListener() {
+    private void mpInfoManageBtnClick() {
+        binding.mpInfoManageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, GeneralActivity.class);
@@ -144,7 +110,7 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
     }
 
     private void phoneBookManageBtnClick() {
-        phoneBookBtn.setOnClickListener(new View.OnClickListener() {
+        binding.phoneManageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, ContactListActivity.class);
@@ -154,7 +120,7 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
     }
 
     private void musicManageBtnClick() {
-        music_manage.setOnClickListener(new View.OnClickListener() {
+        binding.musicManageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, TotalMusicActivity.class);
@@ -164,7 +130,7 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
     }
 
     private void messageManageBtnClick() {
-        message_manage.setOnClickListener(new View.OnClickListener() {
+        binding.messageManageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, SmsActivity.class);
@@ -174,7 +140,7 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
     }
 
     private void picManageBtnClick() {
-        picManageBtn.setOnClickListener(new View.OnClickListener() {
+        binding.picManageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, TotalPhotoActivity.class);
@@ -184,7 +150,7 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
     }
 
     private void ramManageBtnClick() {
-        ramManageBtn.setOnClickListener(new View.OnClickListener() {
+        binding.ramManageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, MemoryActivity.class);
@@ -194,7 +160,7 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
     }
 
     private void batteryManageBtnClick() {
-        batteryManageBtn.setOnClickListener(new View.OnClickListener() {
+        binding.batteryManageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, BatteryActivity.class);
@@ -203,18 +169,8 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
         });
     }
 
-    private void questionClick() {
-        question.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CollectActivity.this, AppintroActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
     private void appManageBtnClick() {
-        appManageBtn.setOnClickListener(new View.OnClickListener() {
+        binding.appManageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, UserAppsActivity.class);
@@ -223,8 +179,8 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
         });
     }
 
-    private void fileManageClick() {
-        fileManageBtn.setOnClickListener(new View.OnClickListener() {
+    private void aiManagementTxtClick() {
+        binding.aiMoveTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, ManageActivity.class);
@@ -268,8 +224,8 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-                    txtSpeechInput.setText(result.get(0));  //분홍색 글씨
-                    String voice_result = txtSpeechInput.getText().toString();   // 이렇게적으면 안녕으로 바뀌게 된다 .
+                    binding.speechInputTxt.setText(result.get(0));  //분홍색 글씨
+                    String voice_result = binding.speechInputTxt.getText().toString();   // 이렇게적으면 안녕으로 바뀌게 된다 .
                     String text, text1 = "안녕", test2 = "누구야";
                     String pic = "사진", pic2 = "이미지";
                     String app = "어플", battry = "배터리", music = "음악", music2 = "오디오", music3 = "노래";
@@ -284,8 +240,6 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
                     if (result1.replaceAll(" ", "").contains(text1) || result1.contains(test2)) {
                         text = "네 안녕하세요. 저는 혀니 입니다.";
                         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
-                        Intent intent = new Intent(CollectActivity.this, AppintroActivity.class);
-                        startActivity(intent);
                     } else if (result1.contains(pic) || result1.contains(pic2)) {
                         Intent intent = new Intent(CollectActivity.this, TotalPhotoActivity.class);
                         startActivity(intent);
@@ -299,25 +253,19 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
 //                        static 을 해도 안되는것 같은데.. 어떻게 해야할까 .
                     } else if (result1.contains(music_title_start)) {
                         Intent intent = new Intent(CollectActivity.this, TotalMusicActivity.class);
-                        Log.d("CollectActivity.qwe", "로그 무엇일까?? " + result1);
                         String title = result1.replaceAll("틀어줘", "");
-                        Log.d("CollectActivity.qwe", "title.틀어줘 : " + title);
-                        String music_title_start_in_music_start = "노래";
-                        String music_title_start_in_music_start2 = "음악";
+                        String music_title_start_in_music_start = "노래", music_title_start_in_music_start2 = "음악";
+
                         if (music_title_start_in_music_start.equals(title) || music_title_start_in_music_start2.equals(title)) {
-                            Log.d("CollectActivity.start", "1");
                             Intent music_title_start_in_music_start_intent = new Intent(CollectActivity.this, TotalMusicActivity.class);
                             music_title_start_in_music_start_intent.putExtra("music_start", 1);
-                            Log.d("CollectActivity.start", "2");
                             startActivity(intent);
                         }
                         intent.putExtra("music_title", title);
                         startActivity(intent);
                     } else if (result1.equals(music_start1) || result1.equals(music_start2)) {
-                        Log.d("CollectActivity.qweqwe", "1");
                         Intent intent = new Intent(CollectActivity.this, TotalMusicActivity.class);
                         intent.putExtra("music_start", 1);
-                        Log.d("CollectActivity.asdf", "asdasdf");
                         startActivity(intent);
                     } else if (result1.contains(address)) {
                         Intent intent = new Intent(CollectActivity.this, ContactListActivity.class);
@@ -329,7 +277,6 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
                         Intent intent = new Intent(CollectActivity.this, BatteryActivity.class);
                         startActivity(intent);
                     } else if (result1.contains(music) || result1.contains(music2) || result1.contains(music3)) {
-                        Log.d("CollectActivity.qweqwe", "12323512341234f");
                         Intent intent = new Intent(CollectActivity.this, TotalMusicActivity.class);
                         startActivity(intent);
                     } else if (result1.contains(message) || result1.contains(message2) || result1.contains(message3)) {

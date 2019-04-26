@@ -20,7 +20,7 @@ public class GridViewAdapter extends ArrayAdapter<Model_images> {
 
     Context context;
     ViewHolder viewHolder;
-    ArrayList<Model_images> al_menu = new ArrayList<>();
+    ArrayList<Model_images> al_menu ;
     int int_position;
 
 
@@ -35,7 +35,7 @@ public class GridViewAdapter extends ArrayAdapter<Model_images> {
     @Override
     public int getCount() {
 
-        Log.e("ADAPTER LIST SIZE", al_menu.get(int_position).getAl_imagepath().size() + "");
+        Log.e("ADAPTER LIST SIZE", String.valueOf(al_menu.get(int_position).getAl_imagepath().size()));
         return al_menu.get(int_position).getAl_imagepath().size();
     }
 
@@ -60,13 +60,10 @@ public class GridViewAdapter extends ArrayAdapter<Model_images> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-
         if (convertView == null) {
 
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_photosfolder, parent, false);
-            viewHolder.tv_foldern = (TextView) convertView.findViewById(R.id.tv_folder);
-            viewHolder.tv_foldersize = (TextView) convertView.findViewById(R.id.tv_folder2);
             viewHolder.iv_image = (ImageView) convertView.findViewById(R.id.iv_image);
 
             convertView.setTag(viewHolder);
