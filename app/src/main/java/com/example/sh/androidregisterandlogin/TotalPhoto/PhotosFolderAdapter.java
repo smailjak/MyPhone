@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
@@ -36,6 +35,7 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
             public void onClick(View v) {
                 Intent intent = new Intent(context, PhotosActivity.class);
                 context.startActivity(intent);
+
             }
         });
         return viewHolder;
@@ -44,14 +44,16 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
 
     @Override
     public void onBindView(ViewHolder viewHolder, int position) {
-        viewHolder.tvFolderName.setText(String.valueOf(getItem(position).getAl_imagepath()));
-        viewHolder.tvFolderCount.setText(getItem(position).getStr_folder());
+
+//        viewHolder.tvFolderName.setText(String.valueOf(getItem(position).getAl_imagepath()));
+        viewHolder.tvFolderName.setText(getItem(position).getStr_folder());
+        viewHolder.tvFolderCount.setText(Integer.toString(getItem(position).getAl_imagepath().size()));
+
         Glide.with(context).load("file://" + getItem(position)
                         .getAl_imagepath().get(0))
                         .into(viewHolder.ivImage);
 
     }
-//sdfsdfasdf
 
 
     @Override
