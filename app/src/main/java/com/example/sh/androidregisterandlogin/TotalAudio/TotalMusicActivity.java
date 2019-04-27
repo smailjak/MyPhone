@@ -1,6 +1,7 @@
 package com.example.sh.androidregisterandlogin.TotalAudio;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -11,37 +12,45 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.ItemTouchHelper;
+
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.databinding.ActivityTotalMusicBinding;
+import com.example.sh.androidregisterandlogin.databinding.ActivityTotalPhotoBinding;
 
 public class TotalMusicActivity extends AppCompatActivity implements View.OnClickListener {
     private final static int LOADER_ID = 0x001;
 
 
-    private RecyclerView mRecyclerView;
+    private ActivityTotalMusicBinding binding;
     public static AudioAdapter mAdapter; // 질문 .
     public static Context mContext;
-
     public int musicCountVoiceResult = 0;
     private int music_count = 0;
+
+    private RecyclerView mRecyclerView;
     //  앨범사진
     private ImageView mImgAlbumArt;
     //  음악 제목
@@ -58,38 +67,28 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         }
     };// 이거는 필요없는 것 같은데 ...
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_total_music);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_total_music);
 
         mContext = this;
-        // OS가 Marshmallow 이상일 경우 권한체크를 해야 합니다.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
-            } else {
-                // READ_EXTERNAL_STORAGE 에 대한 권한이 있음.
-                getAudioListFromMediaDatabase();
-            }
-        }
-        // OS가 Marshmallow 이전일 경우 권한체크를 하지 않는다.
-        else {
-            getAudioListFromMediaDatabase();
-        }
+        manifestPermissionCheck();
 
-        lin_miniplayer = findViewById(R.id.lin_miniplayer);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+
+        lin_miniplayer = findViewById(R.id.lin_mini_player);
+        mRecyclerView = findViewById(R.id.total_music_rcv);
         mAdapter = new AudioAdapter(this, null);
-        mRecyclerView.setAdapter(mAdapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        binding.totalMusicRcv.setAdapter(mAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+        binding.totalMusicRcv.setLayoutManager(layoutManager);
         music_number = findViewById(R.id.music_number);
-        mImgAlbumArt = (ImageView) findViewById(R.id.img_albumart);
-        mTxtTitle = (TextView) findViewById(R.id.txt_title);
-        mBtnPlayPause = (ImageButton) findViewById(R.id.btn_play_pause);
-        findViewById(R.id.lin_miniplayer).setOnClickListener(this);
+        mImgAlbumArt = findViewById(R.id.img_mini_music);
+        mTxtTitle = findViewById(R.id.txt_title);
+        mBtnPlayPause = findViewById(R.id.btn_play_pause);
+        findViewById(R.id.lin_mini_player).setOnClickListener(this);
         findViewById(R.id.btn_rewind).setOnClickListener(this);
         mBtnPlayPause.setOnClickListener(this);
         findViewById(R.id.btn_forward).setOnClickListener(this);
@@ -116,9 +115,25 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(mRecyclerView);
+        touchHelper.attachToRecyclerView(binding.totalMusicRcv);
         updateUI();
 
+    }
+
+    private void manifestPermissionCheck() {
+        // OS가 Marshmallow 이상일 경우 권한체크를 해야 합니다.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
+            } else {
+                // READ_EXTERNAL_STORAGE 에 대한 권한이 있음.
+                getAudioListFromMediaDatabase();
+            }
+        }
+        // OS가 Marshmallow 이전일 경우 권한체크를 하지 않는다.
+        else {
+            getAudioListFromMediaDatabase();
+        }
     }
 
     public void updateUI() {

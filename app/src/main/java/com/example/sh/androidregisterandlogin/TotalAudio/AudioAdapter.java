@@ -5,7 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +27,7 @@ import java.util.Collections;
 public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
     Context context;
     public static ArrayList<Long> audioIds;
+
     public AudioAdapter(Context context, Cursor cursor) {
         super(context, cursor);
     }
@@ -31,29 +36,26 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, Cursor cursor) {
         AudioItem audioItem = AudioItem.bindCursor(cursor);
         ((AudioViewHolder) viewHolder).setAudioItem(audioItem, cursor.getPosition());
+//        TODO 여기서 에러가 발생
+        Log.d("asdfxzcv", "onBindViewHolder: 3");
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_audio, parent, false);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.listitem_audio, viewGroup, false);
 //        레이아웃에 관한 것입니다.
-        return new AudioViewHolder(v);
+        return new AudioViewHolder(view);
 
     }
 
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
-        if (fromPosition < toPosition)
-        {
-            for (int i = fromPosition; i < toPosition; i++)
-            {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
                 Collections.swap(audioIds, i, i + 1);
             }
-        }
-        else
-        {
-            for (int i = fromPosition; i > toPosition; i--)
-            {
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
                 Collections.swap(audioIds, i, i - 1);
             }
         }
@@ -114,12 +116,12 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
         private TextView mTxtSubTitle;
         private TextView mTxtDuration;
         private AudioItem mItem;
-        public  int mPosition;
+        public int mPosition;
 
         private AudioViewHolder(View view) {
 
             super(view);
-            mImgAlbumArt = view.findViewById(R.id.img_albumart);
+            mImgAlbumArt = view.findViewById(R.id.img_mini);
             mTxtTitle = view.findViewById(R.id.txt_title);
             mTxtSubTitle = view.findViewById(R.id.txt_sub_title);
             mTxtDuration = view.findViewById(R.id.txt_duration);
@@ -144,9 +146,15 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
             mTxtSubTitle.setText(item.mArtist + "(" + item.mAlbum + ")");
             mTxtDuration.setText(DateFormat.format("mm:ss", item.mDuration));
             Uri albumArtUri = ContentUris.withAppendedId(artworkUri, item.mAlbumId);
-            Glide.with(context)
-                    .load(albumArtUri)
-                    .into(mImgAlbumArt);
+
+            Picasso.get().load(albumArtUri).error(R.drawable.music).into(mImgAlbumArt);
+//            Glide.with(context)
+//                    .load(albumArtUri)
+//                    .into(mImgAlbumArt);
+
+//            Glide.with(context).load(albumArtUri).apply(RequestOptions.placeholderOf(R.drawable.sunny
+//            ).error(R.drawable.music)).into(mImgAlbumArt);
+
         }
     }
 
