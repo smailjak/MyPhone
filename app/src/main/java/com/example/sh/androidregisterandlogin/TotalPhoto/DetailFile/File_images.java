@@ -6,9 +6,11 @@ import java.util.ArrayList;
 public class File_images {
 
     ArrayList<String> alFilePath;
+    String photoName;
 
-    public File_images(ArrayList<String> alFilePath) {
+    public File_images(ArrayList<String> alFilePath, String photoName) {
         this.alFilePath = alFilePath;
+        this.photoName = photoName;
     }
 
     public ArrayList<String> getAlFilePath() {
@@ -17,5 +19,13 @@ public class File_images {
 
     public void setAlFilePath(ArrayList<String> alFilePath) {
         this.alFilePath = alFilePath;
+    }
+
+    public String getPhotoName() {
+        return photoName;
+    }
+
+    public void setPhotoName(String phtoName) {
+        this.photoName = phtoName;
     }
 }

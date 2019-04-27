@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder.PhotosFolderAdapter;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
 import java.util.ArrayList;
@@ -49,8 +50,10 @@ public class PhotoFileAdapter extends BaseRecylcerViewAdapter<File_images, Photo
     @Override
     public void onBindView(ViewHolder viewHolder, int position) {
 
-//        여기서 에러가 발생함..
-        viewHolder.tVFileName.setText((getItem(position).getAlFilePath().get(position)));
+//        TODO 여기서 에러가 발생 만약에 NAVER 라는 폴더를 클릭했을때는 ,
+//           NAVER 내부에 있는 사진들만 보여줘야 하는데 전체 이미지가 출력됨.
+
+         viewHolder.tVFileName.setText(getItem(position).getPhotoName());
         Glide.with(context).load("file://"+getItem(position).getAlFilePath()).into(viewHolder.iVFileImage);
     }
 
@@ -90,8 +93,8 @@ public class PhotoFileAdapter extends BaseRecylcerViewAdapter<File_images, Photo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tVFileName;
         ImageView iVFileImage;
+        TextView tVFileName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

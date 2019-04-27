@@ -45,7 +45,9 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
     @Override
     public void onBindView(ViewHolder viewHolder, int position) {
 
+
         viewHolder.tvFolderName.setText(getItem(position).getStr_folder());
+        String Str = viewHolder.tvFolderName.getText().toString();
         viewHolder.tvFolderCount.setText(Integer.toString(getItem(position).getAl_imagepath().size()));
 
         Glide.with(context).load("file://" + getItem(position)

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.util.Log;
+
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.databinding.ActivityPhotosBinding;
 
@@ -20,18 +21,17 @@ public class PhotosActivity extends AppCompatActivity {
 
     private ActivityPhotosBinding binding;
 
-    int int_position;
-    boolean boolean_file;
+    public static int int_position = 0;
     public ArrayList<File_images> al_files = new ArrayList<>();
-    int column_index_data, column_index_file_name;
+    boolean boolean_file;
     PhotoFileAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_photos);
-        initRv(binding.photosRcvFile);
         int_position = getIntent().getIntExtra("value", 0); // ? 이건뭐지 ??
+        initRv(binding.photosRcvFile);
     }
 
     private void initRv(RecyclerView rv) {
@@ -83,8 +83,8 @@ public class PhotosActivity extends AppCompatActivity {
             } else {
                 ArrayList<String> al_path = new ArrayList<>();
                 al_path.add(absolutePathOfImage);
-                File_images obj_model = new File_images(al_path);
-                al_files.add(obj_model);
+                File_images file_images = new File_images(al_path, cursor.getString(column_index_file_name));
+                al_files.add(file_images);
             }
         }
 
