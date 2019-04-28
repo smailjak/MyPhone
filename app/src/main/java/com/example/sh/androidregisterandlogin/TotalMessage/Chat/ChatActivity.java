@@ -78,16 +78,16 @@ public class ChatActivity extends AppCompatActivity {
                 Cursor inbox = getContentResolver().query(uriInbox, null, "thread_id=" + thread_id_main, null, null);
                 Uri uriSent = Uri.parse("content://sms/sent");
                 Cursor sent = getContentResolver().query(uriSent, null, "thread_id=" + thread_id_main, null, null);
-                Cursor c = new MergeCursor(new Cursor[]{inbox, sent}); // Attaching inbox and sent sms
+                Cursor cursor = new MergeCursor(new Cursor[]{inbox, sent}); // Attaching inbox and sent sms
 
 
-                if (c.moveToFirst()) {
-                    for (int i = 0; i < c.getCount(); i++) {
+                if (cursor.moveToFirst()) {
+                    for (int i = 0; i < cursor.getCount(); i++) {
                         String phone = "";
-                        String _id = c.getString(c.getColumnIndexOrThrow("_id"));
-                        String thread_id = c.getString(c.getColumnIndexOrThrow("thread_id"));
-                        String msg = c.getString(c.getColumnIndexOrThrow("body"));
-                        String type = c.getString(c.getColumnIndexOrThrow("type"));
+                        String _id = cursor.getString(cursor.getColumnIndexOrThrow("_id"));
+                        String thread_id = cursor.getString(cursor.getColumnIndexOrThrow("thread_id"));
+                        String msg = cursor.getString(cursor.getColumnIndexOrThrow("body"));
+                        String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                         String timestamp = c.getString(c.getColumnIndexOrThrow("date"));
                         phone = c.getString(c.getColumnIndexOrThrow("address"));
 

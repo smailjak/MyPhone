@@ -43,7 +43,7 @@ class InboxAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        InboxViewHolder holder =null;
+        InboxViewHolder holder ;
         if (convertView == null) {
 
             holder = new InboxViewHolder();
@@ -65,7 +65,7 @@ class InboxAdapter extends BaseAdapter {
         holder.inbox_msg.setId(position);
         holder.inbox_date.setId(position);
 
-        HashMap<String, String> song = new HashMap<String, String>();
+        HashMap<String, String> song ;
         song = data.get(position);
 
         try {
