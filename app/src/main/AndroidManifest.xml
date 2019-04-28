@@ -57,6 +57,7 @@
         <activity android:name=".TotalAudio.TotalMusicActivity" />
         <activity android:name=".TotalManage.ManageActivity" />
         <activity android:name=".TotalApp.UserAppsActivity"/>
+        <activity android:name=".TotalBattery.BatteryActivity"/>
         <activity android:name=".MemoryActivity" />
         <activity android:name=".TotalPhoneInfo.GeneralActivity"/>
 

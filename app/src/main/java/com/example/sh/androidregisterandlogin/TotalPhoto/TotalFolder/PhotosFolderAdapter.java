@@ -56,16 +56,6 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
     }
 
 
-    @Override
-    public int getItemViewType(int position) {
-        return position;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvFolderName, tvFolderCount;
         LinearLayout llAdapterPhoto;

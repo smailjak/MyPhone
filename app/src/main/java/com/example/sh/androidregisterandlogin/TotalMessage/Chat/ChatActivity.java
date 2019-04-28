@@ -8,14 +8,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
+import androidx.databinding.DataBindingUtil;
 
+import android.view.View;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalMessage.Function;
 import com.example.sh.androidregisterandlogin.TotalMessage.MapComparator;
+import com.example.sh.androidregisterandlogin.databinding.ActivityChatActivityBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,34 +25,25 @@ import java.util.HashMap;
  */
 
 public class ChatActivity extends AppCompatActivity {
-
-    ListView listView;
+    private ActivityChatActivityBinding binding;
     ChatAdapter adapter;
     LoadSmsAsyncTask loadSmsAsyncTask;
     String name, address;
-    EditText new_message;
-
-    ImageButton sendMessageImageBtn;
     int thread_id_main;
     private Handler handler = new Handler();
-    Thread t;
-    ArrayList<HashMap<String, String>> smsList = new ArrayList<HashMap<String, String>>();
-    ArrayList<HashMap<String, String>> customList = new ArrayList<HashMap<String, String>>();
-    ArrayList<HashMap<String, String>> tmpList = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> smsList = new ArrayList<>();
+    ArrayList<HashMap<String, String>> customList = new ArrayList<>();
+    ArrayList<HashMap<String, String>> tmpList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_activity);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_chat_activity);
 
         Intent intent = getIntent();
         name = intent.getStringExtra("name");
         address = intent.getStringExtra("address");
         thread_id_main = Integer.parseInt(intent.getStringExtra("thread_id"));
-
-        listView = (ListView) findViewById(R.id.listView);
-        new_message = (EditText) findViewById(R.id.new_message);
-        sendMessageImageBtn = (ImageButton) findViewById(R.id.sendMessageImageBtn);
 
         startLoadingSms();
         sendMessageImageBtn();
@@ -123,36 +113,36 @@ public class ChatActivity extends AppCompatActivity {
                 smsList.clear();
                 smsList.addAll(tmpList);
                 adapter = new ChatAdapter(ChatActivity.this, smsList);
-                listView.setAdapter(adapter);
+                binding.listView.setAdapter(adapter);
 
             }
         }
     }
 
     void sendMessageImageBtn() {
-        sendMessageImageBtn.setOnClickListener(new View.OnClickListener() {
+        binding.sendMessageImageBtn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                String text = new_message.getText().toString();
+                String text = binding.newMessage.getText().toString();
 
                 if (text.length() > 0) {
                     String tmp_msg = text;
-                    new_message.setText("Sending....");
-                    new_message.setEnabled(false);
+                    binding.newMessage.setText("Sending....");
+                    binding.newMessage.setEnabled(false);
 
                     if (Function.sendSMS(address, tmp_msg)) {
-                        new_message.setText("");
-                        new_message.setEnabled(true);
+                        binding.newMessage.setText("");
+                        binding.newMessage.setEnabled(true);
                         // Creating a custom list for newly added sms
                         customList.clear();
                         customList.addAll(smsList);
                         customList.add(Function.mappingInbox(null, null, null, null, tmp_msg, "2", null, "Sending..."));
                         adapter = new ChatAdapter(ChatActivity.this, customList);
-                        listView.setAdapter(adapter);
+                        binding.listView.setAdapter(adapter);
                         //=========================
                     } else {
-                        new_message.setText(tmp_msg);
-                        new_message.setEnabled(true);
+                        binding.newMessage.setText(tmp_msg);
+                        binding.newMessage.setEnabled(true);
                     }
                 }
             }

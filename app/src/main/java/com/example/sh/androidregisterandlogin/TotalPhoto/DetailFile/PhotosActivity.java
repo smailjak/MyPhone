@@ -22,7 +22,7 @@ public class PhotosActivity extends AppCompatActivity {
     private ActivityPhotosBinding binding;
 
     public static int int_position = 0;
-    public ArrayList<File_images> al_files = new ArrayList<>();
+    ArrayList<File_images> al_files = new ArrayList<>();
     boolean boolean_file;
     PhotoFileAdapter adapter;
 

@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
@@ -36,7 +35,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
     private ActivityTotalMusicBinding binding;
     public static Context mContext;
     public AudioAdapter audioAdapter;
-    private int music_count = 0;
+    private int musicSelectPosition = 0;
 
 
     @SuppressLint("WrongConstant")
@@ -61,26 +60,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
 
         musicSelectPlay();
 
-    }
-
-    private void musicSelectPlay() {
-        Intent intent = getIntent();
-//       노래 제목없이 그냥 음악 실행할 경우
-        int start = intent.getIntExtra("music_start", 0);
-        if (start == 1) {
-            Log.d("TotalMusicActivity.qwer", "1");
-            AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
-            Log.d("TotalMusicActivity.qwer", "2");
-        }
-//       노래 제목을 얘기했을 경우
-        String music_title = intent.getStringExtra("music_title");
-        Log.d("TotalMusicActivity.qwer", "music_title : " + music_title);
-        String title = "노래";
-        String title2 = "음악";
-        if (title.equals(music_title) || title2.equals(music_title)) {
-            AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
-        }
-    }
+    } // onCreate
 
     private void manifestPermissionCheck() {
         // OS가 Marshmallow 이상일 경우 권한체크를 해야 합니다.
@@ -98,9 +78,29 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    private void musicSelectPlay() {
+        Intent intent = getIntent();
+//       노래 제목없이 그냥 음악 실행할 경우
+        int start = intent.getIntExtra("music_start", 0);
+        if (start == 1) {
+            AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
+        }
+//       노래 제목을 얘기했을 경우
+        String music_title = intent.getStringExtra("music_title");
+        Log.d("TotalMusicActivity.qwer", "music_title : " + music_title);
+        String title = "노래";
+        String title2 = "음악";
+        if (title.equals(music_title) || title2.equals(music_title)) {
+            AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
+        }
+    }
+
+
+
     public void updateUI() {
         if (AudioApplication.getInstance().getServiceInterface().isPlaying()) {
             binding.btnPlayPause.setImageResource(R.drawable.pause);
+
         } else {
             binding.btnPlayPause.setImageResource(R.drawable.play);
         }
@@ -124,12 +124,6 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
     public void updatePlay() {
         binding.btnPlayPause.setImageResource(R.drawable.pause);
 //               AudioAdapter 에서 사용 ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
-    }
-
-    public void updateForward() {
-//         이함수 안에는 어댑터에서 해당 position 을 클릭하게 되면 ,
-//         실행한 후에 다음 음악이 재생되게 하는 코드를 작성 해야 합니다.
-        AudioApplication.getInstance().getServiceInterface().forward();
     }
 
     private void getAudioListFromMediaDatabase() {
@@ -158,22 +152,18 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
                 audioAdapter.swapCursor(data);
-                music_count = 1;
                 data.moveToFirst(); // 만약에 cursor 라는 것이 아무것도 밑에 내려갈것이 없을때는 다시 맨위로 올려버린다.
                 if (data != null && data.getCount() > 0) {
                     while (data.moveToNext()) {
 //                       음악 총 개수를 구하기 위해 더합니다.
-                        music_count++;
+                        musicSelectPosition++;
                         String change = data.getString(data.getColumnIndex(MediaStore.Audio.Media.TITLE)).replaceAll(" ", "");
                         Intent intent = getIntent();
                         String music_title = intent.getStringExtra("music_title");
                         if (music_title != null) {
                             if (music_title.equals(change)) {
-                                String music_date_confirm = data.getString(data.getColumnIndex(MediaStore.Audio.Media.TITLE)).replaceAll(" ", "");
                                 AudioApplication.getInstance().getServiceInterface().setPlayList(audioAdapter.getAudioIds()); // 재생목록등록
-                                AudioApplication.getInstance().getServiceInterface().play(music_count - 1); // 선택한 오디오재생
-//                                index 값에 -1 을 해줘야 합니다. music_count 를 초기화 1 로해줬기때문입니다. music_count=1;
-//                                왜냐면 원래 index 는 0 부터 시작하다 음악개수를 세야하기때문에 1 부터 시작을 해야 적절하게 개수가 나오게 됩니다.
+                                AudioApplication.getInstance().getServiceInterface().play(musicSelectPosition); // 선택한 오디오재생
                                 updateUI();
                                 updatePlay();
 //                                updatePlay() 라는 함수를 불러오는 이유는 updateUI로 그려줄때 , updateUI 로는 재생과 일시정지 UI가 제대로 바껴지지않아서
@@ -202,8 +192,8 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.lin_miniplayer:
                 // 플레이어 화면으로 이동할 코드가 들어갈 예정
                 Intent intent = new Intent(TotalMusicActivity.this, MusicPlayer.class);
