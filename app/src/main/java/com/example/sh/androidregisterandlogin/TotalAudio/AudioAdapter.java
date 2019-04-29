@@ -21,14 +21,13 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHolder> {
 
     public static ArrayList<Long> audioIds;
 
     public AudioAdapter(Context context, Cursor cursor) {
-        super(context, cursor);
+        super( cursor);
     }
 
     @Override
@@ -88,7 +87,6 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
         private TextView mTxtSubTitle;
         private TextView mTxtDuration;
 
-        private AudioItem mItem;
         public int mPosition;
 
         private AudioViewHolder(View view) {
@@ -113,7 +111,6 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
 
         public void setAudioItem(AudioItem item, int position) {
 
-            mItem = item;
             mPosition = position;
             mTxtTitle.setText(item.mTitle);
             mTxtSubTitle.setText(item.mArtist + "(" + item.mAlbum + ")");
@@ -121,11 +118,7 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
             Uri albumArtUri = ContentUris.withAppendedId(artworkUri, item.mAlbumId);
             Log.d("albumArtUri", "setAudioItem: " + albumArtUri);
 
-
-//            TODO GLIDE 로 수정을 해야함
-
             RequestOptions circleCrop = new RequestOptions().circleCrop();
-
             Glide.with(TotalMusicActivity.mContext)
                     .load(albumArtUri).apply(RequestOptions.errorOf(R.drawable.music)).apply(circleCrop)
                     .into(mImgAlbumArt);

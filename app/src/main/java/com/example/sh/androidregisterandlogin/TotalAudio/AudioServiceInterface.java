@@ -31,10 +31,8 @@ public class AudioServiceInterface {
     }
 
     public void setPlayList(ArrayList<Long> audioIds) {
-        Log.d("AudioAdapter.qwe", "(처음 셋플레이리스트 : ");
         Log.d("AudioAdapter.qwe", "(처음 셋플레이리스트 : " + mService);
         Log.d("AudioAdapter.qwe", "(처음 셋플레이리스트 : " + audioIds.size());
-
         if (mService != null) {
             mService.setPlayList(audioIds);
         }
@@ -61,12 +59,9 @@ public class AudioServiceInterface {
     }
 
     public void voice_togglePlay(){
-        Log.d("start123", "voice_togglePlay: ");
         if(isPlaying()){
-            Log.d("start123", "voice_togglePlay: 1");
             mService.play();
         } else {
-            Log.d("start123", "voice_togglePlay: 2");
             play();
         }
     }

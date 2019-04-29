@@ -59,7 +59,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.btn_forward).setOnClickListener(this);
 
         musicSelectPlay();
-
+        updateUI();
     } // onCreate
 
     private void manifestPermissionCheck() {
@@ -144,10 +144,8 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
                         MediaStore.Audio.Media.DURATION,
                         MediaStore.Audio.Media.DATA
                 };
-                Log.d("onCreateLoader.qwe", "MediaStore.Audio.Media.TITLE : " + MediaStore.Audio.Media.TITLE);
                 String selection = MediaStore.Audio.Media.IS_MUSIC + " = 1";
                 String sortOrder = MediaStore.Audio.Media.TITLE + " COLLATE LOCALIZED ASC";
-                Log.d("onCreateLoader.qwe", "sortOrder : " + sortOrder);
                 return new CursorLoader(getApplicationContext(), uri, projection, selection, null, sortOrder);
             }
 
@@ -180,7 +178,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
             public void onLoaderReset(Loader<Cursor> loader) {
                 audioAdapter.swapCursor(null);
             }
-        });//////////////
+        });
     }
 
     @Override
