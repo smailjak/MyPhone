@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.databinding.ActivityTotalMusicBinding;
@@ -54,7 +55,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         binding.totalMusicRcv.setLayoutManager(layoutManager);
         binding.btnPlayPause.setOnClickListener(this);
 
-        findViewById(R.id.lin_mini_player).setOnClickListener(this);
+        findViewById(R.id.img_mini_music).setOnClickListener(this);
         findViewById(R.id.btn_rewind).setOnClickListener(this);
         findViewById(R.id.btn_forward).setOnClickListener(this);
 
@@ -110,8 +111,10 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         if (audioItem != null) {
 //           null 이 아니라면
             Uri albumArtUri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), audioItem.mAlbumId);
+            RequestOptions circleOptions = new RequestOptions().circleCrop();
             Glide.with(this)
                     .load(albumArtUri)
+                    .apply(circleOptions)
                     .into(binding.imgMiniMusic);
             binding.txtTitle.setText(audioItem.mTitle);
         } else {
@@ -194,7 +197,8 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.lin_miniplayer:
+            case R.id.img_mini_music:
+                Log.d("img_mini_music", "onClick: 클릭되어지아 ??");
                 // 플레이어 화면으로 이동할 코드가 들어갈 예정
                 Intent intent = new Intent(TotalMusicActivity.this, MusicPlayer.class);
                 updateUI();

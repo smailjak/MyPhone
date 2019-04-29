@@ -1,26 +1,28 @@
 package com.example.sh.androidregisterandlogin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class AndroidActivity extends AppCompatActivity {
+import com.example.sh.androidregisterandlogin.databinding.ActivityAndroidBinding;
 
-    private WebView webView;
+public class AndroidActivity extends AppCompatActivity {
+    private ActivityAndroidBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_android);
-        webView = findViewById(R.id.teamNova_webview);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_android);
 
 
-        WebSettings webSettings = webView.getSettings();
+        WebSettings webSettings = binding.webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        webView.setWebViewClient(new WebViewClient() {
+        binding.webview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -28,6 +30,6 @@ public class AndroidActivity extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl("https://developer.android.com/?hl=ko");
+        binding.webview.loadUrl("https://developer.android.com/?hl=ko");
     }
 }

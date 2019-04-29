@@ -42,12 +42,12 @@ public class ChatAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(activity).inflate(
                     R.layout.chat_item, parent, false);
 
-            holder.txtMsgYou = (TextView) convertView.findViewById(R.id.txtMsgYou);
-            holder.lblMsgYou = (TextView) convertView.findViewById(R.id.lblMsgYou);
-            holder.timeMsgYou = (TextView) convertView.findViewById(R.id.timeMsgYou);
-            holder.lblMsgFrom = (TextView) convertView.findViewById(R.id.lblMsgFrom);
-            holder.timeMsgFrom = (TextView) convertView.findViewById(R.id.timeMsgFrom);
-            holder.txtMsgFrom = (TextView) convertView.findViewById(R.id.txtMsgFrom);
+            holder.txtMsgYou =  convertView.findViewById(R.id.txtMsgYou);
+            holder.lblMsgYou =  convertView.findViewById(R.id.lblMsgYou);
+            holder.timeMsgYou =  convertView.findViewById(R.id.timeMsgYou);
+            holder.lblMsgFrom =  convertView.findViewById(R.id.lblMsgFrom);
+            holder.timeMsgFrom =  convertView.findViewById(R.id.timeMsgFrom);
+            holder.txtMsgFrom =  convertView.findViewById(R.id.txtMsgFrom);
             holder.msgFrom = (LinearLayout) convertView.findViewById(R.id.msgFrom);
             holder.msgYou = (LinearLayout) convertView.findViewById(R.id.msgYou);
 
@@ -64,7 +64,7 @@ public class ChatAdapter extends BaseAdapter {
         holder.msgFrom.setId(position);
         holder.msgYou.setId(position);
 
-        HashMap<String, String> song = new HashMap<String, String>();
+        HashMap<String, String> song;
         song = data.get(position);
         try {
             if (song.get(Function.KEY_TYPE).contentEquals("1")) {
@@ -84,5 +84,9 @@ public class ChatAdapter extends BaseAdapter {
         } catch (Exception e) {
         }
         return convertView;
+    }
+    class ChatViewHolder {
+        LinearLayout msgFrom, msgYou;
+        TextView txtMsgYou, lblMsgYou, timeMsgYou, lblMsgFrom, txtMsgFrom, timeMsgFrom;
     }
 }

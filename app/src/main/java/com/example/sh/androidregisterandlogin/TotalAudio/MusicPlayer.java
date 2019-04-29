@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
 
 public class MusicPlayer extends AppCompatActivity implements View.OnClickListener {
@@ -83,10 +84,17 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
             mBtnPlayPause.setImageResource(R.drawable.play);
         }
         AudioAdapter.AudioItem audioItem = AudioApplication.getInstance().getServiceInterface().getAudioItem();
+
         if (audioItem != null) {
             Uri albumArtUri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), audioItem.mAlbumId);
-            Glide.with(this )
+//            Glide.with(this )
+//                    .load(albumArtUri)
+//                    .into(img_albumart);
+            RequestOptions circleCrop = new RequestOptions().circleCrop();
+            Glide.with(this)
                     .load(albumArtUri)
+                    .apply(RequestOptions.errorOf(R.drawable.music))
+                    .apply(circleCrop)
                     .into(img_albumart);
             music_title.setText(audioItem.mTitle);
         } else {

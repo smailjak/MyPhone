@@ -1,6 +1,7 @@
 package com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -21,6 +22,7 @@ import com.example.sh.androidregisterandlogin.databinding.ActivityTotalPhotoBind
 import java.util.ArrayList;
 
 public class TotalPhotoActivity extends AppCompatActivity {
+    Context mContext;
     private ActivityTotalPhotoBinding binding;
     public ArrayList<Model_images> al_images = new ArrayList<>();
     private static final int REQUEST_PERMISSIONS = 100;
@@ -29,6 +31,7 @@ public class TotalPhotoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mContext = this;
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_total_photo);
         permissionCheck();

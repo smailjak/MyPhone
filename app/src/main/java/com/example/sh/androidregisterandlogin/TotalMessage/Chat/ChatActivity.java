@@ -88,14 +88,14 @@ public class ChatActivity extends AppCompatActivity {
                         String thread_id = cursor.getString(cursor.getColumnIndexOrThrow("thread_id"));
                         String msg = cursor.getString(cursor.getColumnIndexOrThrow("body"));
                         String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
-                        String timestamp = c.getString(c.getColumnIndexOrThrow("date"));
-                        phone = c.getString(c.getColumnIndexOrThrow("address"));
+                        String timestamp = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+                        phone = cursor.getString(cursor.getColumnIndexOrThrow("address"));
 
                         tmpList.add(Function.mappingInbox(_id, thread_id, name, phone, msg, type, timestamp, Function.converToTime(timestamp)));
-                        c.moveToNext();
+                        cursor.moveToNext();
                     }
                 }
-                c.close();
+                cursor.close();
 
             } catch (IllegalArgumentException e) {
                 // TODO Auto-generated catch block
@@ -148,7 +148,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-
 }
 
 

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalPhoto.DetailFile.PhotosActivity;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
@@ -49,9 +50,9 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
         viewHolder.tvFolderName.setText(getItem(position).getStr_folder());
         String Str = viewHolder.tvFolderName.getText().toString();
         viewHolder.tvFolderCount.setText(Integer.toString(getItem(position).getAl_imagepath().size()));
-
+        RequestOptions circleOptions = new RequestOptions().circleCrop();
         Glide.with(context).load("file://" + getItem(position)
-                        .getAl_imagepath().get(0))
+                        .getAl_imagepath().get(0)).apply(circleOptions)
                         .into(viewHolder.ivImage);
     }
 
