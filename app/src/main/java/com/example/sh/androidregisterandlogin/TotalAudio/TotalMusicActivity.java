@@ -82,7 +82,8 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
     private void musicSelectPlay() {
         Intent intent = getIntent();
 //       노래 제목없이 그냥 음악 실행할 경우
-        int start = intent.getIntExtra("music_start", 0);
+        int start = intent.getIntExtra("music_start", 1);
+        Log.d("start123", "musicSelectPlay: "+start);
         if (start == 1) {
             AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
         }

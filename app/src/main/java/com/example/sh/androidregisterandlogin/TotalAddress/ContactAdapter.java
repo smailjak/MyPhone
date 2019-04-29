@@ -39,8 +39,8 @@ public class ContactAdapter extends BaseRecylcerViewAdapter<Contact, ContactAdap
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_phonelist,viewGroup,false);
+    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int position) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_phonelist,parent,false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {

@@ -61,10 +61,13 @@ public class AudioServiceInterface {
     }
 
     public void voice_togglePlay(){
+        Log.d("start123", "voice_togglePlay: ");
         if(isPlaying()){
+            Log.d("start123", "voice_togglePlay: 1");
             mService.play();
         } else {
-            mService.play();
+            Log.d("start123", "voice_togglePlay: 2");
+            play();
         }
     }
 
