@@ -19,7 +19,6 @@ import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -80,9 +79,10 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void musicSelectPlay() {
+        Log.d("start123", "musicSelectPlay: 여기로 들어올려나 ??? ");
         Intent intent = getIntent();
 //       노래 제목없이 그냥 음악 실행할 경우
-        int start = intent.getIntExtra("music_start", 1);
+        int start = intent.getIntExtra("music_start", 0);
         Log.d("start123", "musicSelectPlay: "+start);
         if (start == 1) {
             AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
@@ -92,12 +92,11 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         Log.d("TotalMusicActivity.qwer", "music_title : " + music_title);
         String title = "노래";
         String title2 = "음악";
+        Log.d("start123", "musicSelectPlay: 설마 여기로도 들어오나 ?? ");
         if (title.equals(music_title) || title2.equals(music_title)) {
             AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
         }
     }
-
-
 
     public void updateUI() {
         if (AudioApplication.getInstance().getServiceInterface().isPlaying()) {
@@ -170,8 +169,6 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
                                 AudioApplication.getInstance().getServiceInterface().play(musicSelectPosition); // 선택한 오디오재생
                                 updateUI();
                                 updatePlay();
-//                                updatePlay() 라는 함수를 불러오는 이유는 updateUI로 그려줄때 , updateUI 로는 재생과 일시정지 UI가 제대로 바껴지지않아서
-//                                updatePlay() 라는 함수를 만들어서 , 재생버튼이 바뀌도록 만들었습니다.
                             }
                         }
                     }
@@ -183,7 +180,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
             public void onLoaderReset(Loader<Cursor> loader) {
                 audioAdapter.swapCursor(null);
             }
-        });
+        });//////////////
     }
 
     @Override

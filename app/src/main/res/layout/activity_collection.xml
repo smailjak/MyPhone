@@ -6,16 +6,14 @@
 
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
-        android:fitsSystemWindows="true"
-        tools:context=".ToTalHome.CollectActivity"
-        tools:openDrawer="start">
+        android:orientation="vertical"
+        tools:context=".ToTalHome.CollectActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,7 +25,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
-
 
                 <TextView
                     android:id="@+id/main_move_txt"
@@ -83,6 +80,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:background="@color/colorTransParent"
                             android:text="제조사"
                             android:textColor="#000000"
                             android:textSize="15dp"
@@ -93,7 +91,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:background="#ffffff"
                             android:gravity="center"
                             android:text="LG"
                             android:textColor="@color/colorPrimaryDark"
@@ -112,6 +109,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:background="@color/colorTransParent"
                             android:gravity="center"
                             android:text="내폰"
                             android:textColor="#000000"
@@ -123,12 +121,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:background="#ffffff"
                             android:gravity="center"
                             android:text="삼성"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="15dp"
                             android:textStyle="bold" />
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -202,9 +200,9 @@
                         android:id="@+id/pic_manage_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:background="@color/colorTransParent"
-                        android:layout_margin="5dp"
                         android:drawableTop="@drawable/picture"
                         android:text="사진"
                         android:textSize="15dp"
@@ -214,10 +212,10 @@
                         android:id="@+id/phone_manage_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:background="@color/colorTransParent"
                         android:drawableTop="@drawable/phone"
-                        android:layout_margin="5dp"
                         android:text="연락처"
                         android:textSize="15dp"
                         android:textStyle="bold" />
@@ -226,10 +224,10 @@
                         android:id="@+id/message_manage_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:background="@color/colorTransParent"
                         android:drawableTop="@drawable/message"
-                        android:layout_margin="5dp"
                         android:text="메시지"
                         android:textSize="15dp"
                         android:textStyle="bold" />
@@ -239,10 +237,10 @@
                         android:id="@+id/music_manage_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:background="@color/colorTransParent"
                         android:drawableTop="@drawable/music_note"
-                        android:layout_margin="5dp"
                         android:text="음악"
                         android:textSize="15dp"
                         android:textStyle="bold" />
@@ -288,5 +286,5 @@
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

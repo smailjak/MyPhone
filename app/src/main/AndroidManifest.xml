@@ -38,14 +38,17 @@
                 <action android:name="CLOSE" />
             </intent-filter>
         </service>
-        <activity android:name=".ToTalHome.CollectActivity">
+
+        <activity
+            android:name=".ToTalHome.CollectActivity"
+            android:theme="@style/Theme.Design.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity android:name=".TotalAudio.MusicPlayer" />
         <activity android:name=".AdvertisingActivity" />
         <activity android:name=".AndroidActivity" />
@@ -53,13 +56,13 @@
         <activity android:name=".TotalPhoto.TotalFolder.TotalPhotoActivity" />
         <activity android:name=".TotalMessage.Sms.SmsActivity" />
         <activity android:name=".TotalMessage.Chat.ChatActivity" />
-        <activity android:name=".TotalAddress.ContactListActivity"/>
+        <activity android:name=".TotalAddress.ContactListActivity" />
         <activity android:name=".TotalAudio.TotalMusicActivity" />
         <activity android:name=".TotalManage.ManageActivity" />
-        <activity android:name=".TotalApp.UserAppsActivity"/>
-        <activity android:name=".TotalBattery.BatteryActivity"/>
+        <activity android:name=".TotalApp.UserAppsActivity" />
+        <activity android:name=".TotalBattery.BatteryActivity" />
         <activity android:name=".MemoryActivity" />
-        <activity android:name=".TotalPhoneInfo.GeneralActivity"/>
+        <activity android:name=".TotalPhoneInfo.GeneralActivity" />
 
     </application>
 </manifest>
