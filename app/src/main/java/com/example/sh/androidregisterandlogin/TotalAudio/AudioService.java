@@ -47,10 +47,6 @@ public class AudioService extends Service {
                 forward();
                 ((TotalMusicActivity) TotalMusicActivity.mContext).updateUI();
                 ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
-//                여기 부분에서 에러가 터집니다.
-//                거기다가 UI가 바뀌지 않았습니다.
-//                ((MusicPlayer) MusicPlayer.music_Context).updateUI();
-//                ((MusicPlayer) MusicPlayer.music_Context).updatePlay();
             }
         });
         mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {

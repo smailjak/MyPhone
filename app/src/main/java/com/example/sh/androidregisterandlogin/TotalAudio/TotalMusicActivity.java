@@ -1,7 +1,7 @@
 package com.example.sh.androidregisterandlogin.TotalAudio;
 
 import android.Manifest;
-import android.content.BroadcastReceiver;
+import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -11,59 +11,78 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.databinding.ActivityTotalMusicBinding;
 
 public class TotalMusicActivity extends AppCompatActivity implements View.OnClickListener {
     private final static int LOADER_ID = 0x001;
 
-
-    private RecyclerView mRecyclerView;
-    public static AudioAdapter mAdapter; // 질문 .
+    private ActivityTotalMusicBinding binding;
     public static Context mContext;
-
-    public int musicCountVoiceResult = 0;
+    public AudioAdapter audioAdapter;
     private int music_count = 0;
-    //  앨범사진
-    private ImageView mImgAlbumArt;
-    //  음악 제목
-    private TextView mTxtTitle;
-    //   음악의 총개수가 적히는 setText 부분
-    TextView music_number;
-    private ImageButton mBtnPlayPause;
-    LinearLayout lin_miniplayer;
 
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            updateUI();
-        }
-    };// 이거는 필요없는 것 같은데 ...
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_total_music);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_total_music);
 
         mContext = this;
+        manifestPermissionCheck();
+
+        audioAdapter = new AudioAdapter(this, null);
+        binding.totalMusicRcv.setAdapter(audioAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        binding.totalMusicRcv.setLayoutManager(layoutManager);
+        binding.btnPlayPause.setOnClickListener(this);
+
+        findViewById(R.id.lin_mini_player).setOnClickListener(this);
+        findViewById(R.id.btn_rewind).setOnClickListener(this);
+        findViewById(R.id.btn_forward).setOnClickListener(this);
+
+        musicSelectPlay();
+
+    }
+
+    private void musicSelectPlay() {
+        Intent intent = getIntent();
+//       노래 제목없이 그냥 음악 실행할 경우
+        int start = intent.getIntExtra("music_start", 0);
+        if (start == 1) {
+            Log.d("TotalMusicActivity.qwer", "1");
+            AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
+            Log.d("TotalMusicActivity.qwer", "2");
+        }
+//       노래 제목을 얘기했을 경우
+        String music_title = intent.getStringExtra("music_title");
+        Log.d("TotalMusicActivity.qwer", "music_title : " + music_title);
+        String title = "노래";
+        String title2 = "음악";
+        if (title.equals(music_title) || title2.equals(music_title)) {
+            AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
+        }
+    }
+
+    private void manifestPermissionCheck() {
         // OS가 Marshmallow 이상일 경우 권한체크를 해야 합니다.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -77,55 +96,13 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         else {
             getAudioListFromMediaDatabase();
         }
-
-        lin_miniplayer = findViewById(R.id.lin_miniplayer);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        mAdapter = new AudioAdapter(this, null);
-        mRecyclerView.setAdapter(mAdapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
-        music_number = findViewById(R.id.music_number);
-        mImgAlbumArt = (ImageView) findViewById(R.id.img_albumart);
-        mTxtTitle = (TextView) findViewById(R.id.txt_title);
-        mBtnPlayPause = (ImageButton) findViewById(R.id.btn_play_pause);
-        findViewById(R.id.lin_miniplayer).setOnClickListener(this);
-        findViewById(R.id.btn_rewind).setOnClickListener(this);
-        mBtnPlayPause.setOnClickListener(this);
-        findViewById(R.id.btn_forward).setOnClickListener(this);
-
-
-        Intent intent = getIntent();
-        int start = intent.getIntExtra("music_start", 0);
-//        여기부분은 "노래재생" , "음악재생" 이라고 말했을경우에 여기로 들어와서 실행시키게 할려고 만들었습니다.
-//        키값으로 받아오는것이 만약에 없다면 defaultValue를 사용하게된다 .==> start ==1 이 아니라서 못들어 오게된다 .
-        if (start == 1) {
-            Log.d("TotalMusicActivity.qwer", "1");
-            AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
-            Log.d("TotalMusicActivity.qwer", "2");
-        }
-
-//       노래 제목을 얘기했을 경우
-        String music_title = intent.getStringExtra("music_title");
-        Log.d("TotalMusicActivity.qwer", "music_title : " + music_title);
-        String title = "노래";
-        String title2 = "음악";
-        if (title.equals(music_title) || title2.equals(music_title)) {
-            AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
-        }
-
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(mRecyclerView);
-        updateUI();
-
     }
 
     public void updateUI() {
         if (AudioApplication.getInstance().getServiceInterface().isPlaying()) {
-            mBtnPlayPause.setImageResource(R.drawable.pause);
+            binding.btnPlayPause.setImageResource(R.drawable.pause);
         } else {
-            mBtnPlayPause.setImageResource(R.drawable.play);
+            binding.btnPlayPause.setImageResource(R.drawable.play);
         }
 
         AudioAdapter.AudioItem audioItem = AudioApplication.getInstance().getServiceInterface().getAudioItem();
@@ -135,17 +112,17 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
             Uri albumArtUri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), audioItem.mAlbumId);
             Glide.with(this)
                     .load(albumArtUri)
-                    .into(mImgAlbumArt);
-            mTxtTitle.setText(audioItem.mTitle);
+                    .into(binding.imgMiniMusic);
+            binding.txtTitle.setText(audioItem.mTitle);
         } else {
-            mImgAlbumArt.setImageResource(R.drawable.music);
-            mTxtTitle.setText("재생중인 음악이 없습니다.");
+            binding.imgMiniMusic.setImageResource(R.drawable.music);
+            binding.txtTitle.setText("재생중인 음악이 없습니다.");
         }
     }
 
     //        AudioAdapter 에서 position 을 선택했을때 재생버튼 을 설정하는 부분
     public void updatePlay() {
-        mBtnPlayPause.setImageResource(R.drawable.pause);
+        binding.btnPlayPause.setImageResource(R.drawable.pause);
 //               AudioAdapter 에서 사용 ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
     }
 
@@ -180,7 +157,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-                mAdapter.swapCursor(data);
+                audioAdapter.swapCursor(data);
                 music_count = 1;
                 data.moveToFirst(); // 만약에 cursor 라는 것이 아무것도 밑에 내려갈것이 없을때는 다시 맨위로 올려버린다.
                 if (data != null && data.getCount() > 0) {
@@ -193,7 +170,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
                         if (music_title != null) {
                             if (music_title.equals(change)) {
                                 String music_date_confirm = data.getString(data.getColumnIndex(MediaStore.Audio.Media.TITLE)).replaceAll(" ", "");
-                                AudioApplication.getInstance().getServiceInterface().setPlayList(mAdapter.getAudioIds()); // 재생목록등록
+                                AudioApplication.getInstance().getServiceInterface().setPlayList(audioAdapter.getAudioIds()); // 재생목록등록
                                 AudioApplication.getInstance().getServiceInterface().play(music_count - 1); // 선택한 오디오재생
 //                                index 값에 -1 을 해줘야 합니다. music_count 를 초기화 1 로해줬기때문입니다. music_count=1;
 //                                왜냐면 원래 index 는 0 부터 시작하다 음악개수를 세야하기때문에 1 부터 시작을 해야 적절하게 개수가 나오게 됩니다.
@@ -205,13 +182,12 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
                         }
                     }
                 }
-//               개수를 구하기 위한 Log 와 String music = String.valuOf(music_count) 입니다 .
-                music_number.setText(Integer.toString(mAdapter.getAudioIds().size()));
+                binding.musicNumber.setText("음악개수 : " + audioAdapter.getAudioIds().size());
             }
 
             @Override
             public void onLoaderReset(Loader<Cursor> loader) {
-                mAdapter.swapCursor(null);
+                audioAdapter.swapCursor(null);
             }
         });
     }
@@ -240,7 +216,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
                 AudioApplication.getInstance().getServiceInterface().rewind();
                 Toast.makeText(TotalMusicActivity.this, "이전곡", Toast.LENGTH_SHORT).show();
                 updateUI();
-                mBtnPlayPause.setImageResource(R.drawable.pause);
+                binding.btnPlayPause.setImageResource(R.drawable.pause);
                 break;
             case R.id.btn_play_pause:
                 // 재생 또는 일시정지
@@ -252,7 +228,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
                 AudioApplication.getInstance().getServiceInterface().forward();
                 Toast.makeText(TotalMusicActivity.this, "다음곡", Toast.LENGTH_SHORT).show();
                 updateUI();
-                mBtnPlayPause.setImageResource(R.drawable.pause);
+                binding.btnPlayPause.setImageResource(R.drawable.pause);
                 break;
         }
     }
