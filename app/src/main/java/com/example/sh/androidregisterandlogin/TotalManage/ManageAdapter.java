@@ -53,8 +53,6 @@ public class ManageAdapter extends BaseRecylcerViewAdapter<RecyclerItem, ManageA
     public void onBindView(ViewHolder viewHolder, int position) {
         viewHolder.titleTitle.setText(arrayList.get(position).getTextView());
         viewHolder.imageTitle.setImageResource((int) arrayList.get(position).getImageView());
-//        Glide.with(context).load(arrayList.get(position).getImageView()).into(viewHolder.imageTitle);
-
 
     }
 
