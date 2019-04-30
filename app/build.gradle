@@ -47,31 +47,21 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha04'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha04'
 
-    // junit
+    //junit
     testImplementation 'junit:junit:4.12'
 
-    // glide
+    //glide
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-
-    //RxJava
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
 
     //Play Services
     implementation 'com.google.android.gms:play-services-location:16.0.0'
 
-    //Dexter
-    implementation 'com.karumi:dexter:5.0.0'
-
-    //Retrofit2
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-
-    //
+    //Speechrecognition
     implementation 'com.google.android.material:material:1.1.0-alpha05'
-    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    //Sms
+    implementation 'commons-io:commons-io:2.4'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     implementation 'com.lifeofcoding:cacheutilslibrary:1.1.0@aar'
-    implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'commons-io:commons-io:2.4'
 }
