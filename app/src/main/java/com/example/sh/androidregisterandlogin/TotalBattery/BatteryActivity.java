@@ -7,9 +7,7 @@ import android.content.IntentFilter;
 import androidx.databinding.DataBindingUtil;
 import android.os.BatteryManager;
 import android.os.Bundle;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.databinding.ActivityBatteryBinding;
 
@@ -24,7 +22,6 @@ public class BatteryActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         context.registerReceiver(mBroadCastReceiver, iFilter);
-
         powerProfile();
 
     }

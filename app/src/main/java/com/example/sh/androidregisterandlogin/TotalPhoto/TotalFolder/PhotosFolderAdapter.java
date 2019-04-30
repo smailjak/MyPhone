@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalPhoto;
+package com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalPhoto.DetailFile.PhotosActivity;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
 import java.util.ArrayList;
@@ -41,14 +41,18 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
         return viewHolder;
     }
 
+
     @Override
     public void onBindView(ViewHolder viewHolder, int position) {
-        viewHolder.tvFolderName.setText(String.valueOf(getItem(position).getAl_imagepath()));
-        viewHolder.tvFolderCount.setText(getItem(position).getStr_folder());
-        Glide.with(context)
-                .load("file://" + getItem(position)
-                        .getAl_imagepath().get(0));
 
+
+        viewHolder.tvFolderName.setText(getItem(position).getStr_folder());
+        String Str = viewHolder.tvFolderName.getText().toString();
+        viewHolder.tvFolderCount.setText(Integer.toString(getItem(position).getAl_imagepath().size()));
+
+        Glide.with(context).load("file://" + getItem(position)
+                        .getAl_imagepath().get(0))
+                        .into(viewHolder.ivImage);
     }
 
 
