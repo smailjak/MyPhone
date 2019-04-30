@@ -25,9 +25,11 @@ import java.util.ArrayList;
 public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHolder> {
 
     public static ArrayList<Long> audioIds;
+    Context context;
 
     public AudioAdapter(Context context, Cursor cursor) {
         super( cursor);
+        this.context=context;
     }
 
     @Override
@@ -119,7 +121,7 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
             Log.d("albumArtUri", "setAudioItem: " + albumArtUri);
 
             RequestOptions circleCrop = new RequestOptions().circleCrop();
-            Glide.with(TotalMusicActivity.mContext)
+            Glide.with(context)
                     .load(albumArtUri).apply(RequestOptions.errorOf(R.drawable.music)).apply(circleCrop)
                     .into(mImgAlbumArt);
         }
