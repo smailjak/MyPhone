@@ -40,21 +40,13 @@ public class FragmentTwo extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ArrayList<RecyclerItem> arrayList = new ArrayList<>();
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템"));
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(),arrayList);
+        arrayList.add(new RecyclerItem(R.drawable.app,"아이템1"));
+        arrayList.add(new RecyclerItem(R.drawable.app,"아이템2"));
+        arrayList.add(new RecyclerItem(R.drawable.app,"아이템3"));
+        ManageAdapter manageAdapter = new ManageAdapter(getContext(),arrayList);
         rcv = view.findViewById(R.id.fragment_two_rcv);
         rcv.setLayoutManager(new LinearLayoutManager(context));
         rcv.setHasFixedSize(true);
-        rcv.setAdapter(recyclerAdapter);
+        rcv.setAdapter(manageAdapter);
     }
 }

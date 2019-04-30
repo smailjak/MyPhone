@@ -13,6 +13,7 @@
         app:cardElevation="10dp">
 
         <LinearLayout
+            android:id="@+id/fragment_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -22,16 +23,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:src="@drawable/phone" />
+                android:layout_margin="5dp" />
 
             <TextView
                 android:id="@+id/fragment_rcv_item_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="아이템선택 "
                 android:layout_margin="5dp"
+                android:text=""
                 android:textColor="#000000" />
 
         </LinearLayout>
