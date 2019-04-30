@@ -20,9 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-/**
- * Created by SHAJIB on 7/13/2017.
- */
 
 public class ChatActivity extends AppCompatActivity {
     private ActivityChatActivityBinding binding;
