@@ -36,8 +36,6 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, Cursor cursor) {
         AudioItem audioItem = AudioItem.bindCursor(cursor);
         ((AudioViewHolder) viewHolder).setAudioItem(audioItem, cursor.getPosition());
-//        TODO 여기서 에러가 발생
-        Log.d("asdfxzcv", "onBindViewHolder: 3");
     }
 
     @Override
@@ -97,14 +95,10 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
     public ArrayList<Long> getAudioIds() {
 
         int count = getItemCount();
-        Log.d("AudioAdapter.qwe", "getItemCount() : " + getItemCount());
-//        ArrayList<Long>
         audioIds = new ArrayList<>();
-        Log.d("AudioAdapter.qwe", "count : " + count);
         for (int i = 0; i < count; i++) {
             audioIds.add(getItemId(i));
         }
-        Log.d("AudioAdapter.qwe", "audioIds : " + audioIds);
         return audioIds;
     }
 
@@ -146,11 +140,15 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
             mTxtSubTitle.setText(item.mArtist + "(" + item.mAlbum + ")");
             mTxtDuration.setText(DateFormat.format("mm:ss", item.mDuration));
             Uri albumArtUri = ContentUris.withAppendedId(artworkUri, item.mAlbumId);
+            Log.d("albumArtUri", "setAudioItem: " + albumArtUri);
 
-            Picasso.get().load(albumArtUri).error(R.drawable.music).into(mImgAlbumArt);
+
+//            TODO GLIDE 로 수정을 해야함
+
 //            Glide.with(context)
-//                    .load(albumArtUri)
+//                    .load(albumArtUri).apply(RequestOptions.placeholderOf(R.drawable.music).error(R.drawable.music))
 //                    .into(mImgAlbumArt);
+            Picasso.get().load(albumArtUri).error(R.drawable.music).into(mImgAlbumArt);
 
 //            Glide.with(context).load(albumArtUri).apply(RequestOptions.placeholderOf(R.drawable.sunny
 //            ).error(R.drawable.music)).into(mImgAlbumArt);
