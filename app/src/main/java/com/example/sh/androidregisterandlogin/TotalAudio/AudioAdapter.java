@@ -19,17 +19,17 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
-    Context context;
+public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHolder> {
+
     public static ArrayList<Long> audioIds;
+    Context context;
 
     public AudioAdapter(Context context, Cursor cursor) {
-        super(context, cursor);
+        super( cursor);
+        this.context=context;
     }
 
     @Override
@@ -45,27 +45,6 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
         return new AudioViewHolder(view);
 
     }
-
-    @Override
-    public void onItemMove(int fromPosition, int toPosition) {
-        if (fromPosition < toPosition) {
-            for (int i = fromPosition; i < toPosition; i++) {
-                Collections.swap(audioIds, i, i + 1);
-            }
-        } else {
-            for (int i = fromPosition; i > toPosition; i--) {
-                Collections.swap(audioIds, i, i - 1);
-            }
-        }
-        notifyItemMoved(fromPosition, toPosition);
-    }
-
-    @Override
-    public void onItemDismiss(int position) {
-        audioIds.remove(position);
-        notifyItemRemoved(position);
-    }
-
 
     public static class AudioItem {
 
@@ -109,7 +88,7 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
         private TextView mTxtTitle;
         private TextView mTxtSubTitle;
         private TextView mTxtDuration;
-        private AudioItem mItem;
+
         public int mPosition;
 
         private AudioViewHolder(View view) {
@@ -134,7 +113,6 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
 
         public void setAudioItem(AudioItem item, int position) {
 
-            mItem = item;
             mPosition = position;
             mTxtTitle.setText(item.mTitle);
             mTxtSubTitle.setText(item.mArtist + "(" + item.mAlbum + ")");
@@ -142,17 +120,10 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
             Uri albumArtUri = ContentUris.withAppendedId(artworkUri, item.mAlbumId);
             Log.d("albumArtUri", "setAudioItem: " + albumArtUri);
 
-
-//            TODO GLIDE 로 수정을 해야함
-
-//            Glide.with(context)
-//                    .load(albumArtUri).apply(RequestOptions.placeholderOf(R.drawable.music).error(R.drawable.music))
-//                    .into(mImgAlbumArt);
-            Picasso.get().load(albumArtUri).error(R.drawable.music).into(mImgAlbumArt);
-
-//            Glide.with(context).load(albumArtUri).apply(RequestOptions.placeholderOf(R.drawable.sunny
-//            ).error(R.drawable.music)).into(mImgAlbumArt);
-
+            RequestOptions circleCrop = new RequestOptions().circleCrop();
+            Glide.with(context)
+                    .load(albumArtUri).apply(RequestOptions.errorOf(R.drawable.music)).apply(circleCrop)
+                    .into(mImgAlbumArt);
         }
     }
 

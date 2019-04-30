@@ -31,10 +31,8 @@ public class AudioServiceInterface {
     }
 
     public void setPlayList(ArrayList<Long> audioIds) {
-        Log.d("AudioAdapter.qwe", "(처음 셋플레이리스트 : ");
         Log.d("AudioAdapter.qwe", "(처음 셋플레이리스트 : " + mService);
         Log.d("AudioAdapter.qwe", "(처음 셋플레이리스트 : " + audioIds.size());
-
         if (mService != null) {
             mService.setPlayList(audioIds);
         }
@@ -64,7 +62,7 @@ public class AudioServiceInterface {
         if(isPlaying()){
             mService.play();
         } else {
-            mService.play();
+            play();
         }
     }
 

@@ -162,7 +162,7 @@ public class AudioService extends Service {
     }
 
     public void play() {
-        if (isPrepared) {
+        if (isPrepared) { // true 일때
             mMediaPlayer.start();
         }
     }

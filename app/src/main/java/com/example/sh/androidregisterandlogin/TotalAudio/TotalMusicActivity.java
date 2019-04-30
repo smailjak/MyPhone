@@ -19,12 +19,12 @@ import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.databinding.ActivityTotalMusicBinding;
@@ -54,12 +54,12 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         binding.totalMusicRcv.setLayoutManager(layoutManager);
         binding.btnPlayPause.setOnClickListener(this);
 
-        findViewById(R.id.lin_mini_player).setOnClickListener(this);
+        findViewById(R.id.img_mini_music).setOnClickListener(this);
         findViewById(R.id.btn_rewind).setOnClickListener(this);
         findViewById(R.id.btn_forward).setOnClickListener(this);
 
         musicSelectPlay();
-
+        updateUI();
     } // onCreate
 
     private void manifestPermissionCheck() {
@@ -79,9 +79,11 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void musicSelectPlay() {
+        Log.d("start123", "musicSelectPlay: 여기로 들어올려나 ??? ");
         Intent intent = getIntent();
 //       노래 제목없이 그냥 음악 실행할 경우
         int start = intent.getIntExtra("music_start", 0);
+        Log.d("start123", "musicSelectPlay: "+start);
         if (start == 1) {
             AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
         }
@@ -90,12 +92,11 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         Log.d("TotalMusicActivity.qwer", "music_title : " + music_title);
         String title = "노래";
         String title2 = "음악";
+        Log.d("start123", "musicSelectPlay: 설마 여기로도 들어오나 ?? ");
         if (title.equals(music_title) || title2.equals(music_title)) {
             AudioApplication.getInstance().getServiceInterface().voice_togglePlay();
         }
     }
-
-
 
     public void updateUI() {
         if (AudioApplication.getInstance().getServiceInterface().isPlaying()) {
@@ -110,8 +111,10 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
         if (audioItem != null) {
 //           null 이 아니라면
             Uri albumArtUri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), audioItem.mAlbumId);
+            RequestOptions circleOptions = new RequestOptions().circleCrop();
             Glide.with(this)
                     .load(albumArtUri)
+                    .apply(circleOptions)
                     .into(binding.imgMiniMusic);
             binding.txtTitle.setText(audioItem.mTitle);
         } else {
@@ -141,10 +144,8 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
                         MediaStore.Audio.Media.DURATION,
                         MediaStore.Audio.Media.DATA
                 };
-                Log.d("onCreateLoader.qwe", "MediaStore.Audio.Media.TITLE : " + MediaStore.Audio.Media.TITLE);
                 String selection = MediaStore.Audio.Media.IS_MUSIC + " = 1";
                 String sortOrder = MediaStore.Audio.Media.TITLE + " COLLATE LOCALIZED ASC";
-                Log.d("onCreateLoader.qwe", "sortOrder : " + sortOrder);
                 return new CursorLoader(getApplicationContext(), uri, projection, selection, null, sortOrder);
             }
 
@@ -166,8 +167,6 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
                                 AudioApplication.getInstance().getServiceInterface().play(musicSelectPosition); // 선택한 오디오재생
                                 updateUI();
                                 updatePlay();
-//                                updatePlay() 라는 함수를 불러오는 이유는 updateUI로 그려줄때 , updateUI 로는 재생과 일시정지 UI가 제대로 바껴지지않아서
-//                                updatePlay() 라는 함수를 만들어서 , 재생버튼이 바뀌도록 만들었습니다.
                             }
                         }
                     }
@@ -194,7 +193,8 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.lin_miniplayer:
+            case R.id.img_mini_music:
+                Log.d("img_mini_music", "onClick: 클릭되어지아 ??");
                 // 플레이어 화면으로 이동할 코드가 들어갈 예정
                 Intent intent = new Intent(TotalMusicActivity.this, MusicPlayer.class);
                 updateUI();

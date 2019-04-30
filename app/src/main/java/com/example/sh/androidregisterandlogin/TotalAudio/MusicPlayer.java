@@ -3,43 +3,42 @@ package com.example.sh.androidregisterandlogin.TotalAudio;
 import android.Manifest;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.databinding.ActivityMusicPlayerBinding;
 
 public class MusicPlayer extends AppCompatActivity implements View.OnClickListener {
 
+    private ActivityMusicPlayerBinding binding;
     private final static int LOADER_ID = 0x001;
     public static AudioAdapter mAdapter; // 질문 .
     public static Context music_Context;
-    private ImageButton mBtnPlayPause;
-
-    TextView music_title, music_subtitle;
-    ImageView img_albumart;
-    private ImageButton btn_play_pause, btn_forward, btn_rewind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music_player);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_music_player);
 
         music_Context = this;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -53,54 +52,41 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
         else {
             getAudioListFromMediaDatabase();
         }
-        mBtnPlayPause = (ImageButton) findViewById(R.id.btn_play_pause);
-
-        findViewById(R.id.lin_miniplayer).setOnClickListener(this);
-        mBtnPlayPause.setOnClickListener(this);
+        binding.btnPlayPause.setOnClickListener(this);
         findViewById(R.id.btn_rewind).setOnClickListener(this);
         findViewById(R.id.btn_forward).setOnClickListener(this);
-
         mAdapter = new AudioAdapter(this, null);
-        // 제목 과  sub 타이틀
-        music_title = findViewById(R.id.music_title);
-        music_subtitle = findViewById(R.id.music_subtitle);
-        // 플레이 사진
-        img_albumart = findViewById(R.id.img_albumart);
-        //플레이 리스트 이전 시작 다음곡
-        btn_play_pause = findViewById(R.id.btn_play_pause);
-        btn_forward = findViewById(R.id.btn_forward);
-        btn_rewind = findViewById(R.id.btn_rewind);
-
         updateUI();
     } // onCreate 끝나는 부분
 
     public void updateUI() {
         if (AudioApplication.getInstance().getServiceInterface().isPlaying()) {
 //            재생중이 아니라면 pause 라는 그림을 보여주게됩니다.
-            mBtnPlayPause.setImageResource(R.drawable.pause);
+            updatePlay();
+            binding.btnPlayPause.setImageResource(R.drawable.pause);
         } else {
 //            그게 아니라면 play 그림을 보여줍니다.
-            mBtnPlayPause.setImageResource(R.drawable.play);
+            binding.btnPlayPause.setImageResource(R.drawable.play);
         }
         AudioAdapter.AudioItem audioItem = AudioApplication.getInstance().getServiceInterface().getAudioItem();
+
         if (audioItem != null) {
             Uri albumArtUri = ContentUris.withAppendedId(Uri.parse("content://media/external/audio/albumart"), audioItem.mAlbumId);
-            Glide.with(this )
+            RequestOptions circleCrop = new RequestOptions().circleCrop();
+            Glide.with(this)
                     .load(albumArtUri)
-                    .into(img_albumart);
-            music_title.setText(audioItem.mTitle);
+                    .apply(RequestOptions.errorOf(R.drawable.music))
+                    .apply(circleCrop)
+                    .into(binding.imgAlbumart);
+            binding.musicTitle.setText(audioItem.mTitle);
         } else {
-            img_albumart.setImageResource(R.drawable.music);
-            music_title.setText("재생중인 음악이 없습니다.");
+            binding.imgAlbumart.setImageResource(R.drawable.music);
+            binding.musicTitle.setText("재생중인 음악이 없습니다.");
         }
     }
 
     public void updatePlay() {
-        mBtnPlayPause.setImageResource(R.drawable.pause);
-    }
-
-    public void updateForward() {
-        AudioApplication.getInstance().getServiceInterface().forward();
+        binding.btnPlayPause.setImageResource(R.drawable.pause);
     }
 
     private void getAudioListFromMediaDatabase() {
@@ -153,15 +139,12 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.lin_miniplayer:
-                // 플레이어 화면으로 이동할 코드가 들어갈 예정
-                break;
             case R.id.btn_rewind:
                 // 이전곡으로 이동
                 AudioApplication.getInstance().getServiceInterface().rewind();
                 Toast.makeText(MusicPlayer.this, "이전곡", Toast.LENGTH_SHORT).show();
                 updateUI();
-                mBtnPlayPause.setImageResource(R.drawable.pause);
+                binding.btnPlayPause.setImageResource(R.drawable.pause);
                 break;
             case R.id.btn_play_pause:
                 // 재생 또는 일시정지
@@ -173,8 +156,14 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
                 AudioApplication.getInstance().getServiceInterface().forward();
                 Toast.makeText(MusicPlayer.this, "다음곡", Toast.LENGTH_SHORT).show();
                 updateUI();
-                mBtnPlayPause.setImageResource(R.drawable.pause);
+                binding.btnPlayPause.setImageResource(R.drawable.pause);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MusicPlayer.this, TotalMusicActivity.class);
+        startActivity(intent);
     }
 }
