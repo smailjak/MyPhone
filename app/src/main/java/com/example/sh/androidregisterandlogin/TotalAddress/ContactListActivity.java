@@ -103,7 +103,7 @@ public class ContactListActivity extends Activity {
             Log.d("ContactListActivity.qwe", "address_count : " + address_count);
         } while (contactCursor.moveToNext());
         String address_sum = String.valueOf(address_count);
-        binding.addressSumNumber.setText(address_sum);
+        binding.tvAddressNumber.setText("연락처개수 : " + address_sum);
 
         Log.d("qwe", "contactlist : " + contactlist);
         return contactlist;

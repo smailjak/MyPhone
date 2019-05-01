@@ -1,91 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
 
     </data>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".TotalAudio.MusicPlayer">
-
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_bg_edge"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".TotalAudio.MusicPlayer">
 
         <TextView
             android:id="@+id/music_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/btn_bg_edge"
             android:ellipsize="end"
+            android:gravity="center"
             android:maxLines="1"
             android:text="TextView"
             android:textColor="@color/colorGrin"
             android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/img_albumart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/music_subtitle"
+        <ImageView
+            android:id="@+id/img_albumart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:visibility="gone" />
+            android:layout_height="0dp"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintTop_toBottomOf="@+id/music_title"
+            app:srcCompat="@drawable/music" />
 
-    </LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/player_constraint"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/btn_bg_edge"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_albumart">
+
+            <ImageButton
+                android:id="@+id/btn_rewind"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/wiget_previous"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintRight_toLeftOf="@id/btn_play_pause"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintWidth_percent="0.3" />
+
+            <ImageButton
+                android:id="@+id/btn_play_pause"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/play"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintLeft_toRightOf="@+id/btn_rewind"
+
+                app:layout_constraintRight_toLeftOf="@+id/btn_forward"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <ImageButton
+                android:id="@+id/btn_forward"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/wiget_next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintLeft_toRightOf="@+id/btn_play_pause"
+                app:layout_constraintWidth_percent="0.3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <ImageView
-        android:id="@+id/img_albumart"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/music" />
-
-    <LinearLayout
-        android:id="@+id/lin_miniplayer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@drawable/btn_bg_edge"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-
-        <ImageButton
-            android:id="@+id/btn_rewind"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/wiget_previous" />
-
-        <ImageButton
-            android:id="@+id/btn_play_pause"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/play" />
-
-        <ImageButton
-            android:id="@+id/btn_forward"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/wiget_next" />
-
-    </LinearLayout>
-</LinearLayout>
 </layout>

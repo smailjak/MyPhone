@@ -1,30 +1,25 @@
-package com.example.sh.androidregisterandlogin;
+package com.example.sh.androidregisterandlogin.TotalMemory;
 
 import android.app.ActivityManager;
 import android.os.Bundle;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import androidx.databinding.DataBindingUtil;
+
+import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.databinding.ActivityMemoryBinding;
 
 import java.text.NumberFormat;
 
 public class MemoryActivity extends AppCompatActivity {
 
-    TextView mTvTotalRam, mTvFreeRam, mTvUsedRam;
-    TextView mTvPercRam;
-    ProgressBar mPBRam;
+    private ActivityMemoryBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_memory);
-
-        mTvFreeRam = findViewById(R.id.freeRam);
-        mTvUsedRam = findViewById(R.id.usedRam);
-        mTvTotalRam = findViewById(R.id.totalRam);
-        mPBRam = findViewById(R.id.pbRam);
-        mTvPercRam = findViewById(R.id.tv_perc_ram);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_memory);
 
         initActionBar();
 
@@ -47,18 +42,13 @@ public class MemoryActivity extends AppCompatActivity {
         numFormUsedPerc.setMaximumFractionDigits(1);
         String mUsedMemPerc = numFormFreePerc.format(usedMemPerc);
 
-
 //        setting RAM info
-        mTvFreeRam.setText(" " + freeMem + "MB" + "(" + mFreeMemPerc + "%)");
-        mTvUsedRam.setText(" " + usedMem + "MB" + "(" + mUsedMemPerc + "%)");
-        mTvTotalRam.setText(" " + totalMem + "MB");
-
+        binding.tvFreeRam.setText("Free : "+ freeMem + "MB" + "(" + mFreeMemPerc + "%)");
+        binding.tvUsedRam.setText("Used : "+ usedMem + "MB" + "(" + mUsedMemPerc + "%)");
+        binding.tvTotalRam.setText("Total : "+ totalMem + "MB");
 //        getting Java Heap
-        Runtime rt = Runtime.getRuntime();
-
-
-        mTvPercRam.setText(mUsedMemPerc + "% Used");
-        mPBRam.setProgress((int) usedMemPerc);
+        binding.tvPercentRamNum.setText(mUsedMemPerc + "% Used");
+        binding.pb.setProgress((int) usedMemPerc);
 
     }
 

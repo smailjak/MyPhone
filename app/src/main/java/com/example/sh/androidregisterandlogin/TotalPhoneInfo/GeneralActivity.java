@@ -22,7 +22,7 @@ public class GeneralActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_general);
-        initRv(binding.generalRcv);
+        initRv(binding.rcvGeneral);
         initActionbar();
     }
 

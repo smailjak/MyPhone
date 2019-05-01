@@ -24,7 +24,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.sh.androidregisterandlogin.AdvertisingActivity;
-import com.example.sh.androidregisterandlogin.MemoryActivity;
+import com.example.sh.androidregisterandlogin.TotalMemory.MemoryActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalAddress.ContactListActivity;
 import com.example.sh.androidregisterandlogin.TotalApp.UserAppsActivity;

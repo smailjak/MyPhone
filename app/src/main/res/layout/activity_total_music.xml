@@ -1,91 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/music_number"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@drawable/btn_bg_edge"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:text="음악개수 : "
+            android:textColor="@color/colorGrin"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/total_music_rcv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/music_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="음악개수 : "
-                android:textColor="@color/colorGrin"
-                android:textSize="40dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/total_music_rcv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:scrollbars="vertical" />
+            app:layout_constraintBottom_toTopOf="@id/constraint_two"
+            app:layout_constraintHeight_percent="0.8" />
 
-        <LinearLayout
-            android:id="@+id/lin_mini_player"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_two"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintTop_toBottomOf="@id/total_music_rcv">
 
             <ImageView
                 android:id="@+id/img_mini_music"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_height="0dp"
                 android:layout_marginLeft="5dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/music" />
+                android:src="@drawable/music"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintRight_toLeftOf="@+id/txt_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/txt_title"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_marginLeft="5dp"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="Sample Title"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintWidth_percent="0.4"
+                app:layout_constraintLeft_toRightOf="@+id/img_mini_music"
+                app:layout_constraintRight_toLeftOf="@+id/btn_rewind"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/btn_rewind"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="0dp"
                 android:layout_margin="5dp"
                 android:background="?attr/selectableItemBackground"
-                android:src="@drawable/wiget_previous" />
+                android:src="@drawable/wiget_previous"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintLeft_toRightOf="@+id/txt_title"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
                 android:id="@+id/btn_play_pause"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="0dp"
                 android:layout_margin="5dp"
                 android:background="?attr/selectableItemBackground"
-                android:src="@drawable/play" />
+                android:src="@drawable/play"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintLeft_toRightOf="@+id/btn_rewind"
+                app:layout_constraintRight_toLeftOf="@+id/btn_forward" />
 
             <ImageButton
                 android:id="@+id/btn_forward"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="0dp"
                 android:layout_margin="5dp"
                 android:background="?attr/selectableItemBackground"
-                android:src="@drawable/wiget_next" />
+                android:src="@drawable/wiget_next"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_default="percent"
+                app:layout_constraintLeft_toRightOf="@+id/btn_play_pause"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
-    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

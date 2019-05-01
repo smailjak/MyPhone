@@ -41,8 +41,11 @@ public class FragmentTwo extends Fragment {
 
         ArrayList<RecyclerItem> arrayList = new ArrayList<>();
         arrayList.add(new RecyclerItem(R.drawable.app,"아이템1"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템2"));
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템3"));
+        arrayList.add(new RecyclerItem(R.drawable.battery,"아이템2"));
+        arrayList.add(new RecyclerItem(R.drawable.cho_fine_dust,"아이템3"));
+        arrayList.add(new RecyclerItem(R.drawable.music,"아이템4"));
+        arrayList.add(new RecyclerItem(R.drawable.ic_email,"아이템5"));
+        arrayList.add(new RecyclerItem(R.drawable.mainphoto,"아이템6"));
         ManageAdapter manageAdapter = new ManageAdapter(getContext(),arrayList);
         rcv = view.findViewById(R.id.fragment_two_rcv);
         rcv.setLayoutManager(new LinearLayoutManager(context));

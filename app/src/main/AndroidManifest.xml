@@ -48,7 +48,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
         <activity android:name=".TotalAudio.MusicPlayer" />
         <activity android:name=".AdvertisingActivity" />
         <activity android:name=".AndroidActivity" />
@@ -61,7 +60,7 @@
         <activity android:name=".TotalManage.ManageActivity" />
         <activity android:name=".TotalApp.UserAppsActivity" />
         <activity android:name=".TotalBattery.BatteryActivity" />
-        <activity android:name=".MemoryActivity" />
+        <activity android:name=".TotalMemory.MemoryActivity" />
         <activity android:name=".TotalPhoneInfo.GeneralActivity" />
 
     </application>

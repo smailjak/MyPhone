@@ -26,9 +26,9 @@ public class UserAppsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=DataBindingUtil.setContentView(this,R.layout.activity_user_apps);
 
-        initRv(binding.appsRv);
+        initRv(binding.rcvApps);
         String size = Integer.toString(getInstalledApps().size());
-        binding.appCount.setText("어플개수 : " + size);
+        binding.tvAppCount.setText("어플개수 : " + size);
 
     }
 

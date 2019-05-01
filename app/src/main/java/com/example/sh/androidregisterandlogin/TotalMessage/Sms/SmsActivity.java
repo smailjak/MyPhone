@@ -73,7 +73,7 @@ public class SmsActivity extends AppCompatActivity {
             tmpList = (ArrayList<HashMap<String, String>>) Function.readCachedFile(SmsActivity.this, "smsapp");
             Log.d("SmsActivity.qwe", "tmpList : " + tmpList.size());
             String sms_sum = String.valueOf(tmpList.size());
-            binding.messageSumTxt.setText(sms_sum);
+            binding.messageSumTxt.setText("메시지개수 : "+sms_sum);
             tmpadapter = new InboxAdapter(SmsActivity.this, tmpList);
             binding.listView.setAdapter(tmpadapter);
 

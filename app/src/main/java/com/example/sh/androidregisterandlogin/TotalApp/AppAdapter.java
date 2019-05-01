@@ -1,16 +1,23 @@
 package com.example.sh.androidregisterandlogin.TotalApp;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
+
 import java.util.List;
 
 public class AppAdapter extends BaseRecylcerViewAdapter<AppList, AppAdapter.ViewHolder> {
@@ -27,7 +34,12 @@ public class AppAdapter extends BaseRecylcerViewAdapter<AppList, AppAdapter.View
         viewHolder.nameInListView.setText(getItem(position).getName());
         viewHolder.packageInListView.setText(getItem(position).getPackages());
         viewHolder.versionInListView.setText(getItem(position).getVersion());
-        viewHolder.imageInListView.setImageDrawable(getItem(position).getIcon());
+//        viewHolder.imageInListView.setImageDrawable(getItem(position).getIcon());
+        RequestOptions circle = new RequestOptions().circleCrop();
+        Glide.with(context)
+                .load(getItem(position).getIcon())
+                .apply(circle)
+                .into(viewHolder.imageInListView);
 
     }
 
