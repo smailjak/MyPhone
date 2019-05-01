@@ -27,6 +27,12 @@ public class FragmentOne extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_one, container, false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         image_ai_btn = view.findViewById(R.id.image_ai_btn);
         music_ai_btn = view.findViewById(R.id.music_ai_btn);
@@ -45,7 +51,5 @@ public class FragmentOne extends Fragment {
                 Toast.makeText(getActivity(), "음악 버튼입니다.", Toast.LENGTH_SHORT).show();
             }
         });
-
-        return view;
     }
 }
