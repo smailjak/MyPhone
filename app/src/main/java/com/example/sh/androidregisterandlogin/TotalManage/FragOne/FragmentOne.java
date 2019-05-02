@@ -13,14 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jsoup.nodes.Element;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sh.androidregisterandlogin.R;
-import com.example.sh.androidregisterandlogin.TotalManage.FragTwo.ManageAdapter;
-import com.example.sh.androidregisterandlogin.TotalManage.ManageActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -35,7 +32,6 @@ public class FragmentOne extends Fragment {
     private final String WATING_GREETINGS = "please wating ~ ^ ^ ";
     private ArrayList<ItemObject> list = new ArrayList();
     RecyclerView recyclerView;
-    ManageActivity manageActivity;
     Context context;
 
     public FragmentOne() {
