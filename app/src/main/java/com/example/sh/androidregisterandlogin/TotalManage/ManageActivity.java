@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalManage.FragOne.FragmentOne;
+import com.example.sh.androidregisterandlogin.TotalManage.FragTwo.FragmentTwo;
 import com.example.sh.androidregisterandlogin.databinding.ActivityManageBinding;
 import com.google.android.material.tabs.TabLayout;
 
@@ -17,7 +19,6 @@ public class ManageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_manage);
-
 
         binding.tvMain.setOnClickListener(new View.OnClickListener() {
             @Override

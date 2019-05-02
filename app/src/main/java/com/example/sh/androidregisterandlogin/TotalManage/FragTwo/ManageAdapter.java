@@ -1,7 +1,6 @@
-package com.example.sh.androidregisterandlogin.TotalManage;
+package com.example.sh.androidregisterandlogin.TotalManage.FragTwo;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
@@ -48,14 +46,12 @@ public class ManageAdapter extends BaseRecylcerViewAdapter<RecyclerItem, ManageA
         return viewHolder;
     }
 
-
     @Override
     public void onBindView(ViewHolder viewHolder, int position) {
         viewHolder.titleTitle.setText(arrayList.get(position).getTextView());
         viewHolder.imageTitle.setImageResource((int) arrayList.get(position).getImageView());
 
     }
-
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTitle;
