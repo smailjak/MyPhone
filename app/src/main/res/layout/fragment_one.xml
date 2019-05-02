@@ -15,7 +15,7 @@
         app:cardCornerRadius="20dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv"
+            android:id="@+id/rcv_fragment_one"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

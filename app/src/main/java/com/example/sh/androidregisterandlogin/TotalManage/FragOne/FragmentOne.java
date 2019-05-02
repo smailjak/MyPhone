@@ -1,6 +1,7 @@
 package com.example.sh.androidregisterandlogin.TotalManage.FragOne;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -12,12 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jsoup.nodes.Element;
 
-import android.util.EventLogTags;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalManage.FragTwo.ManageAdapter;
 import com.example.sh.androidregisterandlogin.TotalManage.ManageActivity;
 
 import org.jsoup.Jsoup;
@@ -34,9 +36,9 @@ public class FragmentOne extends Fragment {
     private ArrayList<ItemObject> list = new ArrayList();
     RecyclerView recyclerView;
     ManageActivity manageActivity;
+    Context context;
 
     public FragmentOne() {
-
 
     }
 
@@ -44,63 +46,64 @@ public class FragmentOne extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_one, container, false);
-
-         class Description extends AsyncTask<Void, Void, Void> {
-
-            private ProgressDialog progressDialog;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                //진행다일로그 시작
-                progressDialog = new ProgressDialog(getContext());
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                progressDialog.setMessage(WATING_GREETINGS);
-                progressDialog.show();
-
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    Document doc = Jsoup.connect("https://www.uplussave.com/dev/lawList.mhp").get();
-                    Elements mElementDataSize = doc.select("tbody").select("tr");
-                    for (Element elem : mElementDataSize) {
-                        String myTitle = elem.select("tr p[class=phoneName]").text();
-                        String myImgUrl = elem.select("tr p[class=phoneImg] img").attr("src");
-                        String myGosi = "공시지원금 : " + elem.select("td span[class=point_color01]").text();
-                        String myBirthday = "공시일 :" + elem.select("td span[class=color_gy8]").text();
-                        String myModel_name = "모델명 : " + elem.select("td").next().first().text();
-                        String myShipment = "출고가 : " + elem.select("td").next().next().first().text();
-                        String mySellMoney = "판매가 : " + elem.select("td").next().next().next().next().first().text();
-
-                        list.add(new ItemObject(myTitle, myImgUrl, myGosi, myBirthday, myModel_name, myShipment, mySellMoney));
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-
-                MyAdapter myAdapter = new MyAdapter(list, manageActivity.getApplicationContext());
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(myAdapter);
-                progressDialog.dismiss();
-            }
-        }
-
-
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        new Description().execute();
 
+    }
+
+    class Description extends AsyncTask<Void, Void, Void> {
+
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //진행다일로그 시작
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(WATING_GREETINGS);
+            progressDialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                Document doc = Jsoup.connect("https://www.uplussave.com/dev/lawList.mhp").get();
+                Elements mElementDataSize = doc.select("tbody").select("tr");
+                for (Element elem : mElementDataSize) {
+                    String myTitle = elem.select("tr p[class=phoneName]").text();
+                    String myImgUrl = elem.select("tr p[class=phoneImg] img").attr("src");
+                    String myGosi = "공시지원금 : " + elem.select("td span[class=point_color01]").text();
+                    String myBirthday = "공시일 :" + elem.select("td span[class=color_gy8]").text();
+                    String myModel_name = "모델명 : " + elem.select("td").next().first().text();
+                    String myShipment = "출고가 : " + elem.select("td").next().next().first().text();
+                    String mySellMoney = "판매가 : " + elem.select("td").next().next().next().next().first().text();
+
+                    list.add(new ItemObject(myTitle, myImgUrl, myGosi, myBirthday, myModel_name, myShipment, mySellMoney));
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            MyAdapter myAdapter = new MyAdapter(list, view.getContext());
+            recyclerView = view.findViewById(R.id.rcv_fragment_one);
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setAdapter(myAdapter);
+            progressDialog.dismiss();
+
+        }
     }
 }
