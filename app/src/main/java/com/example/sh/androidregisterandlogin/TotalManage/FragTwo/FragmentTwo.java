@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.FragTwoDataItem;
 
 import java.util.ArrayList;
 
@@ -39,13 +40,13 @@ public class FragmentTwo extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayList<RecyclerItem> arrayList = new ArrayList<>();
-        arrayList.add(new RecyclerItem(R.drawable.app,"아이템1"));
-        arrayList.add(new RecyclerItem(R.drawable.battery,"아이템2"));
-        arrayList.add(new RecyclerItem(R.drawable.cho_fine_dust,"아이템3"));
-        arrayList.add(new RecyclerItem(R.drawable.music,"아이템4"));
-        arrayList.add(new RecyclerItem(R.drawable.ic_email,"아이템5"));
-        arrayList.add(new RecyclerItem(R.drawable.mainphoto,"아이템6"));
+        ArrayList<FragTwoDataItem> arrayList = new ArrayList<>();
+        arrayList.add(new FragTwoDataItem(R.drawable.app,"사진 분석"));
+        arrayList.add(new FragTwoDataItem(R.drawable.battery,"음악 분석"));
+        arrayList.add(new FragTwoDataItem(R.drawable.cho_fine_dust,"미세먼지"));
+        arrayList.add(new FragTwoDataItem(R.drawable.music,"아이템4"));
+        arrayList.add(new FragTwoDataItem(R.drawable.ic_email,"아이템5"));
+        arrayList.add(new FragTwoDataItem(R.drawable.mainphoto,"아이템6"));
         ManageAdapter manageAdapter = new ManageAdapter(getContext(),arrayList);
         rcv = view.findViewById(R.id.fragment_two_rcv);
         rcv.setLayoutManager(new LinearLayoutManager(context));

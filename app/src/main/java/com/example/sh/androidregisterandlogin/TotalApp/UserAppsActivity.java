@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.AppDataItem;
 import com.example.sh.androidregisterandlogin.databinding.ActivityUserAppsBinding;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class UserAppsActivity extends AppCompatActivity {
 
     private ActivityUserAppsBinding binding;
     List<PackageInfo> packs;
-    ArrayList<AppList> apps;
+    ArrayList<AppDataItem> apps;
     private AppAdapter adapter;
 
     @Override
@@ -88,7 +89,7 @@ public class UserAppsActivity extends AppCompatActivity {
 //    }
 
     //    get app information
-    private List<AppList> getInstalledApps() {
+    private List<AppDataItem> getInstalledApps() {
 
         apps = new ArrayList<>();
         packs = getPackageManager().getInstalledPackages(0);
@@ -102,7 +103,7 @@ public class UserAppsActivity extends AppCompatActivity {
                 String packages = p.applicationInfo.packageName;
                 String version = p.versionName;
 //                add data
-                apps.add(new AppList(appName, icon, packages, version));
+                apps.add(new AppDataItem(appName, icon, packages, version));
             }
         }
 

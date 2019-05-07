@@ -1,12 +1,12 @@
-package com.example.sh.androidregisterandlogin.TotalManage.FragTwo;
+package com.example.sh.androidregisterandlogin.TotalDataItem;
 
 
-public class RecyclerItem {
+public class FragTwoDataItem {
 
     private long imageView;
     private String textView;
 
-    public RecyclerItem(long imageView, String textView) {
+    public FragTwoDataItem(long imageView, String textView) {
         this.imageView = imageView;
         this.textView = textView;
     }

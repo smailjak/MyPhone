@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.PhotoFolderDataItem;
 import com.example.sh.androidregisterandlogin.databinding.ActivityTotalPhotoBinding;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 public class TotalPhotoActivity extends AppCompatActivity {
     Context mContext;
     private ActivityTotalPhotoBinding binding;
-    public ArrayList<Model_images> al_images = new ArrayList<>();
+    public ArrayList<PhotoFolderDataItem> al_images = new ArrayList<>();
     private static final int REQUEST_PERMISSIONS = 100;
     boolean boolean_folder;
     private PhotosFolderAdapter adapter;
@@ -71,7 +72,7 @@ public class TotalPhotoActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<Model_images> fn_imagespath() {
+    public ArrayList<PhotoFolderDataItem> fn_imagespath() {
         al_images.clear();
 
         int int_position = 0;
@@ -111,7 +112,7 @@ public class TotalPhotoActivity extends AppCompatActivity {
             } else {
                 ArrayList<String> al_path = new ArrayList<>();
                 al_path.add(absolutePathOfImage);
-                Model_images obj_model = new Model_images(cursor.getString(column_index_folder_name), al_path);
+                PhotoFolderDataItem obj_model = new PhotoFolderDataItem(cursor.getString(column_index_folder_name), al_path);
                 al_images.add(obj_model);
             }
         }

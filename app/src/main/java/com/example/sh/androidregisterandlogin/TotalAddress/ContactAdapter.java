@@ -14,13 +14,14 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.AddressDataItem;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 import java.util.ArrayList;
 
-public class ContactAdapter extends BaseRecylcerViewAdapter<Contact, ContactAdapter.ViewHolder> {
+public class ContactAdapter extends BaseRecylcerViewAdapter<AddressDataItem, ContactAdapter.ViewHolder> {
     Context context;
 
-    public ContactAdapter(ArrayList<Contact> dataSet, Context context) {
+    public ContactAdapter(ArrayList<AddressDataItem> dataSet, Context context) {
         super(dataSet);
         this.context = context;
     }
@@ -46,7 +47,7 @@ public class ContactAdapter extends BaseRecylcerViewAdapter<Contact, ContactAdap
         viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Contact phonenumber = getItem(viewHolder.getAdapterPosition());
+                AddressDataItem phonenumber = getItem(viewHolder.getAdapterPosition());
 
                 if (phonenumber == null) {
                     return;
@@ -58,7 +59,7 @@ public class ContactAdapter extends BaseRecylcerViewAdapter<Contact, ContactAdap
         return viewHolder;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder{ // RecyclerView 라는클래스 안에 ViewHolder를 상속받음
         ImageView ivPhoto;
         TextView tvName , tvPhoneNumber;
         ConstraintLayout constraintLayout;

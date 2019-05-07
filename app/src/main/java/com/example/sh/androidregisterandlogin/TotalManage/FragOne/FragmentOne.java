@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.FragOneDataItem;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -30,9 +31,10 @@ public class FragmentOne extends Fragment {
 
     View view;
     private final String WATING_GREETINGS = "please wating ~ ^ ^ ";
-    private ArrayList<ItemObject> list = new ArrayList();
+    private ArrayList<FragOneDataItem> list = new ArrayList();
     RecyclerView recyclerView;
     Context context;
+    ProgressDialog progressDialog;
 
     public FragmentOne() {
 
@@ -48,18 +50,14 @@ public class FragmentOne extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        new Description().execute();
-
+        new AsyncTaskTest().execute();
     }
 
-    class Description extends AsyncTask<Void, Void, Void> {
-
-        private ProgressDialog progressDialog;
+    class AsyncTaskTest extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //진행다일로그 시작
             progressDialog = new ProgressDialog(getContext());
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage(WATING_GREETINGS);
@@ -72,16 +70,18 @@ public class FragmentOne extends Fragment {
             try {
                 Document doc = Jsoup.connect("https://www.uplussave.com/dev/lawList.mhp").get();
                 Elements mElementDataSize = doc.select("tbody").select("tr");
+
                 for (Element elem : mElementDataSize) {
+                    String totalData = elem.select("td").text(); //
                     String myTitle = elem.select("tr p[class=phoneName]").text();
                     String myImgUrl = elem.select("tr p[class=phoneImg] img").attr("src");
-                    String myGosi = "공시지원금 : " + elem.select("td span[class=point_color01]").text();
+                    String myGosi = "공시지원금" + elem.select("td span[class=point_color01]").text();
                     String myBirthday = "공시일 :" + elem.select("td span[class=color_gy8]").text();
                     String myModel_name = "모델명 : " + elem.select("td").next().first().text();
                     String myShipment = "출고가 : " + elem.select("td").next().next().first().text();
                     String mySellMoney = "판매가 : " + elem.select("td").next().next().next().next().first().text();
 
-                    list.add(new ItemObject(myTitle, myImgUrl, myGosi, myBirthday, myModel_name, myShipment, mySellMoney));
+                    list.add(new FragOneDataItem(myTitle, myImgUrl, myGosi, myBirthday, myModel_name, myShipment, mySellMoney));
                 }
 
             } catch (IOException e) {

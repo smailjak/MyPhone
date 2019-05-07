@@ -11,15 +11,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.PhoneInfoDataItem;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
 import java.util.ArrayList;
 
-public class GeneralAdapter extends BaseRecylcerViewAdapter<GeneralItem, GeneralAdapter.ViewHolder> {
+public class GeneralAdapter extends BaseRecylcerViewAdapter<PhoneInfoDataItem, GeneralAdapter.ViewHolder> {
     Context context;
 
 
-    GeneralAdapter(ArrayList<GeneralItem> items, Context context) {
+    GeneralAdapter(ArrayList<PhoneInfoDataItem> items, Context context) {
         super(items);
         this.context = context;
     }

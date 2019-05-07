@@ -30,8 +30,8 @@ public class ManageActivity extends AppCompatActivity {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 //      Adding Fragments
-        adapter.AddFragment(new FragmentOne(), "one");
-        adapter.AddFragment(new FragmentTwo(), "두번째");
+        adapter.AddFragment(new FragmentOne(), "PhoneInfo");
+        adapter.AddFragment(new FragmentTwo(), "Artificial");
 //        adapter Setup
         binding.vp.setAdapter(adapter);
         binding.tl.setupWithViewPager(binding.vp);

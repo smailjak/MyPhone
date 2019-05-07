@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder;
+package com.example.sh.androidregisterandlogin.TotalDataItem;
 
 import java.util.ArrayList;
 
@@ -6,11 +6,11 @@ import java.util.ArrayList;
  * Created by deepshikha on 3/3/17.
  */
 
-public class Model_images {
+public class PhotoFolderDataItem {
     String str_folder;
     ArrayList<String> al_imagepath;
 
-    public Model_images(String str_folder, ArrayList<String> al_imagepath) {
+    public PhotoFolderDataItem(String str_folder, ArrayList<String> al_imagepath) {
         this.str_folder = str_folder;
         this.al_imagepath = al_imagepath;
     }

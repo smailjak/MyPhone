@@ -1,11 +1,11 @@
-package com.example.sh.androidregisterandlogin.TotalPhoneInfo;
+package com.example.sh.androidregisterandlogin.TotalDataItem;
 
-public class GeneralItem {
+public class PhoneInfoDataItem {
 
     String title;
     String content;
 
-    public GeneralItem(String title, String content) {
+    public PhoneInfoDataItem(String title, String content) {
         this.title = title;
         this.content = content;
     }

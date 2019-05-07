@@ -12,19 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.FragOneDataItem;
 
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private ArrayList<ItemObject> mList;
+    private ArrayList<FragOneDataItem> mList;
     Context context;
 
-    public MyAdapter(ArrayList<ItemObject> list, Context context) {
+    public MyAdapter(ArrayList<FragOneDataItem> list, Context context) {
         this.mList = list;
         this.context = context;
     }
 
+    //
     @Override
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_data, parent, false);
@@ -34,9 +36,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(MyAdapter.ViewHolder holder, int position) {
 
-        holder.textView_title.setText(String.valueOf(mList.get(position).getTitle()));
+        holder.tvPhoneName.setText(String.valueOf(mList.get(position).getTitle()));
         holder.tvSupportMoney.setText(String.valueOf(mList.get(position).getRelease()));
-        holder.tvBirth.setText(String.valueOf(mList.get(position).getDirector()));
+        holder.tvGosiDate.setText(String.valueOf(mList.get(position).getDirector()));
         holder.tvMyModelName.setText(String.valueOf(mList.get(position).getSell_money()));
         holder.tvMyModelShipment.setText(String.valueOf(mList.get(position).getMy_shipment()));
         holder.tvMySellMoney.setText(String.valueOf(mList.get(position).getMy_sell_money()));
@@ -47,18 +49,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivImagePhone;
-        private TextView textView_title, tvSupportMoney, tvBirth, tvMyModelName, tvMyModelShipment, tvMySellMoney;
+        private TextView tvPhoneName, tvSupportMoney, tvGosiDate, tvMyModelName, tvMyModelShipment, tvMySellMoney;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             ivImagePhone = itemView.findViewById(R.id.iv_image_phone);
-            textView_title = itemView.findViewById(R.id.tv_title);
+            tvPhoneName = itemView.findViewById(R.id.tv_phone_name);
             tvSupportMoney = itemView.findViewById(R.id.tv_support_money);
-            tvBirth = itemView.findViewById(R.id.tv_birth);
+            tvGosiDate = itemView.findViewById(R.id.tv_gosi_date);
             tvMyModelShipment = itemView.findViewById(R.id.tv_my_model_shipment);
             tvMySellMoney = itemView.findViewById(R.id.tv_my_sell_money);
             tvMyModelName = itemView.findViewById(R.id.tv_my_model_name);
+
         }
     }
 

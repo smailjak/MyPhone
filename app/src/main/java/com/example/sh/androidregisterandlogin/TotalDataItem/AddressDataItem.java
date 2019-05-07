@@ -1,6 +1,6 @@
-package com.example.sh.androidregisterandlogin.TotalAddress;
+package com.example.sh.androidregisterandlogin.TotalDataItem;
 
-public class Contact {
+public class AddressDataItem {
     long photoid;
     String phonenum;
     String name;

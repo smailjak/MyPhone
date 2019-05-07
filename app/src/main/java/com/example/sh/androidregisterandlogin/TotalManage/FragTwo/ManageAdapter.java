@@ -13,18 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.FragTwoDataItem;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
 import java.util.ArrayList;
 
-public class ManageAdapter extends BaseRecylcerViewAdapter<RecyclerItem, ManageAdapter.ViewHolder>  {
+public class ManageAdapter extends BaseRecylcerViewAdapter<FragTwoDataItem, ManageAdapter.ViewHolder> {
 
-    private ArrayList<RecyclerItem> arrayList;
+    private ArrayList<FragTwoDataItem> arrayList;
     View view;
     Context context;
+    FragTwoDataItem fragTwoDataItem;
 
     //여기서 context 를 변수선언
-    public ManageAdapter(Context context, ArrayList<RecyclerItem> dataSet) {
+    public ManageAdapter(Context context, ArrayList<FragTwoDataItem> dataSet) {
         super(dataSet);
         this.arrayList = dataSet;
         this.context = context;
@@ -38,9 +40,24 @@ public class ManageAdapter extends BaseRecylcerViewAdapter<RecyclerItem, ManageA
 
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                RecyclerItem recyclerItem = getItem(viewHolder.getAdapterPosition());
-                Toast.makeText(context, recyclerItem.getTextView()+"입니다.", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                fragTwoDataItem = getItem(viewHolder.getAdapterPosition());
+                Toast.makeText(context, fragTwoDataItem.getTextView() + "입니다.", Toast.LENGTH_SHORT).show();
+
+                if (viewHolder.getAdapterPosition() == 0) {
+                    Toast.makeText(context, "index 0번입니다.", Toast.LENGTH_SHORT).show();
+                } else if (viewHolder.getAdapterPosition() == 1) {
+                    Toast.makeText(context, "index 1번입니다.", Toast.LENGTH_SHORT).show();
+                } else if (viewHolder.getAdapterPosition() == 2) {
+                    Toast.makeText(context, "index 2번입니다.", Toast.LENGTH_SHORT).show();
+                } else if (viewHolder.getAdapterPosition() == 3) {
+                    Toast.makeText(context, "index 3번입니다.", Toast.LENGTH_SHORT).show();
+                } else if (viewHolder.getAdapterPosition() == 4) {
+                    Toast.makeText(context, "index 4번입니다.", Toast.LENGTH_SHORT).show();
+                } else if (viewHolder.getAdapterPosition() == 5) {
+                    Toast.makeText(context, "index 5번입니다.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         return viewHolder;

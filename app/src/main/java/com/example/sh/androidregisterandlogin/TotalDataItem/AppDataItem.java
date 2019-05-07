@@ -1,16 +1,16 @@
-package com.example.sh.androidregisterandlogin.TotalApp;
+package com.example.sh.androidregisterandlogin.TotalDataItem;
 
 import android.graphics.drawable.Drawable;
 
 //    creating AppLIst class
-public class AppList {
+public class AppDataItem {
     String name; //name of app
     Drawable icon; // icon of app
     String packages; // package of app
     String version; //version of app
 
     //    constructure
-    AppList(String name, Drawable icon, String packages, String version) {
+    public AppDataItem(String name, Drawable icon, String packages, String version) {
         this.name = name;
         this.icon = icon;
         this.packages = packages;

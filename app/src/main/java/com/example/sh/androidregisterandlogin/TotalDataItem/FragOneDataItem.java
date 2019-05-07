@@ -1,6 +1,6 @@
-package com.example.sh.androidregisterandlogin.TotalManage.FragOne;
+package com.example.sh.androidregisterandlogin.TotalDataItem;
 
-public class ItemObject {
+public class FragOneDataItem {
     private String title;
     private String img_url;
     private String my_gosi;
@@ -9,7 +9,7 @@ public class ItemObject {
     private String my_shipment;
     private String my_sell_money;
 
-    public ItemObject(String title ,String url , String my_gosi ,String my_birthday ,String sell_money , String my_shipment , String my_sell_money){
+    public FragOneDataItem(String title , String url , String my_gosi , String my_birthday , String sell_money , String my_shipment , String my_sell_money){
         this.title = title;
         this.img_url = url;
         this.my_gosi = my_gosi;

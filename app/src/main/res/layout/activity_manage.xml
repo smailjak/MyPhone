@@ -23,7 +23,7 @@
             android:layout_height="0dp"
             android:background="@drawable/btn_bg_edge"
             android:gravity="center"
-            android:text="메인"
+            android:text="main"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/gdh_100"
@@ -40,7 +40,7 @@
             android:layout_height="0dp"
             android:background="@drawable/btn_bg_edge"
             android:gravity="center"
-            android:text="인공지능"
+            android:text="A.I"
             android:textColor="@color/colorGrin"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -55,18 +55,18 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:src="@drawable/default_pic"
-            app:layout_constraintBottom_toTopOf="@id/gdh_400"
+            android:src="@drawable/phone"
+            app:layout_constraintBottom_toTopOf="@id/gdh_300"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/gdh_100" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gdh_400"
+            android:id="@+id/gdh_300"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4" />
+            app:layout_constraintGuide_percent="0.3" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl"
@@ -76,7 +76,7 @@
             app:layout_constraintBottom_toTopOf="@id/vp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gdh_400" />
+            app:layout_constraintTop_toBottomOf="@id/gdh_300" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp"

@@ -9,20 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.PhotoFolderDataItem;
 import com.example.sh.androidregisterandlogin.TotalPhoto.DetailFile.PhotosActivity;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
 import java.util.ArrayList;
 
-public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, PhotosFolderAdapter.ViewHolder> {
+public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<PhotoFolderDataItem, PhotosFolderAdapter.ViewHolder> {
     Context context;
 
-    public PhotosFolderAdapter(ArrayList<Model_images> al_menu, Context context) {
+    public PhotosFolderAdapter(ArrayList<PhotoFolderDataItem> al_menu, Context context) {
         super(al_menu);
         this.context = context;
     }
