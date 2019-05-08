@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/ll_main"
-    android:background="@drawable/btn_bg_edge"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="@drawable/btn_bg_edge">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!--Icon of the app-->
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/photo_manage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="App Name"
+        android:textSize="15dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.5"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/app_package"
+        app:layout_constraintStart_toEndOf="@+id/app_icon"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!--Icon of the app-->
-        <ImageView
-            android:id="@+id/app_icon"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:src="@drawable/photo_manage" />
+    <TextView
+        android:id="@+id/app_package"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="App Package Name"
+        app:layout_constraintBottom_toTopOf="@+id/app_version"
+        app:layout_constraintStart_toStartOf="@+id/app_name"
+        app:layout_constraintTop_toBottomOf="@+id/app_name" />
+    <!--App version e.g 1.0-->
+    <TextView
+        android:id="@+id/app_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1.0.1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/app_name"
+        app:layout_constraintTop_toBottomOf="@+id/app_package" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginLeft="3dp"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:id="@+id/app_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="App Name"
-                android:textSize="15dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/app_package"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="App Package Name" />
-            <!--App version e.g 1.0-->
-            <TextView
-                android:id="@+id/app_version"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1.0.1" />
-        </LinearLayout>
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
