@@ -19,10 +19,10 @@ public class AndroidActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_android);
 
 
-        WebSettings webSettings = binding.webview.getSettings();
+        WebSettings webSettings = binding.webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        binding.webview.setWebViewClient(new WebViewClient() {
+        binding.webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -30,6 +30,6 @@ public class AndroidActivity extends AppCompatActivity {
             }
         });
 
-        binding.webview.loadUrl("https://developer.android.com/?hl=ko");
+        binding.webView.loadUrl("https://developer.android.com/?hl=ko");
     }
 }

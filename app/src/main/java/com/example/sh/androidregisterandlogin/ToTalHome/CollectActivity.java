@@ -6,25 +6,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.sh.androidregisterandlogin.AdvertisingActivity;
-import com.example.sh.androidregisterandlogin.MemoryActivity;
+import com.example.sh.androidregisterandlogin.TotalMemory.MemoryActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalAddress.ContactListActivity;
 import com.example.sh.androidregisterandlogin.TotalApp.UserAppsActivity;
@@ -234,7 +238,6 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
                     String message = "메세지", message2 = "문자", message3 = "메시지";
                     String address = "연락처";
                     /////////////////////////
-
                     String result1 = voice_result.trim().replaceAll(" ", "");
 
                     if (result1.replaceAll(" ", "").contains(text1) || result1.contains(test2)) {

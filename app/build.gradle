@@ -56,6 +56,9 @@ dependencies {
     //Play Services
     implementation 'com.google.android.gms:play-services-location:16.0.0'
 
+//    jsoup
+    implementation 'org.jsoup:jsoup:1.11.3'
+
     //Speechrecognition
     implementation 'com.google.android.material:material:1.1.0-alpha05'
     implementation 'com.google.code.gson:gson:2.8.2'
@@ -64,4 +67,6 @@ dependencies {
     implementation 'commons-io:commons-io:2.4'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     implementation 'com.lifeofcoding:cacheutilslibrary:1.1.0@aar'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
 }

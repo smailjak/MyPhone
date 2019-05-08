@@ -4,37 +4,38 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.AddressDataItem;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 import java.util.ArrayList;
 
-public class ContactAdapter extends BaseRecylcerViewAdapter<Contact, ContactAdapter.ViewHolder> {
+public class ContactAdapter extends BaseRecylcerViewAdapter<AddressDataItem, ContactAdapter.ViewHolder> {
     Context context;
 
-    public ContactAdapter(ArrayList<Contact> dataSet, Context context) {
+    public ContactAdapter(ArrayList<AddressDataItem> dataSet, Context context) {
         super(dataSet);
         this.context = context;
     }
 
     @Override
     public void onBindView(ViewHolder viewHolder, int position) {
-        viewHolder.tv_name.setText(getItem(position).getName());
-        viewHolder.tv_phoneNumber.setText(getItem(position).getPhonenum());
+        viewHolder.tvName.setText(getItem(position).getName());
+        viewHolder.tvPhoneNumber.setText(getItem(position).getPhonenum());
 
         String firstLetter = String.valueOf(getItem(position).getName().charAt(0));
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(getItem(position));
         TextDrawable drawable = TextDrawable.builder().buildRound(firstLetter, color);
-        viewHolder.iv_photo.setImageDrawable(drawable);
+        viewHolder.ivPhoto.setImageDrawable(drawable);
     }
 
     @NonNull
@@ -43,10 +44,10 @@ public class ContactAdapter extends BaseRecylcerViewAdapter<Contact, ContactAdap
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_phonelist,parent,false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
-        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Contact phonenumber = getItem(viewHolder.getAdapterPosition());
+                AddressDataItem phonenumber = getItem(viewHolder.getAdapterPosition());
 
                 if (phonenumber == null) {
                     return;
@@ -58,18 +59,17 @@ public class ContactAdapter extends BaseRecylcerViewAdapter<Contact, ContactAdap
         return viewHolder;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView iv_photo;
-        TextView tv_name , tv_phoneNumber;
-        LinearLayout linearLayout;
-
+    static class ViewHolder extends RecyclerView.ViewHolder{ // RecyclerView 라는클래스 안에 ViewHolder를 상속받음
+        ImageView ivPhoto;
+        TextView tvName , tvPhoneNumber;
+        ConstraintLayout constraintLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv_photo = itemView.findViewById(R.id.iv_photo);
-            tv_name = itemView.findViewById(R.id.tv_name);
-            tv_phoneNumber = itemView.findViewById(R.id.tv_phoneNumber);
-            linearLayout = itemView.findViewById(R.id.ll_main);
+            ivPhoto = itemView.findViewById(R.id.iv_photo);
+            tvName = itemView.findViewById(R.id.tv_name);
+            tvPhoneNumber = itemView.findViewById(R.id.tv_phoneNumber);
+            constraintLayout = itemView.findViewById(R.id.constraint_main);
         }
     }
 }

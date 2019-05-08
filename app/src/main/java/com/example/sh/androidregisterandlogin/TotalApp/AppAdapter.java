@@ -1,23 +1,30 @@
 package com.example.sh.androidregisterandlogin.TotalApp;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.AppDataItem;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
+
 import java.util.List;
 
-public class AppAdapter extends BaseRecylcerViewAdapter<AppList, AppAdapter.ViewHolder> {
+public class AppAdapter extends BaseRecylcerViewAdapter<AppDataItem, AppAdapter.ViewHolder> {
 
     Context context;
 
-    public AppAdapter(List<AppList> customizedListView, Context context) {
+    public AppAdapter(List<AppDataItem> customizedListView, Context context) {
         super(customizedListView);
         this.context = context;
     }
@@ -27,7 +34,12 @@ public class AppAdapter extends BaseRecylcerViewAdapter<AppList, AppAdapter.View
         viewHolder.nameInListView.setText(getItem(position).getName());
         viewHolder.packageInListView.setText(getItem(position).getPackages());
         viewHolder.versionInListView.setText(getItem(position).getVersion());
-        viewHolder.imageInListView.setImageDrawable(getItem(position).getIcon());
+//        viewHolder.imageInListView.setImageDrawable(getItem(position).getIcon());
+        RequestOptions circle = new RequestOptions().circleCrop();
+        Glide.with(context)
+                .load(getItem(position).getIcon())
+                .apply(circle)
+                .into(viewHolder.imageInListView);
 
     }
 
@@ -40,9 +52,9 @@ public class AppAdapter extends BaseRecylcerViewAdapter<AppList, AppAdapter.View
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppList appList = getItem(viewHolder.getAdapterPosition());
+                AppDataItem appDataItem = getItem(viewHolder.getAdapterPosition());
 
-                if (appList == null) {
+                if (appDataItem == null) {
                     return;
                 }
             }

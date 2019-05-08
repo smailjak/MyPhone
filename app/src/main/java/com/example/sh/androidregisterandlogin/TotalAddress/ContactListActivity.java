@@ -17,6 +17,7 @@ import android.util.Log;
 
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
+import com.example.sh.androidregisterandlogin.TotalDataItem.AddressDataItem;
 import com.example.sh.androidregisterandlogin.databinding.ActivityContactlistBinding;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class ContactListActivity extends Activity {
      *
      * @return
      */
-    private ArrayList<Contact> getContactList() {
+    private ArrayList<AddressDataItem> getContactList() {
 
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 
@@ -75,7 +76,7 @@ public class ContactListActivity extends Activity {
         Cursor contactCursor = managedQuery(uri, projection, null,
                 selectionArgs, sortOrder);
 
-        ArrayList<Contact> contactlist = new ArrayList<Contact>();
+        ArrayList<AddressDataItem> contactlist = new ArrayList<AddressDataItem>();
 
 
         contactCursor.moveToFirst();
@@ -94,7 +95,7 @@ public class ContactListActivity extends Activity {
                         + phonenumber.substring(7);
             }
 
-            Contact acontact = new Contact();
+            AddressDataItem acontact = new AddressDataItem();
             acontact.setPhotoid(contactCursor.getLong(0));
             acontact.setPhonenum(phonenumber);
             acontact.setName(contactCursor.getString(2));
@@ -103,7 +104,7 @@ public class ContactListActivity extends Activity {
             Log.d("ContactListActivity.qwe", "address_count : " + address_count);
         } while (contactCursor.moveToNext());
         String address_sum = String.valueOf(address_count);
-        binding.addressSumNumber.setText(address_sum);
+        binding.tvAddressNumber.setText("연락처개수 : " + address_sum);
 
         Log.d("qwe", "contactlist : " + contactlist);
         return contactlist;

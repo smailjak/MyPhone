@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.PhoneInfoDataItem;
 import com.example.sh.androidregisterandlogin.databinding.ActivityGeneralBinding;
 
 import java.util.ArrayList;
@@ -16,13 +17,13 @@ public class GeneralActivity extends AppCompatActivity {
 
     private ActivityGeneralBinding binding;
     GeneralAdapter generalAdapter;
-    ArrayList<GeneralItem> generalList;
+    ArrayList<PhoneInfoDataItem> generalList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_general);
-        initRv(binding.generalRcv);
+        initRv(binding.rcvGeneral);
         initActionbar();
     }
 
@@ -34,14 +35,14 @@ public class GeneralActivity extends AppCompatActivity {
         rv.setHasFixedSize(true);
     }
 
-    private ArrayList<GeneralItem> getGeneralItem() {
+    private ArrayList<PhoneInfoDataItem> getGeneralItem() {
 
         generalList = new ArrayList<>();
         String titles[] = {"폰이름", "제조사", "기계", "Board", "하드웨어", "브랜드"};
         String descriptions[] = {Build.MODEL, Build.MANUFACTURER, Build.DEVICE, Build.BOARD, Build.HARDWARE, Build.BRAND};
 
         for (int i = 0; i < titles.length; i++) {
-            generalList.add(new GeneralItem(titles[i], descriptions[i]));
+            generalList.add(new PhoneInfoDataItem(titles[i], descriptions[i]));
         }
         return generalList;
     }

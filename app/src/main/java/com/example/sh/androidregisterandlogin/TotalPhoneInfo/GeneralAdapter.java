@@ -1,38 +1,41 @@
 package com.example.sh.androidregisterandlogin.TotalPhoneInfo;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.PhoneInfoDataItem;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
 import java.util.ArrayList;
 
-public class GeneralAdapter extends BaseRecylcerViewAdapter<GeneralItem, GeneralAdapter.ViewHolder> {
+public class GeneralAdapter extends BaseRecylcerViewAdapter<PhoneInfoDataItem, GeneralAdapter.ViewHolder> {
     Context context;
 
 
-    GeneralAdapter(ArrayList<GeneralItem> items, Context context) {
+    GeneralAdapter(ArrayList<PhoneInfoDataItem> items, Context context) {
         super(items);
         this.context = context;
     }
 
     @Override
     public void onBindView(ViewHolder viewHolder, int position) {
-        viewHolder.titleTv.setText(getItem(position).getTitle());
-        viewHolder.descTv.setText(getItem(position).getContent());
+        viewHolder.tvTitle.setText(getItem(position).getTitle());
+        viewHolder.tvDesc.setText(getItem(position).getContent());
 
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.tworow,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.tworow, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
 
@@ -40,12 +43,12 @@ public class GeneralAdapter extends BaseRecylcerViewAdapter<GeneralItem, General
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView titleTv, descTv;
+        TextView tvTitle, tvDesc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTv = itemView.findViewById(R.id.title_tv);
-            descTv = itemView.findViewById(R.id.desc_tv);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvDesc = itemView.findViewById(R.id.tv_desc);
         }
     }
 }

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textSize="12dp"
             android:textColor="#777777"
-            android:textStyle="italic"
+            android:textStyle="bold"
             android:padding="5dp"/>
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:textSize="10dp"
             android:textColor="#999999"
-            android:textStyle="italic"
+            android:textStyle="bold"
             android:padding="5dp"/>
 
     </LinearLayout>

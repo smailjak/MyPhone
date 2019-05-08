@@ -5,26 +5,35 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.net.Uri;
 import android.provider.MediaStore;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.widget.Toast;
+
 import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.PhotoFolderDataItem;
 import com.example.sh.androidregisterandlogin.databinding.ActivityTotalPhotoBinding;
+
 import java.util.ArrayList;
 
 public class TotalPhotoActivity extends AppCompatActivity {
     Context mContext;
     private ActivityTotalPhotoBinding binding;
-    public ArrayList<Model_images> al_images = new ArrayList<>();
+    public ArrayList<PhotoFolderDataItem> al_images = new ArrayList<>();
     private static final int REQUEST_PERMISSIONS = 100;
     boolean boolean_folder;
     private PhotosFolderAdapter adapter;
@@ -35,14 +44,14 @@ public class TotalPhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_total_photo);
         permissionCheck();
-        initRv(binding.totalPhotoRcv);
+        initRv(binding.rcvTotalPhoto);
     }
 
     private void initRv(RecyclerView rv) {
-        adapter = new PhotosFolderAdapter(fn_imagespath(),this);
+        adapter = new PhotosFolderAdapter(fn_imagespath(), this);
         rv.setAdapter(adapter);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         rv.setLayoutManager(gridLayoutManager);
         rv.setHasFixedSize(true);
     }
@@ -63,7 +72,7 @@ public class TotalPhotoActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<Model_images> fn_imagespath() {
+    public ArrayList<PhotoFolderDataItem> fn_imagespath() {
         al_images.clear();
 
         int int_position = 0;
@@ -103,7 +112,7 @@ public class TotalPhotoActivity extends AppCompatActivity {
             } else {
                 ArrayList<String> al_path = new ArrayList<>();
                 al_path.add(absolutePathOfImage);
-                Model_images obj_model = new Model_images(cursor.getString(column_index_folder_name),al_path);
+                PhotoFolderDataItem obj_model = new PhotoFolderDataItem(cursor.getString(column_index_folder_name), al_path);
                 al_images.add(obj_model);
             }
         }
@@ -115,7 +124,7 @@ public class TotalPhotoActivity extends AppCompatActivity {
             }
         }
         Log.e("#$Total", "10");
-        binding.totalPhotoNumber.setText(Integer.toString(imageCount));
+        binding.totalPhotoNumber.setText("사진개수 : " + imageCount);
         return al_images;
     }
 

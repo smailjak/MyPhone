@@ -1,38 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-
     </data>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".TotalApp.UserAppsActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".TotalApp.UserAppsActivity">
 
-    <!--TextView to show totall no of installed apps-->
         <TextView
-            android:id="@+id/app_count"
+            android:id="@+id/tv_app_count"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_height="0dp"
             android:background="@drawable/btn_bg_edge"
+            android:gravity="center"
             android:text="count"
             android:textColor="@color/colorGrin"
             android:textSize="40dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/rcv_apps"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <!--ListView to show list of installed apps-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_apps"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_app_count" />
 
-
-   <androidx.recyclerview.widget.RecyclerView
-       android:id="@+id/apps_rv"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-
-   </androidx.recyclerview.widget.RecyclerView>
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -43,17 +43,17 @@ class InboxAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        InboxViewHolder holder ;
+        InboxViewHolder holder;
         if (convertView == null) {
 
             holder = new InboxViewHolder();
             convertView = LayoutInflater.from(activity).inflate(
                     R.layout.conversation_list_item, parent, false);
 
-            holder.inbox_thumb = (ImageView) convertView.findViewById(R.id.inbox_thumb);
-            holder.inbox_user = (TextView) convertView.findViewById(R.id.inbox_user);
-            holder.inbox_msg = (TextView) convertView.findViewById(R.id.inbox_msg);
-            holder.inbox_date = (TextView) convertView.findViewById(R.id.inbox_date);
+            holder.inbox_thumb = convertView.findViewById(R.id.img_inbox_thumb);
+            holder.inbox_user = convertView.findViewById(R.id.tv_inbox_user);
+            holder.inbox_msg = convertView.findViewById(R.id.tv_inbox_msg);
+            holder.inbox_date = convertView.findViewById(R.id.tv_inbox_date);
             convertView.setTag(holder);
 
         } else {
@@ -65,7 +65,7 @@ class InboxAdapter extends BaseAdapter {
         holder.inbox_msg.setId(position);
         holder.inbox_date.setId(position);
 
-        HashMap<String, String> song ;
+        HashMap<String, String> song;
         song = data.get(position);
 
         try {
@@ -83,4 +83,10 @@ class InboxAdapter extends BaseAdapter {
         }
         return convertView;
     }
+
+    class InboxViewHolder {
+        ImageView inbox_thumb;
+        TextView inbox_user, inbox_msg, inbox_date;
+    }
+
 }

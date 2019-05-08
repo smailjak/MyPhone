@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp">
+
+    <TextView
+        android:id="@+id/tv_phone_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autoSizeMinTextSize="10sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingRight="8dp"
+        android:text="폰이름"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="@+id/iv_image_phone"
+        app:layout_constraintStart_toStartOf="@+id/iv_image_phone"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_image_phone"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone_name"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_support_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="3dp"
+        android:ellipsize="end"
+        android:text="공시지원금"
+        android:textColor="#EE6C6C"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_my_model_name"
+        app:layout_constraintStart_toEndOf="@+id/iv_image_phone"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_my_model_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:text="모델명"
+        app:layout_constraintStart_toEndOf="@+id/iv_image_phone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_support_money" />
+
+    <TextView
+        android:id="@+id/tv_my_model_shipment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:text="출고가"
+        app:layout_constraintStart_toEndOf="@+id/iv_image_phone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_my_model_name" />
+
+    <TextView
+        android:id="@+id/tv_my_sell_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:text="판매가"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/iv_image_phone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_my_model_shipment" />
+
+    <TextView
+        android:id="@+id/tv_gosi_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:text="공시일"
+        app:layout_constraintStart_toEndOf="@+id/iv_image_phone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_my_sell_money" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

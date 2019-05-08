@@ -3,25 +3,26 @@ package com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder;
 import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalDataItem.PhotoFolderDataItem;
 import com.example.sh.androidregisterandlogin.TotalPhoto.DetailFile.PhotosActivity;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
 import java.util.ArrayList;
 
-public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, PhotosFolderAdapter.ViewHolder> {
+public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<PhotoFolderDataItem, PhotosFolderAdapter.ViewHolder> {
     Context context;
 
-    public PhotosFolderAdapter(ArrayList<Model_images> al_menu, Context context) {
+    public PhotosFolderAdapter(ArrayList<PhotoFolderDataItem> al_menu, Context context) {
         super(al_menu);
         this.context = context;
     }
@@ -32,7 +33,7 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_photosfolder, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
-        viewHolder.llAdapterPhoto.setOnClickListener(new View.OnClickListener() {
+        viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PhotosActivity.class);
@@ -48,7 +49,6 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
 
 
         viewHolder.tvFolderName.setText(getItem(position).getStr_folder());
-        String Str = viewHolder.tvFolderName.getText().toString();
         viewHolder.tvFolderCount.setText(Integer.toString(getItem(position).getAl_imagepath().size()));
         RequestOptions circleOptions = new RequestOptions().circleCrop();
         Glide.with(context).load("file://" + getItem(position)
@@ -59,7 +59,7 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvFolderName, tvFolderCount;
-        LinearLayout llAdapterPhoto;
+        ConstraintLayout constraintLayout;
         ImageView ivImage;
 
         public ViewHolder(@NonNull View itemView) {
@@ -67,7 +67,7 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<Model_images, P
             tvFolderName = itemView.findViewById(R.id.tv_folder_name);
             tvFolderCount = itemView.findViewById(R.id.tv_folder_count);
             ivImage = itemView.findViewById(R.id.iv_image);
-            llAdapterPhoto = itemView.findViewById(R.id.adapter_photo_layout);
+            constraintLayout = itemView.findViewById(R.id.adapter_photo_layout);
         }
     }
 }

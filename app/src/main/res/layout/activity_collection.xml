@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,7 +34,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_bg_edge"
                     android:gravity="center"
-                    android:text="메인"
+                    android:text="Main"
                     android:textColor="@color/colorGrin"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -47,7 +47,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_bg_edge"
                     android:gravity="center"
-                    android:text="인공지능"
+                    android:text="A.i"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -131,7 +131,6 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
