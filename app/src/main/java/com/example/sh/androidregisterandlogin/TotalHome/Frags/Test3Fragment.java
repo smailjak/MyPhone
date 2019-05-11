@@ -1,6 +1,5 @@
-package com.example.sh.androidregisterandlogin.ToTalHome.Frags;
+package com.example.sh.androidregisterandlogin.TotalHome.Frags;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
