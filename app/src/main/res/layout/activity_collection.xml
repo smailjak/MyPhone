@@ -45,7 +45,6 @@
             app:layout_constraintWidth_default="percent"
             app:layout_constraintWidth_percent="0.5" />
 
-
         <View
             android:id="@+id/v_top"
             android:layout_width="0dp"
@@ -59,154 +58,182 @@
             app:layout_constraintWidth_percent="0.33" />
 
         <TextView
-            android:id="@+id/tv_birth"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_manufacture"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"
             android:background="@color/colorTransParent"
             android:text="제조사"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="#D50000"
             android:textSize="15dp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/v_top"
+            app:layout_constraintStart_toStartOf="@+id/v_top"
             app:layout_constraintTop_toTopOf="@+id/v_top" />
 
         <TextView
-            android:id="@+id/myphone_manufacture_txt"
+            android:id="@+id/tv_mp_model"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:text="LG"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/v_top"
-            app:layout_constraintEnd_toEndOf="@+id/v_top"
-            app:layout_constraintStart_toStartOf="@+id/v_top"
-            app:layout_constraintTop_toBottomOf="@+id/tv_birth" />
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginTop="15dp"
             android:background="@color/colorTransParent"
             android:gravity="center"
             android:text="내폰"
-            android:textColor="#000000"
+            android:textColor="#D50000"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/v_top"
+            app:layout_constraintStart_toStartOf="@+id/v_top"
+            app:layout_constraintTop_toBottomOf="@+id/tv_manufacture" />
 
-        <TextView
-            android:id="@+id/myphone_device_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:text="삼성"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
+        <View
+            android:id="@+id/v_middle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:background="#2f2f"
+            app:layout_constraintDimensionRatio="1:0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_top"
+            app:layout_constraintWidth_percent="0.80" />
 
         <Button
             android:id="@+id/app_manage_btn"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/colorTransParent"
             android:drawableTop="@drawable/app"
             android:text="어플"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/v_middle"
+            app:layout_constraintEnd_toStartOf="@+id/battery_manage_btn"
+            app:layout_constraintStart_toStartOf="@id/v_middle"
+            app:layout_constraintTop_toTopOf="@+id/v_middle" />
 
         <Button
             android:id="@+id/battery_manage_btn"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/colorTransParent"
             android:drawableTop="@drawable/battery"
             android:text="배터리"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/v_middle"
+            app:layout_constraintEnd_toStartOf="@+id/ram_manage_btn"
+            app:layout_constraintStart_toEndOf="@+id/app_manage_btn"
+            app:layout_constraintTop_toTopOf="@+id/v_middle" />
 
         <Button
             android:id="@+id/ram_manage_btn"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/colorTransParent"
             android:drawableTop="@drawable/processor"
             android:text="램"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/v_middle"
+            app:layout_constraintEnd_toEndOf="@+id/v_middle"
+            app:layout_constraintStart_toEndOf="@+id/battery_manage_btn"
+            app:layout_constraintTop_toTopOf="@+id/v_middle" />
 
+        <View
+            android:id="@+id/v_bottom"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:background="#2f2f"
+            app:layout_constraintDimensionRatio="1:0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_middle"
+            app:layout_constraintWidth_percent="0.90" />
 
         <Button
             android:id="@+id/pic_manage_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
             android:background="@color/colorTransParent"
             android:drawableTop="@drawable/picture"
             android:text="사진"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/v_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/phone_manage_btn"
+            app:layout_constraintStart_toStartOf="@+id/v_bottom"
+            app:layout_constraintTop_toTopOf="@+id/v_bottom" />
 
         <Button
             android:id="@+id/phone_manage_btn"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:background="@color/colorTransParent"
             android:drawableTop="@drawable/phone"
             android:text="연락처"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/v_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/message_manage_btn"
+            app:layout_constraintStart_toEndOf="@+id/pic_manage_btn"
+            app:layout_constraintTop_toTopOf="@+id/v_bottom" />
 
         <Button
             android:id="@+id/message_manage_btn"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:background="@color/colorTransParent"
             android:drawableTop="@drawable/message"
             android:text="메시지"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/v_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/music_manage_btn"
+            app:layout_constraintStart_toEndOf="@id/phone_manage_btn"
+            app:layout_constraintTop_toTopOf="@+id/v_bottom" />
 
 
         <Button
             android:id="@+id/music_manage_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
             android:background="@color/colorTransParent"
             android:drawableTop="@drawable/music_note"
             android:text="음악"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/v_bottom"
+            app:layout_constraintEnd_toEndOf="@+id/v_bottom"
+            app:layout_constraintStart_toEndOf="@+id/message_manage_btn"
+            app:layout_constraintTop_toTopOf="@+id/v_bottom" />
 
         <TextView
             android:id="@+id/txtText"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:hint="입력해주세요"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/speak_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
         <TextView
             android:id="@+id/speech_input_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10dp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/speak_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/speak_btn"
@@ -214,7 +241,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
             android:background="@drawable/microphone"
-            android:textStyle="bold" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_bottom" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

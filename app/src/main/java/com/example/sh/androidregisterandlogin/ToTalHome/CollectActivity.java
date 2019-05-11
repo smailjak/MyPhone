@@ -9,6 +9,7 @@ import android.database.Cursor;
 
 import androidx.databinding.DataBindingUtil;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -23,6 +24,9 @@ import androidx.loader.content.Loader;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -65,12 +69,18 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
 
         mContext = getApplicationContext();
         tts = new TextToSpeech(this, this);
-        binding.myphoneDeviceTxt.setText(Build.MODEL);
-        binding.myphoneManufactureTxt.setText(Build.MANUFACTURER);
-        sdkVersionPermission();
+//        myphoneDeviceTx
+
+        SpannableStringBuilder sp = new SpannableStringBuilder(Build.MODEL);
+        String str = Build.MODEL;
+        sp.setSpan(new ForegroundColorSpan(Color.GREEN), 0, str.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        binding.tvManufacture.setText("제조사 : " + Build.MANUFACTURER);//4
+        binding.tvMpModel.setText("모델 : " + sp); // 5
+
         aiManagementTxtClick();
         appManageBtnClick();
         batteryManageBtnClick();
+        sdkVersionPermission();
         ramManageBtnClick();
         picManageBtnClick();
         messageManageBtnClick();
@@ -104,7 +114,7 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
     }
 
     private void mpInfoManageBtnClick() {
-        binding.mpInfoManageLayout.setOnClickListener(new View.OnClickListener() {
+        binding.vTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, GeneralActivity.class);
@@ -184,7 +194,7 @@ public class CollectActivity extends AppCompatActivity implements TextToSpeech.O
     }
 
     private void aiManagementTxtClick() {
-        binding.aiMoveTxt.setOnClickListener(new View.OnClickListener() {
+        binding.tvAi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CollectActivity.this, ManageActivity.class);
