@@ -47,7 +47,7 @@ public class ContactListActivity extends Activity {
     }
 
     private void initRv(RecyclerView rv) {
-        adapter = new ContactAdapter(getContactList(), this);
+        adapter = new ContactAdapter(getContactList());
         rv.setAdapter(adapter);
 
         LinearLayoutManager layoutManger = new LinearLayoutManager(getApplicationContext());
