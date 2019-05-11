@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.ToTalHome;
+package com.example.sh.androidregisterandlogin.TotalHome;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,27 +7,23 @@ import androidx.databinding.DataBindingUtil;
 
 import android.speech.tts.TextToSpeech;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
 import com.example.sh.androidregisterandlogin.AdvertisingActivity;
-import com.example.sh.androidregisterandlogin.ToTalHome.Frags.Test1Fragment;
-import com.example.sh.androidregisterandlogin.ToTalHome.Frags.Test2Fragment;
-import com.example.sh.androidregisterandlogin.ToTalHome.Frags.Test3Fragment;
-import com.example.sh.androidregisterandlogin.ToTalHome.Frags.Test4Fragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.MusicFragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.PhotoFragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test1Fragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test3Fragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test4Fragment;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.databinding.ActivityCollectionBinding;
 import com.example.sh.androidregisterandlogin.util.ActivityUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class CollectActivity extends AppCompatActivity{
+public class HomeActivity extends AppCompatActivity{
     private ActivityCollectionBinding binding;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private TextToSpeech tts;
@@ -71,15 +67,19 @@ public class CollectActivity extends AppCompatActivity{
                         changeScreen(itemId, Test1Fragment.newInstance());
                         return true;
                     }
-                    case R.id.m_t1: {
-                        changeScreen(itemId, Test2Fragment.newInstance());
+                    case R.id.m_photo: {
+                        changeScreen(itemId, PhotoFragment.newInstance());
                         return true;
                     }
-                    case R.id.m_t2: {
+                    case R.id.m_phonebook: {
                         changeScreen(itemId, Test3Fragment.newInstance());
                         return true;
                     }
-                    case R.id.m_t3: {
+                    case R.id.m_music: {
+                        changeScreen(itemId, MusicFragment.newInstance());
+                        return true;
+                    }
+                    case R.id.m_manage: {
                         changeScreen(itemId, Test4Fragment.newInstance());
                         return true;
                     }
@@ -99,7 +99,7 @@ public class CollectActivity extends AppCompatActivity{
 //    private void sdkVersionPermission() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                ActivityCompat.requestPermissions(CollectActivity.this, new String[]{
+//                ActivityCompat.requestPermissions(HomeActivity.this, new String[]{
 //                        Manifest.permission.READ_EXTERNAL_STORAGE}, 1000);
 //            } else {
 //                getAudioListFromMediaDatabase();
@@ -122,7 +122,7 @@ public class CollectActivity extends AppCompatActivity{
 //        binding.vTop.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CollectActivity.this, GeneralActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, GeneralActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -132,7 +132,7 @@ public class CollectActivity extends AppCompatActivity{
 //        binding.phoneManageBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CollectActivity.this, ContactListActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, ContactListActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -142,7 +142,7 @@ public class CollectActivity extends AppCompatActivity{
 //        binding.musicManageBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CollectActivity.this, TotalMusicActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, TotalMusicActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -152,7 +152,7 @@ public class CollectActivity extends AppCompatActivity{
 //        binding.messageManageBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CollectActivity.this, SmsActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, SmsActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -162,7 +162,7 @@ public class CollectActivity extends AppCompatActivity{
 //        binding.picManageBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CollectActivity.this, TotalPhotoActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, TotalPhotoActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -172,7 +172,7 @@ public class CollectActivity extends AppCompatActivity{
 //        binding.ramManageBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CollectActivity.this, MemoryActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, MemoryActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -182,7 +182,7 @@ public class CollectActivity extends AppCompatActivity{
 //        binding.batteryManageBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CollectActivity.this, BatteryActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, BatteryActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -192,7 +192,7 @@ public class CollectActivity extends AppCompatActivity{
 //        binding.appManageBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CollectActivity.this, UserAppsActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, UserAppsActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -202,7 +202,7 @@ public class CollectActivity extends AppCompatActivity{
 //        binding.tvAi.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(CollectActivity.this, ManageActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, ManageActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -259,7 +259,7 @@ public class CollectActivity extends AppCompatActivity{
 //                        text = "네 안녕하세요. 저는 혀니 입니다.";
 //                        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
 //                    } else if (result1.contains(pic) || result1.contains(pic2)) {
-//                        Intent intent = new Intent(CollectActivity.this, TotalPhotoActivity.class);
+//                        Intent intent = new Intent(HomeActivity.this, TotalPhotoActivity.class);
 //                        startActivity(intent);
 //                    } else if (result1.contains(musicCountVoice) || result1.contains(musicCountVoice2) || result1.contains(musicCountVoice3)) {
 //                        TotalMusicActivity musicCount = new TotalMusicActivity();
@@ -270,35 +270,35 @@ public class CollectActivity extends AppCompatActivity{
 ////                        여기 부분 오류가 발생한다. == > 액티비티로 넘어가지 않으니깐 거기에 대한 데이터를 못 불러오는것같다.
 ////                        static 을 해도 안되는것 같은데.. 어떻게 해야할까 .
 //                    } else if (result1.contains(music_title_start)) {
-//                        Intent intent = new Intent(CollectActivity.this, TotalMusicActivity.class);
+//                        Intent intent = new Intent(HomeActivity.this, TotalMusicActivity.class);
 //                        String title = result1.replaceAll("틀어줘", "");
 //                        String music_title_start_in_music_start = "노래", music_title_start_in_music_start2 = "음악";
 //
 //                        if (music_title_start_in_music_start.equals(title) || music_title_start_in_music_start2.equals(title)) {
-//                            Intent music_title_start_in_music_start_intent = new Intent(CollectActivity.this, TotalMusicActivity.class);
+//                            Intent music_title_start_in_music_start_intent = new Intent(HomeActivity.this, TotalMusicActivity.class);
 //                            music_title_start_in_music_start_intent.putExtra("music_start", 1);
 //                            startActivity(intent);
 //                        }
 //                        intent.putExtra("music_title", title);
 //                        startActivity(intent);
 //                    } else if (result1.equals(music_start1) || result1.equals(music_start2)) {
-//                        Intent intent = new Intent(CollectActivity.this, TotalMusicActivity.class);
+//                        Intent intent = new Intent(HomeActivity.this, TotalMusicActivity.class);
 //                        intent.putExtra("music_start", 1);
 //                        startActivity(intent);
 //                    } else if (result1.contains(address)) {
-//                        Intent intent = new Intent(CollectActivity.this, ContactListActivity.class);
+//                        Intent intent = new Intent(HomeActivity.this, ContactListActivity.class);
 //                        startActivity(intent);
 //                    } else if (result1.contains(app)) {
-//                        Intent intent = new Intent(CollectActivity.this, UserAppsActivity.class);
+//                        Intent intent = new Intent(HomeActivity.this, UserAppsActivity.class);
 //                        startActivity(intent);
 //                    } else if (result1.contains(battry)) {
-//                        Intent intent = new Intent(CollectActivity.this, BatteryActivity.class);
+//                        Intent intent = new Intent(HomeActivity.this, BatteryActivity.class);
 //                        startActivity(intent);
 //                    } else if (result1.contains(music) || result1.contains(music2) || result1.contains(music3)) {
-//                        Intent intent = new Intent(CollectActivity.this, TotalMusicActivity.class);
+//                        Intent intent = new Intent(HomeActivity.this, TotalMusicActivity.class);
 //                        startActivity(intent);
 //                    } else if (result1.contains(message) || result1.contains(message2) || result1.contains(message3)) {
-//                        Intent intent = new Intent(CollectActivity.this, SmsActivity.class);
+//                        Intent intent = new Intent(HomeActivity.this, SmsActivity.class);
 //                        startActivity(intent);
 //                    }
 //                }
@@ -358,7 +358,7 @@ public class CollectActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(CollectActivity.this, AdvertisingActivity.class);
+        Intent intent = new Intent(HomeActivity.this, AdvertisingActivity.class);
         startActivity(intent);
     }
 }

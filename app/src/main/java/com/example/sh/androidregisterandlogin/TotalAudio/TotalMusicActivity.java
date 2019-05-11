@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
+import com.example.sh.androidregisterandlogin.TotalHome.HomeActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.databinding.ActivityTotalMusicBinding;
 
@@ -232,7 +232,7 @@ public class TotalMusicActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(TotalMusicActivity.this, CollectActivity.class);
+        Intent intent = new Intent(TotalMusicActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

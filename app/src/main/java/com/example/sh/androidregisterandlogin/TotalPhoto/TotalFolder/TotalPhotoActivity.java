@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
+import com.example.sh.androidregisterandlogin.TotalHome.HomeActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalDataItem.PhotoFolderDataItem;
 import com.example.sh.androidregisterandlogin.databinding.ActivityTotalPhotoBinding;
@@ -148,7 +148,7 @@ public class TotalPhotoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(TotalPhotoActivity.this, CollectActivity.class);
+        Intent intent = new Intent(TotalPhotoActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

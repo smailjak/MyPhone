@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.sh.androidregisterandlogin.R;
-import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
+import com.example.sh.androidregisterandlogin.TotalHome.HomeActivity;
 import com.example.sh.androidregisterandlogin.TotalDataItem.AddressDataItem;
 import com.example.sh.androidregisterandlogin.databinding.ActivityContactlistBinding;
 
@@ -113,7 +113,7 @@ public class ContactListActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ContactListActivity.this, CollectActivity.class);
+        Intent intent = new Intent(ContactListActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

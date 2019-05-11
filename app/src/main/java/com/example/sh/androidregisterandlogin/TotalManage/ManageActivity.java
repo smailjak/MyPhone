@@ -5,7 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import com.example.sh.androidregisterandlogin.ToTalHome.CollectActivity;
+import com.example.sh.androidregisterandlogin.TotalHome.HomeActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalManage.FragOne.FragmentOne;
 import com.example.sh.androidregisterandlogin.TotalManage.FragTwo.FragmentTwo;
@@ -23,7 +23,7 @@ public class ManageActivity extends AppCompatActivity {
         binding.tvMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ManageActivity.this, CollectActivity.class);
+                Intent intent = new Intent(ManageActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });

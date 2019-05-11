@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.ToTalHome.Frags;
+package com.example.sh.androidregisterandlogin.TotalHome.Frags;
 
 import android.content.Context;
 import android.net.Uri;
@@ -15,12 +15,12 @@ import com.example.sh.androidregisterandlogin.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Test4Fragment.OnFragmentInteractionListener} interface
+ * {@link MusicFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Test4Fragment#newInstance} factory method to
+ * Use the {@link MusicFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Test4Fragment extends Fragment {
+public class MusicFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,12 +32,12 @@ public class Test4Fragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Test4Fragment() {
+    public MusicFragment() {
         // Required empty public constructor
     }
 
-    public static Test4Fragment newInstance() {
-        return new Test4Fragment();
+    public static MusicFragment newInstance() {
+        return new MusicFragment();
     }
     /**
      * Use this factory method to create a new instance of
@@ -45,11 +45,11 @@ public class Test4Fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Test4Fragment.
+     * @return A new instance of fragment MusicFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Test4Fragment newInstance(String param1, String param2) {
-        Test4Fragment fragment = new Test4Fragment();
+    public static MusicFragment newInstance(String param1, String param2) {
+        MusicFragment fragment = new MusicFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,7 +70,7 @@ public class Test4Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_test4, container, false);
+        return inflater.inflate(R.layout.fragment_music, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -79,17 +79,17 @@ public class Test4Fragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {
