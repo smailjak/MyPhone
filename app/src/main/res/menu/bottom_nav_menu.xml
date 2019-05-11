@@ -4,18 +4,22 @@
     <item
         android:id="@+id/m_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="메인" />
+        android:title="@string/menu_home" />
     <item
-        android:id="@+id/m_t1"
+        android:id="@+id/m_photo"
         android:icon="@drawable/ic_text_fields_black_24dp"
-        android:title="t1" />
+        android:title="@string/menu_photo" />
     <item
-        android:id="@+id/m_t2"
+        android:id="@+id/m_phonebook"
         android:icon="@drawable/ic_text_fields_black_24dp"
-        android:title="t2" />
+        android:title="@string/menu_phonebook" />
     <item
-        android:id="@+id/m_t3"
+        android:id="@+id/m_music"
         android:icon="@drawable/ic_text_fields_black_24dp"
-        android:title="t3" />
+        android:title="@string/menu_music" />
+    <item
+        android:id="@+id/m_manage"
+        android:icon="@drawable/ic_text_fields_black_24dp"
+        android:title="@string/menu_manage" />
 
 </menu>

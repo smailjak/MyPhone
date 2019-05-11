@@ -9,4 +9,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Menu -->
+    <string name="menu_home">메인</string>
+    <string name="menu_photo">사진</string>
+    <string name="menu_phonebook">폰북</string>
+    <string name="menu_music">음악</string>
+    <string name="menu_manage">관리</string>
 </resources>
