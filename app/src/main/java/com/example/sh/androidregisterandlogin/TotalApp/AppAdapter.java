@@ -3,6 +3,7 @@ package com.example.sh.androidregisterandlogin.TotalApp;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -49,7 +50,7 @@ public class AppAdapter extends BaseRecylcerViewAdapter<AppDataItem, AppAdapter.
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.modelapps, viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
-        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppDataItem appDataItem = getItem(viewHolder.getAdapterPosition());
@@ -73,7 +74,7 @@ public class AppAdapter extends BaseRecylcerViewAdapter<AppDataItem, AppAdapter.
         //            Our views from modelapps xml
         TextView nameInListView, packageInListView, versionInListView;
         ImageView imageInListView;
-        LinearLayout linearLayout;
+        ConstraintLayout constraintLayout;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -83,7 +84,7 @@ public class AppAdapter extends BaseRecylcerViewAdapter<AppDataItem, AppAdapter.
             nameInListView = itemView.findViewById(R.id.app_name);
             packageInListView = itemView.findViewById(R.id.app_package);
             versionInListView = itemView.findViewById(R.id.app_version);
-            linearLayout = itemView.findViewById(R.id.ll_main);
+            constraintLayout = itemView.findViewById(R.id.ll_main);
 
         }
     }
