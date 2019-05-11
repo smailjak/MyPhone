@@ -2,12 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/homeMenu"
+        android:id="@+id/m_home"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="메인" />
     <item
-        android:id="@+id/artiMenu"
+        android:id="@+id/m_t1"
         android:icon="@drawable/ic_text_fields_black_24dp"
-        android:title="인공지능" />
+        android:title="t1" />
+    <item
+        android:id="@+id/m_t2"
+        android:icon="@drawable/ic_text_fields_black_24dp"
+        android:title="t2" />
+    <item
+        android:id="@+id/m_t3"
+        android:icon="@drawable/ic_text_fields_black_24dp"
+        android:title="t3" />
 
 </menu>
