@@ -27,7 +27,7 @@ public class BatteryActivity extends AppCompatActivity {
     }
 
     public void powerProfile() {
-        Object mPowerProfile = null;
+        Object mPowerProfile;
         String POWER_PROFILE_CLASS = "com.android.internal.os.PowerProfile";
         try {
             mPowerProfile = Class.forName(POWER_PROFILE_CLASS).getConstructor(Context.class).newInstance(this);

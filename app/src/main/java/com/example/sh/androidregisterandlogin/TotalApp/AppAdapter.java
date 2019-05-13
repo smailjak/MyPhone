@@ -24,6 +24,7 @@ import java.util.List;
 public class AppAdapter extends BaseRecylcerViewAdapter<AppDataItem, AppAdapter.ViewHolder> {
 
     Context context;
+    View view;
 
     public AppAdapter(List<AppDataItem> customizedListView, Context context) {
         super(customizedListView);
@@ -47,18 +48,16 @@ public class AppAdapter extends BaseRecylcerViewAdapter<AppDataItem, AppAdapter.
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.modelapps, viewGroup, false);
+        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.modelapps, viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
-        viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppDataItem appDataItem = getItem(viewHolder.getAdapterPosition());
+        viewHolder.constraintLayout.setOnClickListener(v -> {
+            AppDataItem appDataItem = getItem(viewHolder.getAdapterPosition());
 
-                if (appDataItem == null) {
-                    return;
-                }
+            if (appDataItem == null) {
+                return;
             }
+
         });
 
         return viewHolder;

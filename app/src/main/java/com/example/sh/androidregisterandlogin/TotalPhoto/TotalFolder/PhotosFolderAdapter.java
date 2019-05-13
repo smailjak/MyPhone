@@ -2,14 +2,17 @@ package com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder;
 
 import android.content.Context;
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 
 public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<PhotoFolderDataItem, PhotosFolderAdapter.ViewHolder> {
     Context context;
+    View view;
 
     public PhotosFolderAdapter(ArrayList<PhotoFolderDataItem> al_menu, Context context) {
         super(al_menu);
@@ -30,15 +34,12 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<PhotoFolderData
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_photosfolder, viewGroup, false);
+        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_photosfolder, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
-        viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, PhotosActivity.class);
-                context.startActivity(intent);
-            }
+        viewHolder.constraintLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PhotosActivity.class);
+            context.startActivity(intent);
         });
         return viewHolder;
     }
@@ -52,8 +53,8 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<PhotoFolderData
         viewHolder.tvFolderCount.setText(Integer.toString(getItem(position).getAl_imagepath().size()));
         RequestOptions circleOptions = new RequestOptions().circleCrop();
         Glide.with(context).load("file://" + getItem(position)
-                        .getAl_imagepath().get(0)).apply(circleOptions)
-                        .into(viewHolder.ivImage);
+                .getAl_imagepath().get(0)).apply(circleOptions)
+                .into(viewHolder.ivImage);
     }
 
 

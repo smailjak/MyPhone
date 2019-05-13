@@ -40,7 +40,8 @@ public class ContactAdapter extends BaseRecylcerViewAdapter<AddressDataItem, Con
     public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int position) {
         LayoutPhonelistBinding binding = LayoutPhonelistBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         final ViewHolder viewHolder = new ViewHolder(binding);
-        binding.constraintMain.setOnClickListener(v -> {
+
+        binding.constraintMain.setOnClickListener(view -> {
             AddressDataItem phonenumber = getItem(viewHolder.getAdapterPosition());
             if (phonenumber == null) {
                 return;
@@ -48,6 +49,7 @@ public class ContactAdapter extends BaseRecylcerViewAdapter<AddressDataItem, Con
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phonenumber.getPhonenum()));
             parent.getContext().startActivity(intent);
         });
+
         return viewHolder;
     }
 

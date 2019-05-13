@@ -16,7 +16,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class AudioService extends Service {
-    public  IBinder mBinder = new AudioServiceBinder();
+    public IBinder mBinder = new AudioServiceBinder();
     private ArrayList<Long> mAudioIds = new ArrayList<>();
     public static MediaPlayer mMediaPlayer;
     private boolean isPrepared;
@@ -34,20 +34,15 @@ public class AudioService extends Service {
         super.onCreate();
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
-        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
+        mMediaPlayer.setOnPreparedListener(view-> {
+
                 isPrepared = true;
-                mp.start();
-            }
+            mMediaPlayer.start();
         });
-        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                forward();
-                ((TotalMusicActivity) TotalMusicActivity.mContext).updateUI();
-                ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
-            }
+        mMediaPlayer.setOnCompletionListener(v -> {
+            forward();
+            ((TotalMusicActivity) TotalMusicActivity.mContext).updateUI();
+            ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
         });
         mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override

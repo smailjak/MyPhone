@@ -26,10 +26,11 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
 
     public static ArrayList<Long> audioIds;
     Context context;
+    View view;
 
     public AudioAdapter(Context context, Cursor cursor) {
-        super( cursor);
-        this.context=context;
+        super(cursor);
+        this.context = context;
     }
 
     @Override
@@ -40,7 +41,7 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.listitem_audio, viewGroup, false);
+        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.listitem_audio, viewGroup, false);
 //        레이아웃에 관한 것입니다.
         return new AudioViewHolder(view);
 
@@ -99,15 +100,12 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
             mTxtSubTitle = view.findViewById(R.id.txt_sub_title);
             mTxtDuration = view.findViewById(R.id.txt_duration);
 
-            view.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(v -> {
 
-                @Override
-                public void onClick(View v) {
-                    AudioApplication.getInstance().getServiceInterface().setPlayList(getAudioIds()); // 재생목록등록
-                    AudioApplication.getInstance().getServiceInterface().play(mPosition); // 선택한 오디오재생
-                    ((TotalMusicActivity) TotalMusicActivity.mContext).updateUI();
-                    ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
-                }
+                AudioApplication.getInstance().getServiceInterface().setPlayList(getAudioIds()); // 재생목록등록
+                AudioApplication.getInstance().getServiceInterface().play(mPosition); // 선택한 오디오재생
+                ((TotalMusicActivity) TotalMusicActivity.mContext).updateUI();
+                ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
             });
         }
 
