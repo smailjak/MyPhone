@@ -15,7 +15,7 @@ import android.os.Bundle;
 import com.example.sh.androidregisterandlogin.AdvertisingActivity;
 import com.example.sh.androidregisterandlogin.TotalHome.Frags.MusicFragment;
 import com.example.sh.androidregisterandlogin.TotalHome.Frags.PhotoFragment;
-import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test1Fragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.MainFragment;
 import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test3Fragment;
 import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test4Fragment;
 import com.example.sh.androidregisterandlogin.R;
@@ -59,12 +59,12 @@ public class HomeActivity extends AppCompatActivity{
     }
 
     private void BottomNavigationInit(BottomNavigationView bnv) {
-        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), Test1Fragment.newInstance(), R.id.fl_main);
+        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), MainFragment.newInstance(), R.id.fl_main);
         bnv.setOnNavigationItemSelectedListener(item -> {
                 int itemId = item.getItemId();
                 switch (itemId) {
                     case R.id.m_home: {
-                        changeScreen(itemId, Test1Fragment.newInstance());
+                        changeScreen(itemId, MainFragment.newInstance());
                         return true;
                     }
                     case R.id.m_photo: {

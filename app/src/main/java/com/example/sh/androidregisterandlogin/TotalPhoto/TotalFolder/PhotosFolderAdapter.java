@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalDataItem.PhotoFolderDataItem;
 import com.example.sh.androidregisterandlogin.TotalPhoto.DetailFile.PhotosActivity;
+import com.example.sh.androidregisterandlogin.databinding.LayoutPhonelistBinding;
 import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
 import java.util.ArrayList;
@@ -29,8 +30,8 @@ public class PhotosFolderAdapter extends BaseRecylcerViewAdapter<PhotoFolderData
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.adapter_photosfolder, viewGroup, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_photosfolder, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
         viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {

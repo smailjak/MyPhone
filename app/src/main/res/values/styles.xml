@@ -9,10 +9,10 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
+    <!--@style/Theme.Design.Light.NoActionBar-->
     <style name="AppThemeLogin.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppThemeLogin.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.Design.Light.NoActionBar" parent="ThemeOverlay.AppCompat.Light" />
     <!--Base application theme-->
     <style name="AppThemeRegist" parent="Theme.AppCompat.Light.DarkActionBar">
         <!--Customize your theme here-->
