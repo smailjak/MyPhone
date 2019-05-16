@@ -1,10 +1,11 @@
 package com.example.sh.androidregisterandlogin.TotalManage;
 
 import android.content.Intent;
+
 import androidx.databinding.DataBindingUtil;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.view.View;
 import com.example.sh.androidregisterandlogin.TotalHome.HomeActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalManage.FragOne.FragmentOne;
@@ -15,17 +16,15 @@ import com.google.android.material.tabs.TabLayout;
 public class ManageActivity extends AppCompatActivity {
 
     private ActivityManageBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_manage);
 
-        binding.tvMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ManageActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
+        binding.tvMain.setOnClickListener(view -> {
+            Intent intent = new Intent(ManageActivity.this, HomeActivity.class);
+            startActivity(intent);
         });
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());

@@ -1,5 +1,6 @@
-package com.example.sh.androidregisterandlogin.TotalAddress;
+package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -7,7 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
@@ -17,10 +21,18 @@ import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
 
 import java.util.ArrayList;
 
-public class ContactAdapter extends BaseRecylcerViewAdapter<AddressDataItem, ContactAdapter.ViewHolder> {
+public class FragmentPhonebookAdapter extends BaseRecylcerViewAdapter<AddressDataItem, FragmentPhonebookAdapter.ViewHolder> implements Filterable {
 
-    public ContactAdapter(ArrayList<AddressDataItem> dataSet) {
+    Context context;
+    ArrayList<AddressDataItem> addressFilterList, addressDataItemArrayList;
+    PhoneBookFilter phoneBookFilter;
+    View view;
+
+    public FragmentPhonebookAdapter(Context context, ArrayList<AddressDataItem> dataSet) {
         super(dataSet);
+        this.context = context;
+        this.addressFilterList = dataSet;
+        this.addressDataItemArrayList = dataSet;
     }
 
     @Override
@@ -37,7 +49,7 @@ public class ContactAdapter extends BaseRecylcerViewAdapter<AddressDataItem, Con
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int position) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
         LayoutPhonelistBinding binding = LayoutPhonelistBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         final ViewHolder viewHolder = new ViewHolder(binding);
         binding.constraintMain.setOnClickListener(v -> {
@@ -51,12 +63,21 @@ public class ContactAdapter extends BaseRecylcerViewAdapter<AddressDataItem, Con
         return viewHolder;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder { // RecyclerView 라는클래스 안에 ViewHolder를 상속받음
+    public class ViewHolder extends RecyclerView.ViewHolder { // RecyclerView 라는클래스 안에 ViewHolder를 상속받음
         LayoutPhonelistBinding binding;
 
         ViewHolder(LayoutPhonelistBinding binding) {
-            super(binding.getRoot()); //getRoot() 메소드를 사용하는 이유는 view 라는 retu
+            super(binding.getRoot()); //getRoot() 메소드를 사용하는 이유는 view 라는 return
             this.binding = binding;
         }
+    }
+    //    return filter obj
+//    검색기능을 구현했을때 추가한 함수
+    @Override
+    public Filter getFilter() {
+        if (phoneBookFilter == null) {
+            phoneBookFilter = new PhoneBookFilter(addressFilterList,this);
+        }
+        return phoneBookFilter;
     }
 }

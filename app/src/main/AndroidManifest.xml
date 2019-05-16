@@ -55,7 +55,6 @@
         <activity android:name=".TotalPhoto.TotalFolder.TotalPhotoActivity" />
         <activity android:name=".TotalMessage.Sms.SmsActivity" />
         <activity android:name=".TotalMessage.Chat.ChatActivity" />
-        <activity android:name=".TotalAddress.ContactListActivity" />
         <activity android:name=".TotalAudio.TotalMusicActivity" />
         <activity android:name=".TotalManage.ManageActivity" />
         <activity android:name=".TotalApp.UserAppsActivity" />

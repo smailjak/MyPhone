@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.sh.androidregisterandlogin.R;
-import com.example.sh.androidregisterandlogin.TotalMessage.Function;
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,16 +67,16 @@ public class ChatAdapter extends BaseAdapter {
         HashMap<String, String> song;
         song = data.get(position);
         try {
-            if (song.get(Function.KEY_TYPE).contentEquals("1")) {
-                holder.lblMsgFrom.setText(song.get(Function.KEY_NAME));
-                holder.txtMsgFrom.setText(song.get(Function.KEY_MSG));
-                holder.timeMsgFrom.setText(song.get(Function.KEY_TIME));
+            if (song.get(MessageModel.KEY_TYPE).contentEquals("1")) {
+                holder.lblMsgFrom.setText(song.get(MessageModel.KEY_NAME));
+                holder.txtMsgFrom.setText(song.get(MessageModel.KEY_MSG));
+                holder.timeMsgFrom.setText(song.get(MessageModel.KEY_TIME));
                 holder.msgFrom.setVisibility(View.VISIBLE);
                 holder.msgYou.setVisibility(View.GONE);
             } else {
                 holder.lblMsgYou.setText("You");
-                holder.txtMsgYou.setText(song.get(Function.KEY_MSG));
-                holder.timeMsgYou.setText(song.get(Function.KEY_TIME));
+                holder.txtMsgYou.setText(song.get(MessageModel.KEY_MSG));
+                holder.timeMsgYou.setText(song.get(MessageModel.KEY_TIME));
                 holder.msgFrom.setVisibility(View.GONE);
                 holder.msgYou.setVisibility(View.VISIBLE);
             }

@@ -1,6 +1,6 @@
-package com.example.sh.androidregisterandlogin.TotalMessage.Sms;
+package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 
-import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +12,19 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.sh.androidregisterandlogin.R;
-import com.example.sh.androidregisterandlogin.TotalMessage.Function;
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-class InboxAdapter extends BaseAdapter {
+public class FragmentMessageAdapter extends BaseAdapter {
 
-    private Activity activity;
+    private Context context;
     private ArrayList<HashMap<String, String>> data;
 
-    public InboxAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
-        activity = a;
-        data = d;
+    public FragmentMessageAdapter(Context context, ArrayList<HashMap<String, String>> data) {
+        this.context = context;
+        this.data = data;
     }
 
     public int getCount() {
@@ -47,7 +47,7 @@ class InboxAdapter extends BaseAdapter {
         if (convertView == null) {
 
             holder = new InboxViewHolder();
-            convertView = LayoutInflater.from(activity).inflate(
+            convertView = LayoutInflater.from(context).inflate(
                     R.layout.conversation_list_item, parent, false);
 
             holder.inbox_thumb = convertView.findViewById(R.id.img_inbox_thumb);
@@ -69,16 +69,18 @@ class InboxAdapter extends BaseAdapter {
         song = data.get(position);
 
         try {
-            holder.inbox_user.setText(song.get(Function.KEY_NAME));
-            holder.inbox_msg.setText(song.get(Function.KEY_MSG));
-            holder.inbox_date.setText(song.get(Function.KEY_TIME));
+            holder.inbox_user.setText(song.get(MessageModel.KEY_NAME));
+            holder.inbox_msg.setText(song.get(MessageModel.KEY_MSG));
+            holder.inbox_date.setText(song.get(MessageModel.KEY_TIME));
 
-            String firstLetter = String.valueOf(song.get(Function.KEY_NAME).charAt(0));
+            String firstLetter = String.valueOf(song.get(MessageModel.KEY_NAME).charAt(0));
             ColorGenerator generator = ColorGenerator.MATERIAL;
             int color = generator.getColor(getItem(position));
             TextDrawable drawable = TextDrawable.builder()
                     .buildRound(firstLetter, color);
             holder.inbox_thumb.setImageDrawable(drawable);
+
+
         } catch (Exception e) {
         }
         return convertView;

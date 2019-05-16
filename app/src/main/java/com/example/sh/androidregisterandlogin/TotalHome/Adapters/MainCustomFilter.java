@@ -1,24 +1,23 @@
-package com.example.sh.androidregisterandlogin.TotalHome;
+package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 
 import android.widget.Filter;
 
 
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.Model;
+
 import java.util.ArrayList;
 
-public class CustomFilter extends Filter {
+public class MainCustomFilter extends Filter {
 //    extends 로 Filter 라는 것을 상속 받았다 .. 그런데 이거 무엇이지 ? 왜 Filter 를 상속받았지?? 뭘 쓸려고 ??
 
     FragmentMainAdapter fragmentMainAdapter;
     ArrayList<Model> filterList;
 
-    public CustomFilter(ArrayList<Model> filterList, FragmentMainAdapter adapter) {
+    public MainCustomFilter(ArrayList<Model> filterList, FragmentMainAdapter adapter) {
         this.fragmentMainAdapter = adapter;
         this.filterList = filterList;
     }
 
-    //    filtering occurs
-//    여기 함수로 들어가게 되면 전체 아이템을 반복을 돌아서 출력해주는 함수
-//    검색기능을 구현했을 때 넣은 Override
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {
         FilterResults results = new FilterResults();
@@ -29,7 +28,6 @@ public class CustomFilter extends Filter {
 //            store our filtered WODELS
             ArrayList<Model> filteredModels = new ArrayList<>();
             for (int i = 0; i < filterList.size(); i++) {
-//                check
                 if (filterList.get(i).getName().toUpperCase().contains(constraint)) {
 //                    add model to filtered models
                     filteredModels.add(filterList.get(i));

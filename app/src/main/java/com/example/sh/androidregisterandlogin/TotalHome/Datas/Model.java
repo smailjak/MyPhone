@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalHome;
+package com.example.sh.androidregisterandlogin.TotalHome.Datas;
 
 public class Model {
 

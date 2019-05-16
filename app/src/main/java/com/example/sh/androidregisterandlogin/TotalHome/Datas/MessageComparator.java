@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalMessage;
+package com.example.sh.androidregisterandlogin.TotalHome.Datas;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -7,11 +7,11 @@ import java.util.HashMap;
  * Created by SHAJIB on 7/12/2017.
  */
 
-public class MapComparator implements Comparator<HashMap<String, String>> {
+public class MessageComparator implements Comparator<HashMap<String, String>> {
     private final String key;
     private final String order;
 
-    public MapComparator(String key, String order) {
+    public MessageComparator(String key, String order) {
         this.key = key;
         this.order = order;
     }

@@ -2,8 +2,6 @@ package com.example.sh.androidregisterandlogin.TotalHome;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -14,12 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.sh.androidregisterandlogin.AdvertisingActivity;
-import com.example.sh.androidregisterandlogin.TotalHome.Frags.MusicFragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.MessageFragment;
 import com.example.sh.androidregisterandlogin.TotalHome.Frags.PhotoFragment;
 import com.example.sh.androidregisterandlogin.TotalHome.Frags.MainFragment;
-import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test3Fragment;
-import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test4Fragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.PhoneBookFragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.MusicFragment;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.databinding.ActivityCollectionBinding;
 import com.example.sh.androidregisterandlogin.util.ActivityUtils;
@@ -74,15 +71,15 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 }
                 case R.id.m_phonebook: {
-                    changeScreen(itemId, Test3Fragment.newInstance());
+                    changeScreen(itemId, PhoneBookFragment.newInstance());
+                    return true;
+                }
+                case R.id.m_message: {
+                    changeScreen(itemId, MessageFragment.newInstance());
                     return true;
                 }
                 case R.id.m_music: {
                     changeScreen(itemId, MusicFragment.newInstance());
-                    return true;
-                }
-                case R.id.m_manage: {
-                    changeScreen(itemId, Test4Fragment.newInstance());
                     return true;
                 }
                 default: {

@@ -43,8 +43,7 @@ public class PhotoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_photo, container, false);
         return binding.getRoot();
@@ -56,8 +55,7 @@ public class PhotoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         permissionCheck();
-        rcvTotalPhto = view.findViewById(R.id.rcv_total_photo);
-        initRv(rcvTotalPhto);
+        initRv(binding.rcvTotalPhoto);
     }
 
     private void initRv(RecyclerView rcvTotalPhto) {

@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalHome;
+package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sh.androidregisterandlogin.R;
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.Model;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class FragmentMainAdapter extends RecyclerView.Adapter<FragmentMainAdapte
 
     Context context;
     ArrayList<Model> modelArrayList, filterList;
-    CustomFilter filter;
+    MainCustomFilter filter;
     View view;
 
     public FragmentMainAdapter(Context context, ArrayList<Model> models) {
@@ -31,7 +32,7 @@ public class FragmentMainAdapter extends RecyclerView.Adapter<FragmentMainAdapte
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
 //        Convert XML to OBJ
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.model, null);
         ViewHolder holder = new ViewHolder(view);
@@ -56,16 +57,15 @@ public class FragmentMainAdapter extends RecyclerView.Adapter<FragmentMainAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.img_model);
-            nameTxt = itemView.findViewById(R.id.modelTxt);
+            nameTxt = itemView.findViewById(R.id.tv_model);
         }
     }
-
     //    return filter obj
 //    검색기능을 구현했을때 추가한 함수
     @Override
     public Filter getFilter() {
         if (filter == null) {
-            filter = new CustomFilter(filterList, this);
+            filter = new MainCustomFilter(filterList, this);
         }
         return filter;
     }

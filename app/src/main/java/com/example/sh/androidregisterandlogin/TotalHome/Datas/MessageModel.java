@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalMessage;
+package com.example.sh.androidregisterandlogin.TotalHome.Datas;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -25,7 +25,7 @@ import java.util.HashMap;
  * Created by SHAJIB on 7/10/2017.
  */
 
-public class Function {
+public class MessageModel {
 
     public static final String _ID = "_id";
     public static final String KEY_THREAD_ID = "thread_id";
@@ -51,10 +51,10 @@ public class Function {
     public static String converToTime(String timestamp) {
 
         long datetime = Long.parseLong(timestamp);
-        Log.d("Function.test" , "datetime : " + datetime);
+        Log.d("MessageModel.test" , "datetime : " + datetime);
         Date date = new Date(datetime);
         DateFormat formatter = new SimpleDateFormat("dd/MM HH:mm");
-        Log.d("Function.test" , "formatter : " + formatter);
+        Log.d("MessageModel.test" , "formatter : " + formatter);
         return formatter.format(date);
     }
 
@@ -113,11 +113,11 @@ public class Function {
         }
     }
 
-    public static String getContactbyPhoneNumber(Context c, String phoneNumber) {
+    public static String getContactbyPhoneNumber(Context context, String phoneNumber) {
 
         Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
         String[] projection = {ContactsContract.PhoneLookup.DISPLAY_NAME};
-        Cursor cursor = c.getContentResolver().query(uri, projection, null, null, null);
+        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
 
         if (cursor == null) {
             return phoneNumber;
