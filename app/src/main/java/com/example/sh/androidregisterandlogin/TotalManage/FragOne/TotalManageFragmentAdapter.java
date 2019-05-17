@@ -16,25 +16,25 @@ import com.example.sh.androidregisterandlogin.TotalDataItem.FragOneDataItem;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class TotalManageFragmentAdapter extends RecyclerView.Adapter<TotalManageFragmentAdapter.ViewHolder> {
 
     private ArrayList<FragOneDataItem> mList;
     Context context;
 
-    public MyAdapter(ArrayList<FragOneDataItem> list, Context context) {
+    public TotalManageFragmentAdapter(ArrayList<FragOneDataItem> list, Context context) {
         this.mList = list;
         this.context = context;
     }
 
     //
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TotalManageFragmentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_data, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MyAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(TotalManageFragmentAdapter.ViewHolder holder, int position) {
 
         holder.tvPhoneName.setText(String.valueOf(mList.get(position).getTitle()));
         holder.tvSupportMoney.setText(String.valueOf(mList.get(position).getRelease()));

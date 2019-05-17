@@ -10,7 +10,6 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import android.view.View;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageModel;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageComparator;
@@ -117,9 +116,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void sendMessageImageBtn() {
-        binding.sendMessageImageBtn.setOnClickListener(new View.OnClickListener() {
+        binding.sendMessageImageBtn.setOnClickListener(view-> {
 
-            public void onClick(View v) {
                 String text = binding.newMessage.getText().toString();
 
                 if (text.length() > 0) {
@@ -142,7 +140,6 @@ public class ChatActivity extends AppCompatActivity {
                         binding.newMessage.setEnabled(true);
                     }
                 }
-            }
         });
     }
 }

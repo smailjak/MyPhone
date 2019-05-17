@@ -8,35 +8,38 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.sh.androidregisterandlogin.R;
-import com.example.sh.androidregisterandlogin.TotalDataItem.PhotoFolderDataItem;
-import com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder.PhotosFolderAdapter;
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.PhotoFolderDataItem;
+import com.example.sh.androidregisterandlogin.TotalHome.Adapters.FragmentPhotoFolderAdapter;
 import com.example.sh.androidregisterandlogin.databinding.FragmentPhotoBinding;
 
 import java.util.ArrayList;
 
 public class PhotoFragment extends Fragment {
 
-    RecyclerView rcvTotalPhto;
     public ArrayList<PhotoFolderDataItem> al_images = new ArrayList<>();
     private static final int REQUEST_PERMISSIONS = 100;
     boolean boolean_folder;
-    private PhotosFolderAdapter adapter;
-    FragmentPhotoBinding binding;
+    private SearchView searchView;
+    private FragmentPhotoFolderAdapter fragmentPhotoFolderAdapter;
+    FragmentPhotoBinding fragmentPhotoBinding;
 
     public static PhotoFragment newInstance() {
         return new PhotoFragment();
@@ -45,25 +48,34 @@ public class PhotoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_photo, container, false);
-        return binding.getRoot();
+        fragmentPhotoBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_photo, container, false);
+        return fragmentPhotoBinding.getRoot();
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        ((AppCompatActivity) getActivity()).setSupportActionBar(fragmentPhotoBinding.toolbar);
+        setHasOptionsMenu(true);
+        initCollapsingToolbar();
         permissionCheck();
-        initRv(binding.rcvTotalPhoto);
+        initRv();
     }
 
-    private void initRv(RecyclerView rcvTotalPhto) {
-        adapter = new PhotosFolderAdapter(fn_imagespath(), getContext());
-        rcvTotalPhto.setAdapter(adapter);
+    private void initRv() {
+        fragmentPhotoFolderAdapter = new FragmentPhotoFolderAdapter(fn_imagespath(), getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        rcvTotalPhto.setLayoutManager(gridLayoutManager);
-        rcvTotalPhto.setHasFixedSize(true);
+        fragmentPhotoBinding.rcvTotalPhoto.setAdapter(fragmentPhotoFolderAdapter);
+        fragmentPhotoBinding.rcvTotalPhoto.setHasFixedSize(true);
+        fragmentPhotoBinding.rcvTotalPhoto.setLayoutManager(gridLayoutManager);
+    }
+
+    private void initCollapsingToolbar() {
+
+        fragmentPhotoBinding.collapsingToolbar.setTitle("");
+        fragmentPhotoBinding.appbar.setExpanded(true);
+        fragmentPhotoBinding.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
+        fragmentPhotoBinding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
     }
 
     private void permissionCheck() {
@@ -89,6 +101,7 @@ public class PhotoFragment extends Fragment {
         Uri uri;
         Cursor cursor;
         int column_index_data, column_index_folder_name;
+        ArrayList<PhotoFolderDataItem> photoFolderDataItems = new ArrayList<>();
 
         String absolutePathOfImage = null;
         uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -133,8 +146,7 @@ public class PhotoFragment extends Fragment {
                 imageCount++;
             }
         }
-        Log.e("#$Total", "10");
-        binding.totalPhotoNumber.setText("사진개수 : " + imageCount);
+        fragmentPhotoBinding.collapsingToolbar.setTitle("사진개수 : "+imageCount);
         return al_images;
     }
 
@@ -154,6 +166,44 @@ public class PhotoFragment extends Fragment {
             }
         }
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        getActivity().getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+//                키보드의 검색 버튼을 누르면 이 함수가 호출됩니다.
+                fragmentPhotoFolderAdapter.getFilter().filter(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+//                이 함수는 searchview에 입력 할 때마다 호출됩니다.
+                fragmentPhotoFolderAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+//        다른 메뉴 항목 클릭을 여기에서 처리하십시오.
+        if (id == R.id.action_settings) {
+            Toast.makeText(getContext(), "Settings", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.action_voice) {
+            Toast.makeText(getContext(), "Voice", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 
 
 }

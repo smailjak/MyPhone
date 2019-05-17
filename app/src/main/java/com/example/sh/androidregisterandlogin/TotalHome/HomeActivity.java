@@ -74,10 +74,6 @@ public class HomeActivity extends AppCompatActivity {
                     changeScreen(itemId, PhoneBookFragment.newInstance());
                     return true;
                 }
-                case R.id.m_message: {
-                    changeScreen(itemId, MessageFragment.newInstance());
-                    return true;
-                }
                 case R.id.m_music: {
                     changeScreen(itemId, MusicFragment.newInstance());
                     return true;

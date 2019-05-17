@@ -47,9 +47,10 @@ import java.util.Locale;
 
 public class MainFragment extends Fragment {
 
-    FragmentMainBinding fragmentMainBinding;
-    FragmentMainAdapter fragmentMainAdapter;
-    SearchView searchView;
+    private FragmentMainBinding fragmentMainBinding;
+    private FragmentMainAdapter fragmentMainAdapter;
+
+    private SearchView searchView;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private TextToSpeech tts;
 
@@ -72,7 +73,6 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity) getActivity()).setSupportActionBar(fragmentMainBinding.toolbar);
         setHasOptionsMenu(true);
-
         initCollapsingToolbar();
         initRcv();
 
@@ -92,55 +92,35 @@ public class MainFragment extends Fragment {
     private void initCollapsingToolbar() {
         fragmentMainBinding.collapsingToolbar.setTitle("");
         fragmentMainBinding.appbar.setExpanded(true);
-        fragmentMainBinding.collapsingToolbar.setTitle("U Soft Company");
+        fragmentMainBinding.collapsingToolbar.setTitle("U&Soft Company");
+        fragmentMainBinding.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
+        fragmentMainBinding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
     }
 
 
     private ArrayList<Model> getModels() {
         ArrayList<Model> models = new ArrayList<>();
-//        Model p = new Model();
-        Model p;
-
+        Model model;
 //        여기서는 setName 에 다가 이름을 입력
-        p = new Model();
-        p.setName("폰 정보");
-        p.setImg(R.drawable.app);
-        models.add(p);
+        model = new Model();
+        model.setName("메세지");
+        model.setImg(R.drawable.app);
+        models.add(model);
 
-        p = new Model();
-        p.setName("Photo");
-        p.setImg(R.drawable.battery);
-        models.add(p);
+        model = new Model();
+        model.setName("Battery");
+        model.setImg(R.drawable.battery);
+        models.add(model);
 
-        p = new Model();
-        p.setName("Music");
-        p.setImg(R.drawable.music);
-        models.add(p);  //now run the project , im checking in nougat and oreo
+        model = new Model();
+        model.setName("Apps");
+        model.setImg(R.drawable.photo_manage);
+        models.add(model);
 
-        p = new Model();
-        p.setName("Battery");
-        p.setImg(R.drawable.battery);
-        models.add(p);
-
-        p = new Model();
-        p.setName("System Apps");
-        p.setImg(R.drawable.photo_manage);
-        models.add(p);
-
-        p = new Model();
-        p.setName("Memory");
-        p.setImg(R.drawable.total_photo);
-        models.add(p);
-
-        p = new Model();
-        p.setName("CPU");
-        p.setImg(R.drawable.question);
-        models.add(p);
-
-        p = new Model();
-        p.setName("PhoneBook");
-        p.setImg(R.drawable.battery);
-        models.add(p);
+        model = new Model();
+        model.setName("Memory");
+        model.setImg(R.drawable.total_photo);
+        models.add(model);
 
         return models;
     }
@@ -256,7 +236,7 @@ public class MainFragment extends Fragment {
                         Intent intent = new Intent(getContext(), TotalMusicActivity.class);
                         startActivity(intent);
                     } else if (result1.contains(message) || result1.contains(message2) || result1.contains(message3)) {
-                        Intent intent = new Intent(getContext(),MessageFragment.class);
+                        Intent intent = new Intent(getContext(), MessageFragment.class);
                         startActivity(intent);
                     }
                 }

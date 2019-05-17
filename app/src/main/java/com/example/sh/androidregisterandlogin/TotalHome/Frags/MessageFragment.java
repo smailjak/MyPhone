@@ -1,6 +1,7 @@
 package com.example.sh.androidregisterandlogin.TotalHome.Frags;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.sh.androidregisterandlogin.R;
@@ -30,6 +32,7 @@ import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageComparator;
 import com.example.sh.androidregisterandlogin.databinding.FragmentMessageBinding;
 import com.lifeofcoding.cacheutlislibrary.CacheUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,11 +43,12 @@ public class MessageFragment extends Fragment {
     View view;
     FragmentMessageBinding fragmentMessageBinding;
     static final int REQUEST_PERMISSION_KEY = 1;
+    private final String WATING_GREETINGS = "please wating ~ ^ ^ ";
     ArrayList<HashMap<String, String>> smsList = new ArrayList<>();
     ArrayList<HashMap<String, String>> tmpList = new ArrayList<>();
     LoadSmsAsyncTask loadSmsAsyncTask = new LoadSmsAsyncTask();
     FragmentMessageAdapter adapter, tmpadapter;
-
+    ProgressDialog progressDialog;
     int name_count = 0;
     int null_name_count = 0;
 
@@ -66,16 +70,24 @@ public class MessageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(fragmentMessageBinding.toolbar);
-        fragmentMessageBinding.listView.setEmptyView(fragmentMessageBinding.loadingBar);
+        new LoadSmsAsyncTask().execute();
         setHasOptionsMenu(true);
         initCollapsingToolbar();
-        loadSmsAsyncTask.execute();
     }
 
     private void initCollapsingToolbar() {
         fragmentMessageBinding.collapsingToolbar.setTitle("");
         fragmentMessageBinding.appbar.setExpanded(true);
-        fragmentMessageBinding.collapsingToolbar.setTitle("메세지 개수 : " + tmpList.size());
+        try {
+            tmpList = (ArrayList<HashMap<String, String>>) MessageModel.readCachedFile(getContext(), "smsapp");
+            fragmentMessageBinding.collapsingToolbar.setTitle("메세지 개수 : " + tmpList.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+//        Log.d("SmsActivity.qwe", "tmpList : " + tmpList.size());
+//        String sms_sum = String.valueOf(tmpList.size());
     }
 
     public class LoadSmsAsyncTask extends AsyncTask<String, Void, String> {
@@ -84,6 +96,11 @@ public class MessageFragment extends Fragment {
             super.onPreExecute();
 //           또 들어갈 수 있으니깐 일단 비워준다.
             smsList.clear();
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setMessage(WATING_GREETINGS);
+            progressDialog.show();
+
         }
 
         protected String doInBackground(String... args) { // ?? String ... 가 무엇일까요 ??
@@ -160,8 +177,8 @@ public class MessageFragment extends Fragment {
                     startActivity(intent);
                 });
             }
+            progressDialog.dismiss();
         }
-
     }
 
     @Override
@@ -171,8 +188,6 @@ public class MessageFragment extends Fragment {
             case REQUEST_PERMISSION_KEY: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     init();
-//                    loadSmsAsyncTask = new LoadSmsAsyncTask();
-//                    loadSmsAsyncTask.execute();
                 } else {
                     Toast.makeText(getContext(), "You must accept permissions.", Toast.LENGTH_LONG).show();
                 }
@@ -185,8 +200,7 @@ public class MessageFragment extends Fragment {
         try {
             tmpList = (ArrayList<HashMap<String, String>>) MessageModel.readCachedFile(getContext(), "smsapp");
             Log.d("SmsActivity.qwe", "tmpList : " + tmpList.size());
-            String sms_sum = String.valueOf(tmpList.size());
-//            fragmentMessageBinding.messageSumTxt.setText("메시지개수 : " + sms_sum);
+//            fragmentMessageBinding.messageSumTxt.setText("메시지개수 : " + tmpList.size());
             tmpadapter = new FragmentMessageAdapter(getContext(), tmpList);
             fragmentMessageBinding.listView.setAdapter(tmpadapter);
 

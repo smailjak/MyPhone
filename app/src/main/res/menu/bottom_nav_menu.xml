@@ -14,10 +14,6 @@
         android:icon="@drawable/ic_text_fields_black_24dp"
         android:title="@string/menu_phonebook" />
     <item
-        android:id="@+id/m_message"
-        android:icon="@drawable/ic_text_fields_black_24dp"
-        android:title="@string/menu_message" />
-    <item
         android:id="@+id/m_music"
         android:icon="@drawable/ic_text_fields_black_24dp"
         android:title="@string/menu_music" />

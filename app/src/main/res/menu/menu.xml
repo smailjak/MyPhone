@@ -25,6 +25,4 @@
         android:id="@+id/phone_book_action_voice"
         android:title="tell me"/>
 
-
-
 </menu>

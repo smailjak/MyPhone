@@ -69,6 +69,8 @@ public class PhoneBookFragment extends Fragment {
         fragmentPhonebookBinding.collapsingToolbar.setTitle("");
         fragmentPhonebookBinding.appbar.setExpanded(true);
         fragmentPhonebookBinding.collapsingToolbar.setTitle("연락처개수 : " + getContactList().size());
+        fragmentPhonebookBinding.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
+        fragmentPhonebookBinding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
     }
 
 

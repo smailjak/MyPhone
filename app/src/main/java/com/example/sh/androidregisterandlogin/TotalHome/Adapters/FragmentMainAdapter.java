@@ -22,10 +22,11 @@ public class FragmentMainAdapter extends RecyclerView.Adapter<FragmentMainAdapte
 
     Context context;
     ArrayList<Model> modelArrayList, filterList;
-    MainCustomFilter filter;
+    MainCustomFilter mainCustomFilter;
     View view;
 
     public FragmentMainAdapter(Context context, ArrayList<Model> models) {
+
         this.context = context;
         this.modelArrayList = models;
         this.filterList = models;
@@ -64,9 +65,9 @@ public class FragmentMainAdapter extends RecyclerView.Adapter<FragmentMainAdapte
 //    검색기능을 구현했을때 추가한 함수
     @Override
     public Filter getFilter() {
-        if (filter == null) {
-            filter = new MainCustomFilter(filterList, this);
+        if (mainCustomFilter == null) {
+            mainCustomFilter = new MainCustomFilter(filterList, this);
         }
-        return filter;
+        return mainCustomFilter;
     }
 }

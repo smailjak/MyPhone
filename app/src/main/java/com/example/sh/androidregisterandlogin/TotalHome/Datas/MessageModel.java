@@ -21,9 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-/**
- * Created by SHAJIB on 7/10/2017.
- */
 
 public class MessageModel {
 
@@ -62,7 +59,7 @@ public class MessageModel {
     public static HashMap<String, String> mappingInbox(String _id, String thread_id, String name, String phone, String msg, String type, String timestamp, String time)
 //            ket 와 value 모두 String 으로 설정합니다.
     {
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
 //        put 으로 데이터를 삽입합니다.
         map.put(_ID, _id);
         map.put(KEY_THREAD_ID, thread_id);
@@ -75,9 +72,9 @@ public class MessageModel {
         return map;
     }
 
-    public static  ArrayList<HashMap<String, String>> removeDuplicates( ArrayList<HashMap<String, String>> smsList)
-    {
-        ArrayList<HashMap<String, String>> gpList = new ArrayList<HashMap<String, String>>();
+    public static  ArrayList<HashMap<String, String>> removeDuplicates( ArrayList<HashMap<String, String>> smsList) {
+
+        ArrayList<HashMap<String, String>> gpList = new ArrayList<>();
         for (int i = 0; i<smsList.size(); i++)
         {
             boolean available = false;
@@ -90,8 +87,7 @@ public class MessageModel {
                 }
             }
 
-            if(!available)
-            {
+            if(!available) {
                 gpList.add(mappingInbox(smsList.get(i).get(_ID), smsList.get(i).get(KEY_THREAD_ID),
                         smsList.get(i).get(KEY_NAME), smsList.get(i).get(KEY_PHONE),
                         smsList.get(i).get(KEY_MSG), smsList.get(i).get(KEY_TYPE),
@@ -107,10 +103,12 @@ public class MessageModel {
             smsManager.sendTextMessage(toPhoneNumber, null, smsMessage, null, null);
 
             return true;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+
     }
 
     public static String getContactbyPhoneNumber(Context context, String phoneNumber) {
@@ -144,6 +142,7 @@ public class MessageModel {
             oos.close ();
             fos.close ();
     }
+
 
     public static Object readCachedFile (Context context, String key) throws IOException, ClassNotFoundException {
         FileInputStream fis = context.openFileInput (key);

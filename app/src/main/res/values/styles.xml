@@ -28,6 +28,13 @@
         <item name="drawerArrowStyle">@drawable/previous</item>
     </style>
 
+    <style name="coll_expand_title">
+        <item name="android:textColor">@color/colorGrin</item>
+    </style>
+    <style name="coll_basic_title">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
     <style name="AppThemeRegist.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppThemeRegist.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -35,5 +42,8 @@
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
+
+
+
     
 </resources>
