@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalAudio;
+package com.example.sh.androidregisterandlogin.TotalMusic;
 
 /*
  * Copyright (C) 2014 skyfish.jy@gmail.com

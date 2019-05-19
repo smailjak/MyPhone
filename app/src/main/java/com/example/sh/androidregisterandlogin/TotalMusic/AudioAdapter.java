@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalAudio;
+package com.example.sh.androidregisterandlogin.TotalMusic;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -28,8 +28,8 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
     Context context;
 
     public AudioAdapter(Context context, Cursor cursor) {
-        super( cursor);
-        this.context=context;
+        super(cursor);
+        this.context = context;
     }
 
     @Override
@@ -99,15 +99,11 @@ public class AudioAdapter extends CursorRecyclerViewAdapter<RecyclerView.ViewHol
             mTxtSubTitle = view.findViewById(R.id.txt_sub_title);
             mTxtDuration = view.findViewById(R.id.txt_duration);
 
-            view.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    AudioApplication.getInstance().getServiceInterface().setPlayList(getAudioIds()); // 재생목록등록
-                    AudioApplication.getInstance().getServiceInterface().play(mPosition); // 선택한 오디오재생
-                    ((TotalMusicActivity) TotalMusicActivity.mContext).updateUI();
-                    ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
-                }
+            view.setOnClickListener(v -> {
+                AudioApplication.getInstance().getServiceInterface().setPlayList(getAudioIds()); // 재생목록등록
+                AudioApplication.getInstance().getServiceInterface().play(mPosition); // 선택한 오디오재생
+                ((TotalMusicActivity) TotalMusicActivity.mContext).updateUI();
+                ((TotalMusicActivity) TotalMusicActivity.mContext).updatePlay();
             });
         }
 

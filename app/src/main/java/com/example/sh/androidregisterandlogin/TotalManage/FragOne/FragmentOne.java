@@ -36,6 +36,7 @@ public class FragmentOne extends Fragment {
     Context context;
     ProgressDialog progressDialog;
 
+
     public FragmentOne() {
 
     }

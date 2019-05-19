@@ -27,7 +27,6 @@ public class MusicFragment extends Fragment {
         return new MusicFragment();
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment

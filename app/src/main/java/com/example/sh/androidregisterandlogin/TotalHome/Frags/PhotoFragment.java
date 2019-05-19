@@ -73,7 +73,7 @@ public class PhotoFragment extends Fragment {
     private void initCollapsingToolbar() {
 
         fragmentPhotoBinding.collapsingToolbar.setTitle("");
-        fragmentPhotoBinding.appbar.setExpanded(true);
+        fragmentPhotoBinding.photoAppbar.setExpanded(true);
         fragmentPhotoBinding.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
         fragmentPhotoBinding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
     }

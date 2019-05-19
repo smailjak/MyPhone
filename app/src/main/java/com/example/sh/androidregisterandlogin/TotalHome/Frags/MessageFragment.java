@@ -13,19 +13,23 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalHome.Adapters.FragmentMessageAdapter;
+import com.example.sh.androidregisterandlogin.TotalHome.Adapters.FragmentMessageAdapter2;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageModel;
 import com.example.sh.androidregisterandlogin.TotalMessage.Chat.ChatActivity;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageComparator;
@@ -47,7 +51,8 @@ public class MessageFragment extends Fragment {
     ArrayList<HashMap<String, String>> smsList = new ArrayList<>();
     ArrayList<HashMap<String, String>> tmpList = new ArrayList<>();
     LoadSmsAsyncTask loadSmsAsyncTask = new LoadSmsAsyncTask();
-    FragmentMessageAdapter adapter, tmpadapter;
+    FragmentMessageAdapter2 adapter, tmpadapter;
+    FragmentMessageAdapter fragmentMessageAdapter;
     ProgressDialog progressDialog;
     int name_count = 0;
     int null_name_count = 0;
@@ -81,13 +86,13 @@ public class MessageFragment extends Fragment {
         try {
             tmpList = (ArrayList<HashMap<String, String>>) MessageModel.readCachedFile(getContext(), "smsapp");
             fragmentMessageBinding.collapsingToolbar.setTitle("메세지 개수 : " + tmpList.size());
+            fragmentMessageBinding.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
+            fragmentMessageBinding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-//        Log.d("SmsActivity.qwe", "tmpList : " + tmpList.size());
-//        String sms_sum = String.valueOf(tmpList.size());
     }
 
     public class LoadSmsAsyncTask extends AsyncTask<String, Void, String> {
@@ -167,7 +172,7 @@ public class MessageFragment extends Fragment {
         protected void onPostExecute(String xml) {
 
             if (!tmpList.equals(smsList)) {
-                adapter = new FragmentMessageAdapter(getContext(), smsList);
+                adapter = new FragmentMessageAdapter2(getContext(), smsList);
                 fragmentMessageBinding.listView.setAdapter(adapter);
                 fragmentMessageBinding.listView.setOnItemClickListener((parent, view, position, id) -> {
                     Intent intent = new Intent(getContext(), ChatActivity.class);
@@ -201,7 +206,7 @@ public class MessageFragment extends Fragment {
             tmpList = (ArrayList<HashMap<String, String>>) MessageModel.readCachedFile(getContext(), "smsapp");
             Log.d("SmsActivity.qwe", "tmpList : " + tmpList.size());
 //            fragmentMessageBinding.messageSumTxt.setText("메시지개수 : " + tmpList.size());
-            tmpadapter = new FragmentMessageAdapter(getContext(), tmpList);
+            tmpadapter = new FragmentMessageAdapter2(getContext(), tmpList);
             fragmentMessageBinding.listView.setAdapter(tmpadapter);
 
             fragmentMessageBinding.listView.setOnItemClickListener((parent, view, position, id) -> {
@@ -216,6 +221,7 @@ public class MessageFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -225,10 +231,7 @@ public class MessageFragment extends Fragment {
         if (!MessageModel.hasPermissions(getContext(), PERMISSIONS)) {
             ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, REQUEST_PERMISSION_KEY);
         } else {
-
             init();
-//            loadSmsAsyncTask = new LoadSmsAsyncTask();
-//            loadSmsAsyncTask.execute();
         }
     }
 }

@@ -12,12 +12,10 @@
     <!--@style/Theme.Design.Light.NoActionBar-->
     <style name="AppThemeLogin.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+
     <style name="Theme.Design.Light.NoActionBar" parent="ThemeOverlay.AppCompat.Light" />
     <!--Base application theme-->
-    <style name="AppThemeRegist" parent="Base.Theme.AppCompat.Light.DarkActionBar">
-        <!--Customize your theme here-->
-        <!--<item name="colorDarkBlue">@color/colorDarkBlue</item>-->
-        <!--<item name="colorDarkBlue2">@color/colorDarkBlue2</item>-->
+    <style name="BaseAppTheme" parent="Theme.AppCompat">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -31,6 +29,7 @@
     <style name="coll_expand_title">
         <item name="android:textColor">@color/colorGrin</item>
     </style>
+
     <style name="coll_basic_title">
         <item name="android:textColor">@color/colorWhite</item>
     </style>
@@ -44,6 +43,4 @@
     </style>
 
 
-
-    
 </resources>

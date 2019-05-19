@@ -16,13 +16,4 @@
         android:id="@+id/action_voice"
         android:title="tell me " />
 
-    <!--phonebook-->
-    <item
-        android:id="@+id/phone_book_action_settings"
-        android:title="Settings"/>
-
-    <item
-        android:id="@+id/phone_book_action_voice"
-        android:title="tell me"/>
-
 </menu>

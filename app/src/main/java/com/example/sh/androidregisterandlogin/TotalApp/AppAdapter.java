@@ -30,16 +30,16 @@ public class AppAdapter extends BaseRecylcerViewAdapter<AppDataItem, AppAdapter.
     }
 
     @Override
-    public void onBindView(ViewHolder viewHolder, int position) {
-        viewHolder.nameInListView.setText(getItem(position).getName());
-        viewHolder.packageInListView.setText(getItem(position).getPackages());
-        viewHolder.versionInListView.setText(getItem(position).getVersion());
-//        viewHolder.imageInListView.setImageDrawable(getItem(position).getIcon());
+    public void onBindView(ViewHolder holder, int position) {
+        holder.nameInListView.setText(getItem(position).getName());
+        holder.packageInListView.setText(getItem(position).getPackages());
+        holder.versionInListView.setText(getItem(position).getVersion());
+
         RequestOptions circle = new RequestOptions().circleCrop();
         Glide.with(context)
                 .load(getItem(position).getIcon())
                 .apply(circle)
-                .into(viewHolder.imageInListView);
+                .into(holder.imageInListView);
 
     }
 
@@ -49,17 +49,12 @@ public class AppAdapter extends BaseRecylcerViewAdapter<AppDataItem, AppAdapter.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelapps, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
-        viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppDataItem appDataItem = getItem(viewHolder.getAdapterPosition());
-
-                if (appDataItem == null) {
-                    return;
-                }
+        viewHolder.constraintLayout.setOnClickListener(v -> {
+            AppDataItem appDataItem = getItem(viewHolder.getAdapterPosition());
+            if (appDataItem == null) {
+                return;
             }
         });
-
         return viewHolder;
     }
 

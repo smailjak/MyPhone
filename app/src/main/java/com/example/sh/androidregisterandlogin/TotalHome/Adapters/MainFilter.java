@@ -7,13 +7,13 @@ import com.example.sh.androidregisterandlogin.TotalHome.Datas.Model;
 
 import java.util.ArrayList;
 
-public class MainCustomFilter extends Filter {
+public class MainFilter extends Filter {
 //    extends 로 Filter 라는 것을 상속 받았다 .. 그런데 이거 무엇이지 ? 왜 Filter 를 상속받았지?? 뭘 쓸려고 ??
 
     FragmentMainAdapter fragmentMainAdapter;
     ArrayList<Model> filterList;
 
-    public MainCustomFilter(ArrayList<Model> filterList, FragmentMainAdapter adapter) {
+    public MainFilter(ArrayList<Model> filterList, FragmentMainAdapter adapter) {
         this.fragmentMainAdapter = adapter;
         this.filterList = filterList;
     }

@@ -9,21 +9,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalDataItem.PhoneInfoDataItem;
-import com.example.sh.androidregisterandlogin.databinding.ActivityGeneralBinding;
+import com.example.sh.androidregisterandlogin.databinding.ActivityPhoneinfoBinding;
+
 
 import java.util.ArrayList;
 
-public class GeneralActivity extends AppCompatActivity {
+public class PhoneInfoActivity extends AppCompatActivity {
 
-    private ActivityGeneralBinding binding;
+    private ActivityPhoneinfoBinding activityPhoneinfoBinding;
     GeneralAdapter generalAdapter;
     ArrayList<PhoneInfoDataItem> generalList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_general);
-        initRv(binding.rcvGeneral);
+        activityPhoneinfoBinding = DataBindingUtil.setContentView(this, R.layout.activity_phoneinfo);
+        initRv(activityPhoneinfoBinding.rcvGeneral);
         initActionbar();
     }
 

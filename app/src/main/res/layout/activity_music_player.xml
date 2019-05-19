@@ -12,8 +12,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorWhite"
         android:orientation="vertical"
-        tools:context=".TotalAudio.MusicPlayer">
+        tools:context=".TotalMusic.MusicPlayer">
 
         <TextView
             android:id="@+id/music_title"

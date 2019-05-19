@@ -16,7 +16,6 @@ import com.example.sh.androidregisterandlogin.TotalHome.Frags.MessageFragment;
 import com.example.sh.androidregisterandlogin.TotalHome.Frags.PhotoFragment;
 import com.example.sh.androidregisterandlogin.TotalHome.Frags.MainFragment;
 import com.example.sh.androidregisterandlogin.TotalHome.Frags.PhoneBookFragment;
-import com.example.sh.androidregisterandlogin.TotalHome.Frags.MusicFragment;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.databinding.ActivityCollectionBinding;
 import com.example.sh.androidregisterandlogin.util.ActivityUtils;
@@ -74,8 +73,8 @@ public class HomeActivity extends AppCompatActivity {
                     changeScreen(itemId, PhoneBookFragment.newInstance());
                     return true;
                 }
-                case R.id.m_music: {
-                    changeScreen(itemId, MusicFragment.newInstance());
+                case R.id.m_message: {
+                    changeScreen(itemId, MessageFragment.newInstance());
                     return true;
                 }
                 default: {
@@ -117,7 +116,7 @@ public class HomeActivity extends AppCompatActivity {
 //        binding.vTop.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(HomeActivity.this, GeneralActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, PhoneInfoActivity.class);
 //                startActivity(intent);
 //            }
 //        });

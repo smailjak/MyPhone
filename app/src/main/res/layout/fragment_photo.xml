@@ -6,12 +6,12 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/main_content"
+        android:id="@+id/photo_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
+            android:id="@+id/photo_appbar"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:background="@color/colorWhite"
