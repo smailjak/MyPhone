@@ -28,7 +28,7 @@ public class PhoneBookFilter extends Filter {
             ArrayList<AddressDataItem> filteredAddress = new ArrayList<>();
             for (int i = 0; i < filterList.size(); i++) {
                 if (filterList.get(i).getName().toUpperCase().contains(constraint)) {
-//                    add model to filtered models
+//                    add additionalFeature to filtered models
                     filteredAddress.add(filterList.get(i));
                 }
             }

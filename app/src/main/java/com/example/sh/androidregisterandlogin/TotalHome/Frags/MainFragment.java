@@ -36,7 +36,7 @@ import com.example.sh.androidregisterandlogin.TotalApp.UserAppsActivity;
 import com.example.sh.androidregisterandlogin.TotalMusic.TotalMusicActivity;
 import com.example.sh.androidregisterandlogin.TotalBattery.BatteryActivity;
 import com.example.sh.androidregisterandlogin.TotalHome.Adapters.FragmentMainAdapter;
-import com.example.sh.androidregisterandlogin.TotalHome.Datas.Model;
+import com.example.sh.androidregisterandlogin.data.AdditionalFeature;
 import com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder.TotalPhotoActivity;
 import com.example.sh.androidregisterandlogin.databinding.FragmentMainBinding;
 
@@ -44,16 +44,13 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainFragment extends Fragment {
-
     private FragmentMainBinding fragmentMainBinding;
     private FragmentMainAdapter fragmentMainAdapter;
     private SearchView searchView;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private TextToSpeech tts;
 
-    public MainFragment() {
-
-    }
+    public MainFragment() {}
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -61,10 +58,8 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         fragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         return fragmentMainBinding.getRoot();
-
     }
 
     @Override
@@ -79,13 +74,11 @@ public class MainFragment extends Fragment {
         fragmentMainBinding.imgCompanyIntro.setOnClickListener(a -> {
             Intent intent = new Intent(getContext(), CompanyIntroActivity.class);
             startActivity(intent);
-
         });
     }
 
     private void initRcv() {
-        fragmentMainAdapter = new FragmentMainAdapter(getContext(), getModels());
-//        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        fragmentMainAdapter = new FragmentMainAdapter(getModels());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         fragmentMainBinding.rcvMain.setLayoutManager(linearLayoutManager);
         fragmentMainBinding.rcvMain.setHasFixedSize(true);
@@ -100,31 +93,31 @@ public class MainFragment extends Fragment {
         fragmentMainBinding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
     }
 
-    private ArrayList<Model> getModels() {
-        ArrayList<Model> models = new ArrayList<>();
-        Model model;
-//        여기서는 setName 에 다가 이름을 입력
-        model = new Model();
-        model.setName("music");
-        model.setImg(R.drawable.music);
-        models.add(model);
+    private ArrayList<AdditionalFeature> getModels() {
+        ArrayList<AdditionalFeature> additionalFeatures = new ArrayList<>();
+        AdditionalFeature additionalFeature;
 
-        model = new Model();
-        model.setName("Battery");
-        model.setImg(R.drawable.battery);
-        models.add(model);
+        additionalFeature = new AdditionalFeature();
+        additionalFeature.setName("Music");
+        additionalFeature.setImg(R.drawable.ic_main_music);
+        additionalFeatures.add(additionalFeature);
 
-        model = new Model();
-        model.setName("Apps");
-        model.setImg(R.drawable.photo_manage);
-        models.add(model);
+        additionalFeature = new AdditionalFeature();
+        additionalFeature.setName("Battery");
+        additionalFeature.setImg(R.drawable.ic_main_batter);
+        additionalFeatures.add(additionalFeature);
 
-        model = new Model();
-        model.setName("info");
-        model.setImg(R.drawable.measure);
-        models.add(model);
+        additionalFeature = new AdditionalFeature();
+        additionalFeature.setName("App");
+        additionalFeature.setImg(R.drawable.ic_main_app);
+        additionalFeatures.add(additionalFeature);
 
-        return models;
+        additionalFeature = new AdditionalFeature();
+        additionalFeature.setName("info");
+        additionalFeature.setImg(R.drawable.measure);
+        additionalFeatures.add(additionalFeature);
+
+        return additionalFeatures;
     }
 
     @Override
@@ -137,14 +130,12 @@ public class MainFragment extends Fragment {
 
             @Override
             public boolean onQueryTextSubmit(String s) {
-//                키보드의 검색 버튼을 누르면 이 함수가 호출됩니다.
                 fragmentMainAdapter.getFilter().filter(s);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-//                이 함수는 searchview에 입력 할 때마다 호출됩니다.
                 fragmentMainAdapter.getFilter().filter(s);
                 return false;
             }
@@ -154,7 +145,6 @@ public class MainFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-//        다른 메뉴 항목 클릭을 여기에서 처리하십시오.
         if (id == R.id.action_settings) {
             Toast.makeText(getContext(), "Settings", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.action_voice) {
@@ -202,7 +192,6 @@ public class MainFragment extends Fragment {
                     String music_start1 = "음악재생", music_start2 = "노래재생", music_title_start = "틀어줘";
                     String message = "메세지", message2 = "문자", message3 = "메시지";
                     String address = "연락처";
-                    /////////////////////////
                     String result1 = voice_result.trim().replaceAll(" ", "");
 
                     if (result1.replaceAll(" ", "").contains(text1) || result1.contains(test2)) {
@@ -277,7 +266,6 @@ public class MainFragment extends Fragment {
                 return new CursorLoader(getContext(), uri, projection, selection, null, sortOrder);
             }
 
-            //          onLoadFinished 가 계속 불리는건가 ??
             @Override
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
                 data.moveToFirst(); // 만약에 cursor 라는 것이 아무것도 밑에 내려갈것이 없을때는 다시 맨위로 올려버린다.

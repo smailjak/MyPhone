@@ -16,11 +16,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalDataItem.AppDataItem;
-import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
+import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
 import java.util.List;
 
-public class AppAdapter extends BaseRecylcerViewAdapter<AppDataItem, AppAdapter.ViewHolder> {
+public class AppAdapter extends BaseRecyclerViewAdapter<AppDataItem, AppAdapter.ViewHolder> {
 
     Context context;
 

@@ -1,102 +1,77 @@
 package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalApp.UserAppsActivity;
-
 import com.example.sh.androidregisterandlogin.TotalBattery.BatteryActivity;
-import com.example.sh.androidregisterandlogin.TotalHome.Datas.Model;
 import com.example.sh.androidregisterandlogin.TotalMusic.TotalMusicActivity;
 import com.example.sh.androidregisterandlogin.TotalPhoneInfo.PhoneInfoActivity;
+import com.example.sh.androidregisterandlogin.data.AdditionalFeature;
+import com.example.sh.androidregisterandlogin.databinding.ItemAdditionalFeatureBinding;
+import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
-// 여기서 implements 을 추가해줘야합니다. == > Filterable 을 추가했음
-public class FragmentMainAdapter extends RecyclerView.Adapter<FragmentMainAdapter.ViewHolder> implements Filterable {
+public class FragmentMainAdapter extends BaseRecyclerViewAdapter<AdditionalFeature, FragmentMainAdapter.ViewHolder> implements Filterable {
 
-    Context context;
-    ArrayList<Model> modelArrayList, filterList;
+    ArrayList<AdditionalFeature> filterList;
     MainFilter mainFilter;
-    Model model;
-    View view;
+    private RequestManager requestManager;
 
-    public FragmentMainAdapter(Context context, ArrayList<Model> models) {
-
-        this.context = context;
-        this.modelArrayList = models;
-        this.filterList = models;
-
+    public FragmentMainAdapter(List<AdditionalFeature> dataSet) {
+        super(dataSet);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
-//        Convert XML to OBJ
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.model, null);
-        ViewHolder holder = new ViewHolder(view);
-        holder.constraintLayout.setOnClickListener(v -> {
-            if (holder.getAdapterPosition() == 0) {
-                Intent intent = new Intent(context, TotalMusicActivity.class);
-                context.startActivity(intent);
-            } else if (holder.getAdapterPosition() == 1) {
-                Intent intent = new Intent(context, BatteryActivity.class);
-                context.startActivity(intent);
-            } else if (holder.getAdapterPosition() == 2) {
-                Intent intent = new Intent(context, UserAppsActivity.class);
-                context.startActivity(intent);
-            } else if (holder.getAdapterPosition() == 3) {
-                Intent intent = new Intent(context, PhoneInfoActivity.class);
-                context.startActivity(intent);
+        ItemAdditionalFeatureBinding binding = ItemAdditionalFeatureBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        ViewHolder viewHolder = new ViewHolder(binding);
+        requestManager = Glide.with(parent.getContext());
+        viewHolder.binding.clBody.setOnClickListener(v -> {
+            if (viewHolder.getAdapterPosition() == 0) {
+                parent.getContext().startActivity(new Intent(parent.getContext(), TotalMusicActivity.class));
+            } else if (viewHolder.getAdapterPosition() == 1) {
+                parent.getContext().startActivity(new Intent(parent.getContext(), BatteryActivity.class));
+            } else if (viewHolder.getAdapterPosition() == 2) {
+                parent.getContext().startActivity(new Intent(parent.getContext(), UserAppsActivity.class));
+            } else if (viewHolder.getAdapterPosition() == 3) {
+                parent.getContext().startActivity(new Intent(parent.getContext(), PhoneInfoActivity.class));
             }
         });
-        return holder;
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.nameTxt.setText(modelArrayList.get(position).getName());
-        RequestOptions circle = new RequestOptions().circleCrop();
-        Glide.with(context)
-                .load(modelArrayList.get(position).getImg())
-                .apply(circle)
-                .into(holder.img);
-
+    public void onBindView(ViewHolder viewHolder, int position) {
+        viewHolder.binding.tvName.setText(getItem(position).getName());
+        requestManager.load(getItem(position).getImg())
+                .apply(RequestOptions.bitmapTransform(new CenterCrop()))
+                .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
+                .into(viewHolder.binding.ivImage);
     }
 
-    @Override
-    public int getItemCount() {
-        return modelArrayList.size();
-    }
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        ItemAdditionalFeatureBinding binding;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView img;
-        TextView nameTxt;
-        ConstraintLayout constraintLayout;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            img = itemView.findViewById(R.id.img_model);
-            nameTxt = itemView.findViewById(R.id.tv_model);
-            constraintLayout = itemView.findViewById(R.id.constraint_main_model);
+        public ViewHolder(@NonNull ItemAdditionalFeatureBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
-    //    return filter obj
-//    검색기능을 구현했을때 추가한 함수
     @Override
     public Filter getFilter() {
         if (mainFilter == null) {
