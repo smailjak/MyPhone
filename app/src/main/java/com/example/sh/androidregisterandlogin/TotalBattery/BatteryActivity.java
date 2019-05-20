@@ -1,13 +1,18 @@
 package com.example.sh.androidregisterandlogin.TotalBattery;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+
 import androidx.databinding.DataBindingUtil;
+
 import android.os.BatteryManager;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.databinding.ActivityBatteryBinding;
 
@@ -94,7 +99,6 @@ public class BatteryActivity extends AppCompatActivity {
             }
 
 
-
 //            Display the output of battery status
             binding.tvPercentage.setText("배터리 : " + level + "%");
             binding.tvTitle.setText("상태:\n\n" +
@@ -109,7 +113,6 @@ public class BatteryActivity extends AppCompatActivity {
             float percentage = levels / (float) scale;
 //            update the progress bar to display current battery charged percentage
             int mProgressStatus = (int) ((percentage) * 100);
-            binding.tvBatterPercent.setText("" + mProgressStatus + "%");
             binding.pb.setProgress(mProgressStatus);
         }
     };

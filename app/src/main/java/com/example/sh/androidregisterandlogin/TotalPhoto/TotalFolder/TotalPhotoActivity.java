@@ -23,9 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.sh.androidregisterandlogin.TotalHome.Adapters.FragmentPhotoFolderAdapter;
 import com.example.sh.androidregisterandlogin.TotalHome.HomeActivity;
 import com.example.sh.androidregisterandlogin.R;
-import com.example.sh.androidregisterandlogin.TotalDataItem.PhotoFolderDataItem;
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.PhotoFolderDataItem;
 import com.example.sh.androidregisterandlogin.databinding.ActivityTotalPhotoBinding;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class TotalPhotoActivity extends AppCompatActivity {
     public ArrayList<PhotoFolderDataItem> al_images = new ArrayList<>();
     private static final int REQUEST_PERMISSIONS = 100;
     boolean boolean_folder;
-    private PhotosFolderAdapter adapter;
+    private FragmentPhotoFolderAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class TotalPhotoActivity extends AppCompatActivity {
     }
 
     private void initRv(RecyclerView rv) {
-        adapter = new PhotosFolderAdapter(fn_imagespath(), this);
+        adapter = new FragmentPhotoFolderAdapter(fn_imagespath(), this);
         rv.setAdapter(adapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);

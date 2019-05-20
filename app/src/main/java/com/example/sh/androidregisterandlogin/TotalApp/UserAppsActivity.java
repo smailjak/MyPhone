@@ -5,6 +5,8 @@ import android.content.pm.PackageInfo;
 import androidx.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.ProgressBar;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,11 +28,9 @@ public class UserAppsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=DataBindingUtil.setContentView(this,R.layout.activity_user_apps);
-
         initRv(binding.rcvApps);
         String size = Integer.toString(getInstalledApps().size());
         binding.tvAppCount.setText("어플개수 : " + size);
-
     }
 
     private void initRv(RecyclerView rv) {

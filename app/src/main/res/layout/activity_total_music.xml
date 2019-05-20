@@ -9,13 +9,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/colorWhite"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/music_number"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/btn_bg_edge"
             android:gravity="center"
             android:text="음악개수 : "
             android:textColor="@color/colorGrin"

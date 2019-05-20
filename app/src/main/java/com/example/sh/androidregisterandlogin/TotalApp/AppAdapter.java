@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -31,36 +30,31 @@ public class AppAdapter extends BaseRecylcerViewAdapter<AppDataItem, AppAdapter.
     }
 
     @Override
-    public void onBindView(ViewHolder viewHolder, int position) {
-        viewHolder.nameInListView.setText(getItem(position).getName());
-        viewHolder.packageInListView.setText(getItem(position).getPackages());
-        viewHolder.versionInListView.setText(getItem(position).getVersion());
-//        viewHolder.imageInListView.setImageDrawable(getItem(position).getIcon());
+    public void onBindView(ViewHolder holder, int position) {
+        holder.nameInListView.setText(getItem(position).getName());
+        holder.packageInListView.setText(getItem(position).getPackages());
+        holder.versionInListView.setText(getItem(position).getVersion());
+
         RequestOptions circle = new RequestOptions().circleCrop();
         Glide.with(context)
                 .load(getItem(position).getIcon())
                 .apply(circle)
-                .into(viewHolder.imageInListView);
+                .into(holder.imageInListView);
 
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.modelapps, viewGroup, false);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelapps, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
-        viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppDataItem appDataItem = getItem(viewHolder.getAdapterPosition());
-
-                if (appDataItem == null) {
-                    return;
-                }
+        viewHolder.constraintLayout.setOnClickListener(v -> {
+            AppDataItem appDataItem = getItem(viewHolder.getAdapterPosition());
+            if (appDataItem == null) {
+                return;
             }
         });
-
         return viewHolder;
     }
 

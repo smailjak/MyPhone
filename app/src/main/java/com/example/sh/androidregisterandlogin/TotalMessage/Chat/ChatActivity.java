@@ -10,10 +10,9 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import android.view.View;
 import com.example.sh.androidregisterandlogin.R;
-import com.example.sh.androidregisterandlogin.TotalMessage.Function;
-import com.example.sh.androidregisterandlogin.TotalMessage.MapComparator;
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageModel;
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageComparator;
 import com.example.sh.androidregisterandlogin.databinding.ActivityChatActivityBinding;
 
 import java.util.ArrayList;
@@ -88,7 +87,7 @@ public class ChatActivity extends AppCompatActivity {
                         String timestamp = cursor.getString(cursor.getColumnIndexOrThrow("date"));
                         phone = cursor.getString(cursor.getColumnIndexOrThrow("address"));
 
-                        tmpList.add(Function.mappingInbox(_id, thread_id, name, phone, msg, type, timestamp, Function.converToTime(timestamp)));
+                        tmpList.add(MessageModel.mappingInbox(_id, thread_id, name, phone, msg, type, timestamp, MessageModel.converToTime(timestamp)));
                         cursor.moveToNext();
                     }
                 }
@@ -98,7 +97,7 @@ public class ChatActivity extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            Collections.sort(tmpList, new MapComparator(Function.KEY_TIMESTAMP, "asc"));
+            Collections.sort(tmpList, new MessageComparator(MessageModel.KEY_TIMESTAMP, "asc"));
 
             return xml;
         }
@@ -117,9 +116,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     void sendMessageImageBtn() {
-        binding.sendMessageImageBtn.setOnClickListener(new View.OnClickListener() {
+        binding.sendMessageImageBtn.setOnClickListener(view-> {
 
-            public void onClick(View v) {
                 String text = binding.newMessage.getText().toString();
 
                 if (text.length() > 0) {
@@ -127,13 +125,13 @@ public class ChatActivity extends AppCompatActivity {
                     binding.newMessage.setText("Sending....");
                     binding.newMessage.setEnabled(false);
 
-                    if (Function.sendSMS(address, tmp_msg)) {
+                    if (MessageModel.sendSMS(address, tmp_msg)) {
                         binding.newMessage.setText("");
                         binding.newMessage.setEnabled(true);
                         // Creating a custom list for newly added sms
                         customList.clear();
                         customList.addAll(smsList);
-                        customList.add(Function.mappingInbox(null, null, null, null, tmp_msg, "2", null, "Sending..."));
+                        customList.add(MessageModel.mappingInbox(null, null, null, null, tmp_msg, "2", null, "Sending..."));
                         adapter = new ChatAdapter(ChatActivity.this, customList);
                         binding.listView.setAdapter(adapter);
                         //=========================
@@ -142,7 +140,6 @@ public class ChatActivity extends AppCompatActivity {
                         binding.newMessage.setEnabled(true);
                     }
                 }
-            }
         });
     }
 }

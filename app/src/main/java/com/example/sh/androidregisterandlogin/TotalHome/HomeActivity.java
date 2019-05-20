@@ -1,7 +1,7 @@
 package com.example.sh.androidregisterandlogin.TotalHome;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -12,18 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.example.sh.androidregisterandlogin.AdvertisingActivity;
-import com.example.sh.androidregisterandlogin.TotalHome.Frags.MusicFragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.MessageFragment;
 import com.example.sh.androidregisterandlogin.TotalHome.Frags.PhotoFragment;
-import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test1Fragment;
-import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test3Fragment;
-import com.example.sh.androidregisterandlogin.TotalHome.Frags.Test4Fragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.MainFragment;
+import com.example.sh.androidregisterandlogin.TotalHome.Frags.PhoneBookFragment;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.databinding.ActivityCollectionBinding;
 import com.example.sh.androidregisterandlogin.util.ActivityUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomeActivity extends AppCompatActivity{
+public class HomeActivity extends AppCompatActivity {
     private ActivityCollectionBinding binding;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private TextToSpeech tts;
@@ -59,34 +57,30 @@ public class HomeActivity extends AppCompatActivity{
     }
 
     private void BottomNavigationInit(BottomNavigationView bnv) {
-        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), Test1Fragment.newInstance(), R.id.fl_main);
+        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), MainFragment.newInstance(), R.id.fl_main);
         bnv.setOnNavigationItemSelectedListener(item -> {
-                int itemId = item.getItemId();
-                switch (itemId) {
-                    case R.id.m_home: {
-                        changeScreen(itemId, Test1Fragment.newInstance());
-                        return true;
-                    }
-                    case R.id.m_photo: {
-                        changeScreen(itemId, PhotoFragment.newInstance());
-                        return true;
-                    }
-                    case R.id.m_phonebook: {
-                        changeScreen(itemId, Test3Fragment.newInstance());
-                        return true;
-                    }
-                    case R.id.m_music: {
-                        changeScreen(itemId, MusicFragment.newInstance());
-                        return true;
-                    }
-                    case R.id.m_manage: {
-                        changeScreen(itemId, Test4Fragment.newInstance());
-                        return true;
-                    }
-                    default: {
-                        return false;
-                    }
+            int itemId = item.getItemId();
+            switch (itemId) {
+                case R.id.m_home: {
+                    changeScreen(itemId, MainFragment.newInstance());
+                    return true;
                 }
+                case R.id.m_photo: {
+                    changeScreen(itemId, PhotoFragment.newInstance());
+                    return true;
+                }
+                case R.id.m_phonebook: {
+                    changeScreen(itemId, PhoneBookFragment.newInstance());
+                    return true;
+                }
+                case R.id.m_message: {
+                    changeScreen(itemId, MessageFragment.newInstance());
+                    return true;
+                }
+                default: {
+                    return false;
+                }
+            }
         });
     }
 
@@ -122,7 +116,7 @@ public class HomeActivity extends AppCompatActivity{
 //        binding.vTop.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent = new Intent(HomeActivity.this, GeneralActivity.class);
+//                Intent intent = new Intent(HomeActivity.this, PhoneInfoActivity.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -355,10 +349,16 @@ public class HomeActivity extends AppCompatActivity{
 //        });
 //    }
 
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(HomeActivity.this, AdvertisingActivity.class);
-        startActivity(intent);
+//       super.onBackPressed(); 를 주석처리하여 뒤로 가기 키를 눌러도 액티비티가 종료되지 않게 하였습니다.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("종료 확인");
+        builder.setMessage("정말로 종료하시겠습니까 ?");
+        builder.setPositiveButton("확인", (dialog, which) ->
+                finish());
+        builder.setNegativeButton("취소", null);
+        builder.show();
     }
 }

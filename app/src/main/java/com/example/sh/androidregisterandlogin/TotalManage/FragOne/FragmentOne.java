@@ -36,6 +36,7 @@ public class FragmentOne extends Fragment {
     Context context;
     ProgressDialog progressDialog;
 
+
     public FragmentOne() {
 
     }
@@ -93,11 +94,11 @@ public class FragmentOne extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
 
-            MyAdapter myAdapter = new MyAdapter(list, view.getContext());
+            TotalManageFragmentAdapter totalManageFragmentAdapter = new TotalManageFragmentAdapter(list, view.getContext());
             recyclerView = view.findViewById(R.id.rcv_fragment_one);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setHasFixedSize(true);
-            recyclerView.setAdapter(myAdapter);
+            recyclerView.setAdapter(totalManageFragmentAdapter);
             progressDialog.dismiss();
 
         }

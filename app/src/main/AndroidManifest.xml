@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sh.androidregisterandlogin">
 
@@ -19,16 +19,23 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".TotalAudio.AudioApplication"
+        android:name=".TotalMusic.AudioApplication"
         android:allowBackup="true"
         android:icon="@drawable/default_pic"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar">
-
+        <activity
+            android:name=".IntroActivity"
+            android:theme="@style/BaseAppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <service
-            android:name=".TotalAudio.AudioService"
+            android:name=".TotalMusic.AudioService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -41,27 +48,31 @@
 
         <activity
             android:name=".TotalHome.HomeActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".TotalAudio.MusicPlayer" />
-        <activity android:name=".AdvertisingActivity" />
-        <activity android:name=".AndroidActivity" />
+            android:theme="@style/Theme.Design.NoActionBar"></activity>
+        <activity
+            android:name=".TotalMusic.MusicPlayer"
+            android:theme="@style/BaseAppTheme" />
+        <activity android:name=".CompanyIntroActivity" />
         <activity android:name=".TotalPhoto.DetailFile.PhotosActivity" />
         <activity android:name=".TotalPhoto.TotalFolder.TotalPhotoActivity" />
         <activity android:name=".TotalMessage.Sms.SmsActivity" />
         <activity android:name=".TotalMessage.Chat.ChatActivity" />
-        <activity android:name=".TotalAddress.ContactListActivity" />
-        <activity android:name=".TotalAudio.TotalMusicActivity" />
+        <activity
+            android:name=".TotalMusic.TotalMusicActivity"
+            android:theme="@style/BaseAppTheme" />
         <activity android:name=".TotalManage.ManageActivity" />
-        <activity android:name=".TotalApp.UserAppsActivity" />
-        <activity android:name=".TotalBattery.BatteryActivity" />
-        <activity android:name=".TotalMemory.MemoryActivity" />
-        <activity android:name=".TotalPhoneInfo.GeneralActivity" />
-
+        <activity
+            android:name=".TotalApp.UserAppsActivity"
+            android:theme="@style/BaseAppTheme" />
+        <activity
+            android:name=".TotalBattery.BatteryActivity"
+            android:theme="@style/BaseAppTheme" />
+        <activity
+            android:name=".TotalMemory.MemoryActivity"
+            android:theme="@style/BaseAppTheme" />
+        <activity
+            android:name=".TotalPhoneInfo.PhoneInfoActivity"
+            android:theme="@style/BaseAppTheme" />
     </application>
+
 </manifest>
