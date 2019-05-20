@@ -17,11 +17,11 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.sh.androidregisterandlogin.TotalDataItem.AddressDataItem;
 import com.example.sh.androidregisterandlogin.databinding.LayoutPhonelistBinding;
-import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
+import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-public class FragmentPhonebookAdapter extends BaseRecylcerViewAdapter<AddressDataItem, FragmentPhonebookAdapter.ViewHolder> implements Filterable {
+public class FragmentPhonebookAdapter extends BaseRecyclerViewAdapter<AddressDataItem, FragmentPhonebookAdapter.ViewHolder> implements Filterable {
 
     Context context;
     ArrayList<AddressDataItem> addressFilterList, addressDataItemArrayList;

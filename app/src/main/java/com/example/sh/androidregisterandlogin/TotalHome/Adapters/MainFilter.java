@@ -3,17 +3,15 @@ package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 import android.widget.Filter;
 
 
-import com.example.sh.androidregisterandlogin.TotalHome.Datas.Model;
+import com.example.sh.androidregisterandlogin.data.AdditionalFeature;
 
 import java.util.ArrayList;
 
 public class MainFilter extends Filter {
-//    extends 로 Filter 라는 것을 상속 받았다 .. 그런데 이거 무엇이지 ? 왜 Filter 를 상속받았지?? 뭘 쓸려고 ??
-
     FragmentMainAdapter fragmentMainAdapter;
-    ArrayList<Model> filterList;
+    ArrayList<AdditionalFeature> filterList;
 
-    public MainFilter(ArrayList<Model> filterList, FragmentMainAdapter adapter) {
+    public MainFilter(ArrayList<AdditionalFeature> filterList, FragmentMainAdapter adapter) {
         this.fragmentMainAdapter = adapter;
         this.filterList = filterList;
     }
@@ -26,15 +24,15 @@ public class MainFilter extends Filter {
 //            change to upper case
             constraint = constraint.toString().toUpperCase();
 //            store our filtered WODELS
-            ArrayList<Model> filteredModels = new ArrayList<>();
+            ArrayList<AdditionalFeature> filteredAdditionalFeatures = new ArrayList<>();
             for (int i = 0; i < filterList.size(); i++) {
                 if (filterList.get(i).getName().toUpperCase().contains(constraint)) {
-//                    add model to filtered models
-                    filteredModels.add(filterList.get(i));
+//                    add additionalFeature to filtered models
+                    filteredAdditionalFeatures.add(filterList.get(i));
                 }
             }
-            results.count = filteredModels.size();
-            results.values = filteredModels;
+            results.count = filteredAdditionalFeatures.size();
+            results.values = filteredAdditionalFeatures;
         } else {
             results.count = filterList.size();
             results.values = filterList;
@@ -45,8 +43,7 @@ public class MainFilter extends Filter {
     //  검색기능을 구현했을때 , 넣은 함수이며 Override
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
-        fragmentMainAdapter.modelArrayList = (ArrayList<Model>) results.values;
-//       refresh
+        fragmentMainAdapter.setItems((ArrayList<AdditionalFeature>)results.values);
         fragmentMainAdapter.notifyDataSetChanged();
     }
 }

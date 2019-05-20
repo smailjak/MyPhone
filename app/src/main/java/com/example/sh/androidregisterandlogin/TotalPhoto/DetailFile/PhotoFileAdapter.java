@@ -10,12 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.sh.androidregisterandlogin.R;
-import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
+import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
 
-public class PhotoFileAdapter extends BaseRecylcerViewAdapter<File_images, PhotoFileAdapter.ViewHolder> {
+public class PhotoFileAdapter extends BaseRecyclerViewAdapter<File_images, PhotoFileAdapter.ViewHolder> {
 
     Context context;
 

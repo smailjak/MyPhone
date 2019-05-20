@@ -1,11 +1,8 @@
-package com.example.sh.androidregisterandlogin.TotalHome.Datas;
+package com.example.sh.androidregisterandlogin.data;
 
-public class Model {
-
+public class AdditionalFeature {
     private String name;
     private int img;
-
-    /*press Alt+Insert*/
 
     public String getName() {
         return name;
@@ -21,5 +18,5 @@ public class Model {
 
     public void setImg(int img) {
         this.img = img;
-    }   //creating MyHolder class for our views in model.xml
+    }
 }

@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalDataItem.FragTwoDataItem;
-import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
+import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-public class ManageAdapter extends BaseRecylcerViewAdapter<FragTwoDataItem, ManageAdapter.ViewHolder> {
+public class ManageAdapter extends BaseRecyclerViewAdapter<FragTwoDataItem, ManageAdapter.ViewHolder> {
 
     private ArrayList<FragTwoDataItem> arrayList;
     View view;

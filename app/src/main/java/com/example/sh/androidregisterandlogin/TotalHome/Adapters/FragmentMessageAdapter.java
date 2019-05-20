@@ -14,13 +14,12 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageModel;
-import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
+import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-public class FragmentMessageAdapter extends BaseRecylcerViewAdapter<MessageModel, FragmentMessageAdapter.ViewHolder> {
+public class FragmentMessageAdapter extends BaseRecyclerViewAdapter<MessageModel, FragmentMessageAdapter.ViewHolder> {
 
     Context mContext;
     ArrayList<MessageModel> messageFilterList, messageDataItemArrayList;

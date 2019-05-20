@@ -20,11 +20,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.PhotoFolderDataItem;
 import com.example.sh.androidregisterandlogin.TotalPhoto.DetailFile.PhotosActivity;
-import com.example.sh.androidregisterandlogin.util.BaseRecylcerViewAdapter;
+import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-public class FragmentPhotoFolderAdapter extends BaseRecylcerViewAdapter<PhotoFolderDataItem, FragmentPhotoFolderAdapter.ViewHolder> implements Filterable {
+public class FragmentPhotoFolderAdapter extends BaseRecyclerViewAdapter<PhotoFolderDataItem, FragmentPhotoFolderAdapter.ViewHolder> implements Filterable {
 
     Context context;
     ArrayList<PhotoFolderDataItem> photoFolderDataItemArrayList , filterList;
