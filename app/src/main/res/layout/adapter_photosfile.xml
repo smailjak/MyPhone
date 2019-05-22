@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_bg_edge"
-                android:text="name"
+                android:text="@string/fragment_photo_file_name"
                 android:textColor="#000000"
                 android:textSize="15dp"
                 android:textStyle="bold" />

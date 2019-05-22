@@ -1,19 +1,20 @@
 package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 
+
 import android.util.Log;
 import android.widget.Filter;
 
-import com.example.sh.androidregisterandlogin.TotalDataItem.AddressDataItem;
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.AddressDataItem;
 
 import java.util.ArrayList;
 
 public class PhoneBookFilter extends Filter {
 
-    FragmentPhonebookAdapter fragmentPhonebookAdapter;
+    PhonebookAdapter phonebookAdapter;
     ArrayList<AddressDataItem> filterList;
 
-    public PhoneBookFilter(ArrayList<AddressDataItem> filterList, FragmentPhonebookAdapter adapter) {
-        this.fragmentPhonebookAdapter = adapter;
+    public PhoneBookFilter(ArrayList<AddressDataItem> filterList, PhonebookAdapter adapter) {
+        this.phonebookAdapter = adapter;
         this.filterList = filterList;
     }
 
@@ -30,6 +31,7 @@ public class PhoneBookFilter extends Filter {
                 if (filterList.get(i).getName().toUpperCase().contains(constraint)) {
 //                    add additionalFeature to filtered models
                     filteredAddress.add(filterList.get(i));
+                    Log.d("qweqwe", "performFiltering: " + filterList.get(i).getName());
                 }
             }
             results.count = filteredAddress.size();
@@ -43,8 +45,8 @@ public class PhoneBookFilter extends Filter {
 
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
-        fragmentPhonebookAdapter.addressDataItemArrayList = (ArrayList<AddressDataItem>) results.values;
+        phonebookAdapter.addressDataItemArrayList = (ArrayList<AddressDataItem>) results.values;
 //       refresh
-        fragmentPhonebookAdapter.notifyDataSetChanged();
+        phonebookAdapter.notifyDataSetChanged();
     }
 }

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 public class PhotoCustomFilter extends Filter {
 
-    FragmentPhotoFolderAdapter fragmentPhotoFolderAdapter;
+    PhotoFolderAdapter photoFolderAdapter;
     ArrayList<PhotoFolderDataItem> photoFilterList;
 
-    public PhotoCustomFilter(ArrayList<PhotoFolderDataItem> photoFilterList, FragmentPhotoFolderAdapter fragmentPhotoFolderAdapter) {
-        this.fragmentPhotoFolderAdapter = fragmentPhotoFolderAdapter;
+    public PhotoCustomFilter(ArrayList<PhotoFolderDataItem> photoFilterList, PhotoFolderAdapter photoFolderAdapter) {
+        this.photoFolderAdapter = photoFolderAdapter;
         this.photoFilterList = photoFilterList;
     }
 
@@ -39,7 +39,7 @@ public class PhotoCustomFilter extends Filter {
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
 
-        fragmentPhotoFolderAdapter.photoFolderDataItemArrayList = (ArrayList<PhotoFolderDataItem>) results.values;
-        fragmentPhotoFolderAdapter.notifyDataSetChanged();
+        photoFolderAdapter.photoFolderDataItemArrayList = (ArrayList<PhotoFolderDataItem>) results.values;
+        photoFolderAdapter.notifyDataSetChanged();
     }
 }

@@ -46,7 +46,7 @@ public class AppAdapter extends BaseRecyclerViewAdapter<AppDataItem, AppAdapter.
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modelapps, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_app, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
 
         viewHolder.constraintLayout.setOnClickListener(v -> {
@@ -65,7 +65,7 @@ public class AppAdapter extends BaseRecyclerViewAdapter<AppDataItem, AppAdapter.
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        //            Our views from modelapps xml
+        //            Our views from item_app xml
         TextView nameInListView, packageInListView, versionInListView;
         ImageView imageInListView;
         ConstraintLayout constraintLayout;

@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="U&amp;Soft Company"
+                    android:text="@string/u_amp_soft_company"
                     android:textColor="@color/colorGrin"
                     android:textSize="26sp"
                     android:textStyle="bold" />

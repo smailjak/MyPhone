@@ -31,16 +31,16 @@ public class PhotosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_photos);
         int_position = getIntent().getIntExtra("value", 0); // ? 이건뭐지 ??
-        initRv(binding.photosRcvFile);
+        initRv(binding.rcvPhotosFile);
     }
 
-    private void initRv(RecyclerView rv) {
+    private void initRv(RecyclerView rcv) {
         adapter = new PhotoFileAdapter(fileImagesPath(), this);
-        rv.setAdapter(adapter);
+        rcv.setAdapter(adapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
-        rv.setLayoutManager(gridLayoutManager);
-        rv.setHasFixedSize(true);
+        rcv.setLayoutManager(gridLayoutManager);
+        rcv.setHasFixedSize(true);
     }
 
     public ArrayList<File_images> fileImagesPath() {

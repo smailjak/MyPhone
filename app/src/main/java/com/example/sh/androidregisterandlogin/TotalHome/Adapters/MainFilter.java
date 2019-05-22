@@ -8,11 +8,11 @@ import com.example.sh.androidregisterandlogin.data.AdditionalFeature;
 import java.util.ArrayList;
 
 public class MainFilter extends Filter {
-    FragmentMainAdapter fragmentMainAdapter;
+    MainAdapter mainAdapter;
     ArrayList<AdditionalFeature> filterList;
 
-    public MainFilter(ArrayList<AdditionalFeature> filterList, FragmentMainAdapter adapter) {
-        this.fragmentMainAdapter = adapter;
+    public MainFilter(ArrayList<AdditionalFeature> filterList, MainAdapter adapter) {
+        this.mainAdapter = adapter;
         this.filterList = filterList;
     }
 
@@ -43,7 +43,7 @@ public class MainFilter extends Filter {
     //  검색기능을 구현했을때 , 넣은 함수이며 Override
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results) {
-        fragmentMainAdapter.setItems((ArrayList<AdditionalFeature>)results.values);
-        fragmentMainAdapter.notifyDataSetChanged();
+        mainAdapter.setItems((ArrayList<AdditionalFeature>)results.values);
+        mainAdapter.notifyDataSetChanged();
     }
 }

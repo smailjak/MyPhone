@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalDataItem;
+package com.example.sh.androidregisterandlogin.TotalHome.Datas;
 
 public class AddressDataItem {
     long photoid;

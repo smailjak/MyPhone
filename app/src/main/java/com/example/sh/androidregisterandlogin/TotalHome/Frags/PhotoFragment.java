@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.PhotoFolderDataItem;
-import com.example.sh.androidregisterandlogin.TotalHome.Adapters.FragmentPhotoFolderAdapter;
+import com.example.sh.androidregisterandlogin.TotalHome.Adapters.PhotoFolderAdapter;
 import com.example.sh.androidregisterandlogin.databinding.FragmentPhotoBinding;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class PhotoFragment extends Fragment {
     private static final int REQUEST_PERMISSIONS = 100;
     boolean boolean_folder;
     private SearchView searchView;
-    private FragmentPhotoFolderAdapter fragmentPhotoFolderAdapter;
+    private PhotoFolderAdapter photoFolderAdapter;
     FragmentPhotoBinding fragmentPhotoBinding;
 
     public static PhotoFragment newInstance() {
@@ -63,9 +63,9 @@ public class PhotoFragment extends Fragment {
     }
 
     private void initRv() {
-        fragmentPhotoFolderAdapter = new FragmentPhotoFolderAdapter(fn_imagespath(), getContext());
+        photoFolderAdapter = new PhotoFolderAdapter(fn_imagespath(), getContext());
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-        fragmentPhotoBinding.rcvTotalPhoto.setAdapter(fragmentPhotoFolderAdapter);
+        fragmentPhotoBinding.rcvTotalPhoto.setAdapter(photoFolderAdapter);
         fragmentPhotoBinding.rcvTotalPhoto.setHasFixedSize(true);
         fragmentPhotoBinding.rcvTotalPhoto.setLayoutManager(gridLayoutManager);
     }
@@ -177,14 +177,14 @@ public class PhotoFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String s) {
 //                키보드의 검색 버튼을 누르면 이 함수가 호출됩니다.
-                fragmentPhotoFolderAdapter.getFilter().filter(s);
+                photoFolderAdapter.getFilter().filter(s);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
 //                이 함수는 searchview에 입력 할 때마다 호출됩니다.
-                fragmentPhotoFolderAdapter.getFilter().filter(s);
+                photoFolderAdapter.getFilter().filter(s);
                 return false;
             }
         });

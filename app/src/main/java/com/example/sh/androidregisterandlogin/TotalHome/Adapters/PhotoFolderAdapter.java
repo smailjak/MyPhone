@@ -24,14 +24,14 @@ import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-public class FragmentPhotoFolderAdapter extends BaseRecyclerViewAdapter<PhotoFolderDataItem, FragmentPhotoFolderAdapter.ViewHolder> implements Filterable {
+public class PhotoFolderAdapter extends BaseRecyclerViewAdapter<PhotoFolderDataItem, PhotoFolderAdapter.ViewHolder> implements Filterable {
 
     Context context;
     ArrayList<PhotoFolderDataItem> photoFolderDataItemArrayList , filterList;
     PhotoCustomFilter photoCustomFilter;
     View view;
 
-    public FragmentPhotoFolderAdapter(ArrayList<PhotoFolderDataItem> al_menu, Context context) {
+    public PhotoFolderAdapter(ArrayList<PhotoFolderDataItem> al_menu, Context context) {
         super(al_menu);
         this.photoFolderDataItemArrayList = al_menu;
         this.filterList = al_menu;

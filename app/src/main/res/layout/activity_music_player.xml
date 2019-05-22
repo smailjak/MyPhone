@@ -24,7 +24,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:text="TextView"
+            android:text="@string/activity_music_player_title"
             android:textColor="@color/colorGrin"
             android:textSize="30dp"
             android:textStyle="bold"

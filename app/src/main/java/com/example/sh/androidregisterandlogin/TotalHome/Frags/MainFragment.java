@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
@@ -29,23 +28,23 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sh.androidregisterandlogin.CompanyIntroActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalApp.UserAppsActivity;
-import com.example.sh.androidregisterandlogin.TotalMusic.TotalMusicActivity;
 import com.example.sh.androidregisterandlogin.TotalBattery.BatteryActivity;
-import com.example.sh.androidregisterandlogin.TotalHome.Adapters.FragmentMainAdapter;
+import com.example.sh.androidregisterandlogin.TotalHome.Adapters.MainAdapter;
+import com.example.sh.androidregisterandlogin.TotalMusic.TotalMusicActivity;
 import com.example.sh.androidregisterandlogin.data.AdditionalFeature;
-import com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder.TotalPhotoActivity;
 import com.example.sh.androidregisterandlogin.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainFragment extends Fragment {
-    private FragmentMainBinding fragmentMainBinding;
-    private FragmentMainAdapter fragmentMainAdapter;
+    private FragmentMainBinding binding;
+    private MainAdapter mainAdapter;
     private SearchView searchView;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private TextToSpeech tts;
@@ -58,39 +57,40 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        fragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
-        return fragmentMainBinding.getRoot();
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).setSupportActionBar(fragmentMainBinding.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
         setHasOptionsMenu(true);
         initCollapsingToolbar();
-        initRcv();
+        initRcv(binding.rcvMain);
 
-        fragmentMainBinding.imgCompanyIntro.setOnClickListener(a -> {
+        binding.imgCompanyIntro.setOnClickListener(a -> {
             Intent intent = new Intent(getContext(), CompanyIntroActivity.class);
             startActivity(intent);
         });
     }
 
-    private void initRcv() {
-        fragmentMainAdapter = new FragmentMainAdapter(getModels());
+    private void initRcv(RecyclerView rcv) {
+        mainAdapter = new MainAdapter(getModels());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        fragmentMainBinding.rcvMain.setLayoutManager(linearLayoutManager);
-        fragmentMainBinding.rcvMain.setHasFixedSize(true);
-        fragmentMainBinding.rcvMain.setAdapter(fragmentMainAdapter);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rcv.setLayoutManager(linearLayoutManager);
+        rcv.setHasFixedSize(true);
+        rcv.setAdapter(mainAdapter);
     }
 
     private void initCollapsingToolbar() {
-        fragmentMainBinding.collapsingToolbar.setTitle("");
-        fragmentMainBinding.appbar.setExpanded(true);
-        fragmentMainBinding.collapsingToolbar.setTitle("U&Soft Company");
-        fragmentMainBinding.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
-        fragmentMainBinding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
+        binding.collapsingToolbar.setTitle("");
+        binding.appbar.setExpanded(true);
+        binding.collapsingToolbar.setTitle("U&Soft Company");
+        binding.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
+        binding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
     }
 
     private ArrayList<AdditionalFeature> getModels() {
@@ -109,7 +109,7 @@ public class MainFragment extends Fragment {
 
         additionalFeature = new AdditionalFeature();
         additionalFeature.setName("App");
-        additionalFeature.setImg(R.drawable.ic_main_app);
+        additionalFeature.setImg(R.drawable.appimage);
         additionalFeatures.add(additionalFeature);
 
         additionalFeature = new AdditionalFeature();
@@ -130,13 +130,13 @@ public class MainFragment extends Fragment {
 
             @Override
             public boolean onQueryTextSubmit(String s) {
-                fragmentMainAdapter.getFilter().filter(s);
+                mainAdapter.getFilter().filter(s);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                fragmentMainAdapter.getFilter().filter(s);
+                mainAdapter.getFilter().filter(s);
                 return false;
             }
         });
@@ -184,8 +184,8 @@ public class MainFragment extends Fragment {
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-                    fragmentMainBinding.speechInputTxt.setText(result.get(0));  //분홍색 글씨
-                    String voice_result = fragmentMainBinding.speechInputTxt.getText().toString();   // 이렇게적으면 안녕으로 바뀌게 된다 .
+                    binding.speechInputTxt.setText(result.get(0));  //분홍색 글씨
+                    String voice_result = binding.speechInputTxt.getText().toString();   // 이렇게적으면 안녕으로 바뀌게 된다 .
                     String text, text1 = "안녕", test2 = "누구야";
                     String pic = "사진", pic2 = "이미지";
                     String app = "어플", battry = "배터리", music = "음악", music2 = "오디오", music3 = "노래";
@@ -198,7 +198,7 @@ public class MainFragment extends Fragment {
                         text = "네 안녕하세요. 저는 혀니 입니다.";
                         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
                     } else if (result1.contains(pic) || result1.contains(pic2)) {
-                        Intent intent = new Intent(getContext(), TotalPhotoActivity.class);
+                        Intent intent = new Intent(getContext(), PhotoFragment.class);
                         startActivity(intent);
                     } else if (result1.contains(music_title_start)) {
                         Intent intent = new Intent(getContext(), TotalMusicActivity.class);

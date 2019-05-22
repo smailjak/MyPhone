@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="음악개수 : "
+            android:text="@string/activity_music_count"
             android:textColor="@color/colorGrin"
             android:textSize="40dp"
             android:textStyle="bold"
