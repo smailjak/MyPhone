@@ -3,8 +3,6 @@ package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,10 +22,9 @@ import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainAdapter extends BaseRecyclerViewAdapter<AdditionalFeature, MainAdapter.ViewHolder> implements Filterable {
+public class MainAdapter extends BaseRecyclerViewAdapter<AdditionalFeature, MainAdapter.ViewHolder> {
 
     ArrayList<AdditionalFeature> filterList;
-    MainFilter mainFilter;
     private RequestManager requestManager;
 
     public MainAdapter(List<AdditionalFeature> dataSet) {
@@ -59,8 +56,6 @@ public class MainAdapter extends BaseRecyclerViewAdapter<AdditionalFeature, Main
         requestManager.load(getItem(position).getImg())
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
                 .into(viewHolder.binding.ivImage);
-
-//        .apply(RequestOptions.bitmapTransform(new CenterCrop()))
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -72,11 +67,4 @@ public class MainAdapter extends BaseRecyclerViewAdapter<AdditionalFeature, Main
         }
     }
 
-    @Override
-    public Filter getFilter() {
-        if (mainFilter == null) {
-            mainFilter = new MainFilter(filterList, this);
-        }
-        return mainFilter;
-    }
 }

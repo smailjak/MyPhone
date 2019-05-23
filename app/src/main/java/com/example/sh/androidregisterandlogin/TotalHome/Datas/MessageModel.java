@@ -6,9 +6,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
-import androidx.core.app.ActivityCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
+
+import androidx.core.app.ActivityCompat;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -33,7 +34,6 @@ public class MessageModel {
     public static final String KEY_TIMESTAMP = "timestamp";
     public static final String KEY_TIME = "time";
 
-
     public static  boolean hasPermissions(Context context, String... permissions) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
             for (String permission : permissions) {
@@ -45,6 +45,7 @@ public class MessageModel {
         return true;
     }
 
+
     public static String converToTime(String timestamp) {
 
         long datetime = Long.parseLong(timestamp);
@@ -54,7 +55,6 @@ public class MessageModel {
         Log.d("MessageModel.test" , "formatter : " + formatter);
         return formatter.format(date);
     }
-
 
     public static HashMap<String, String> mappingInbox(String _id, String thread_id, String name, String phone, String msg, String type, String timestamp, String time)
 //            ket 와 value 모두 String 으로 설정합니다.

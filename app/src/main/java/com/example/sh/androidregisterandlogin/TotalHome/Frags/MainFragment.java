@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,18 +39,22 @@ import com.example.sh.androidregisterandlogin.TotalHome.Adapters.MainAdapter;
 import com.example.sh.androidregisterandlogin.TotalMusic.TotalMusicActivity;
 import com.example.sh.androidregisterandlogin.data.AdditionalFeature;
 import com.example.sh.androidregisterandlogin.databinding.FragmentMainBinding;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class MainFragment extends Fragment {
     private FragmentMainBinding binding;
-    private MainAdapter mainAdapter;
+    private MainAdapter adapter;
     private SearchView searchView;
+    ArrayList<AdditionalFeature> additionalFeatures = new ArrayList<>();
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private TextToSpeech tts;
 
-    public MainFragment() {}
+    public MainFragment() {
+    }
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -67,7 +72,7 @@ public class MainFragment extends Fragment {
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
         setHasOptionsMenu(true);
-        initCollapsingToolbar();
+        initCollapsingToolbar(binding.collapsingToolbar);
         initRcv(binding.rcvMain);
 
         binding.imgCompanyIntro.setOnClickListener(a -> {
@@ -77,24 +82,24 @@ public class MainFragment extends Fragment {
     }
 
     private void initRcv(RecyclerView rcv) {
-        mainAdapter = new MainAdapter(getModels());
+        adapter = new MainAdapter(getModels());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
 //        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rcv.setLayoutManager(linearLayoutManager);
         rcv.setHasFixedSize(true);
-        rcv.setAdapter(mainAdapter);
+        rcv.setAdapter(adapter);
     }
 
-    private void initCollapsingToolbar() {
-        binding.collapsingToolbar.setTitle("");
+    private void initCollapsingToolbar(CollapsingToolbarLayout ctl) {
+        ctl.setTitle("");
         binding.appbar.setExpanded(true);
-        binding.collapsingToolbar.setTitle("U&Soft Company");
-        binding.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
-        binding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
+        ctl.setTitle("U&Soft Company");
+        ctl.setCollapsedTitleTextAppearance(R.style.coll_main_basic_title);
+        ctl.setExpandedTitleTextAppearance(R.style.coll_expand_title);
     }
 
     private ArrayList<AdditionalFeature> getModels() {
-        ArrayList<AdditionalFeature> additionalFeatures = new ArrayList<>();
+
         AdditionalFeature additionalFeature;
 
         additionalFeature = new AdditionalFeature();
@@ -126,20 +131,37 @@ public class MainFragment extends Fragment {
         getActivity().getMenuInflater().inflate(R.menu.menu, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) item.getActionView();
+        ((EditText) searchView.findViewById(R.id.search_src_text)).setHintTextColor(getResources().getColor(R.color.colorPrimary));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String s) {
-                mainAdapter.getFilter().filter(s);
+                if (!searchView.isIconified()) {
+                    searchView.setIconified(true);
+                }
+                item.collapseActionView();
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String s) {
-                mainAdapter.getFilter().filter(s);
+            public boolean onQueryTextChange(String newText) {
+                final List<AdditionalFeature> filtermodellist = filter(additionalFeatures, newText);
+                adapter.setfileter(filtermodellist);
                 return false;
             }
         });
+    }
+
+    private List<AdditionalFeature> filter(List<AdditionalFeature> p1, String query) {
+        query = query.toLowerCase();
+        final List<AdditionalFeature> filteredModelList = new ArrayList<>();
+        for (AdditionalFeature model : p1) {
+            final String text = model.getName().toLowerCase();
+            if (text.startsWith(query)) {
+                filteredModelList.add(model);
+
+            }
+        }
+        return filteredModelList;
     }
 
     @Override
@@ -245,6 +267,7 @@ public class MainFragment extends Fragment {
             getAudioListFromMediaDatabase();
         }
     }
+
 
     private void getAudioListFromMediaDatabase() {
         (getActivity()).getSupportLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<Cursor>() {

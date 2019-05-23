@@ -44,6 +44,11 @@ public class MessageAdapter extends BaseRecyclerViewAdapter<HashMap<String, Stri
         holder.binding.ivImage.setImageDrawable(drawable);
     }
 
+    @Override
+    public void setfileter(List<HashMap<String, String>> listitem) {
+        super.setfileter(listitem);
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {

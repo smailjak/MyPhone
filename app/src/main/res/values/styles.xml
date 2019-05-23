@@ -11,8 +11,11 @@
     </style>
 
     <style name="coll_basic_title">
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorGrin</item>
     </style>
 
+    <style name="coll_main_basic_title">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
 
 </resources>

@@ -1,12 +1,9 @@
 package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,18 +15,13 @@ import com.example.sh.androidregisterandlogin.databinding.ItemPhonebookBinding;
 import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class PhonebookAdapter extends BaseRecyclerViewAdapter<AddressDataItem, PhonebookAdapter.ViewHolder> implements Filterable {
+public class PhonebookAdapter extends BaseRecyclerViewAdapter<AddressDataItem, PhonebookAdapter.ViewHolder> {
 
-    Context context;
-    ArrayList<AddressDataItem> addressFilterList, addressDataItemArrayList;
-    PhoneBookFilter phoneBookFilter;
 
-    public PhonebookAdapter(Context context, ArrayList<AddressDataItem> dataSet) {
+    public PhonebookAdapter( ArrayList<AddressDataItem> dataSet) {
         super(dataSet);
-        this.context = context;
-        this.addressFilterList = dataSet;
-        this.addressDataItemArrayList = dataSet;
     }
 
     @Override
@@ -42,6 +34,11 @@ public class PhonebookAdapter extends BaseRecyclerViewAdapter<AddressDataItem, P
         int color = generator.getColor(getItem(position));
         TextDrawable drawable = TextDrawable.builder().buildRound(firstLetter, color);
         holder.binding.ivPhoto.setImageDrawable(drawable);
+    }
+
+    @Override
+    public void setfileter(List<AddressDataItem> listitem) {
+        super.setfileter(listitem);
     }
 
     @NonNull
@@ -67,13 +64,5 @@ public class PhonebookAdapter extends BaseRecyclerViewAdapter<AddressDataItem, P
             super(binding.getRoot()); //getRoot() 메소드를 사용하는 이유는 view 라는 return
             this.binding = binding;
         }
-    }
-//    검색기능을 구현했을때 추가한 함수
-    @Override
-    public Filter getFilter() {
-        if (phoneBookFilter == null) {
-            phoneBookFilter = new PhoneBookFilter(addressFilterList,this);
-        }
-        return phoneBookFilter;
     }
 }

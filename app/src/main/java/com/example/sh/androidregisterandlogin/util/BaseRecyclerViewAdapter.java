@@ -17,6 +17,12 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
         return dataSet == null ? null : dataSet.get(position);
     }
 
+    public void setfileter(List<T> listitem) {
+        dataSet = new ArrayList<>();
+        dataSet.addAll(listitem);
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         onBindView((VH) holder, position);

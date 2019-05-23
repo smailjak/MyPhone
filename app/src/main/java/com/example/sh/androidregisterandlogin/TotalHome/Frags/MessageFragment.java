@@ -2,22 +2,27 @@ package com.example.sh.androidregisterandlogin.TotalHome.Frags;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.MergeCursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -29,23 +34,24 @@ import com.example.sh.androidregisterandlogin.TotalHome.Adapters.MessageAdapter;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageComparator;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageModel;
 import com.example.sh.androidregisterandlogin.databinding.FragmentMessageBinding;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.lifeofcoding.cacheutlislibrary.CacheUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MessageFragment extends Fragment {
 
     private FragmentMessageBinding binding;
     static final int REQUEST_PERMISSION_KEY = 1;
-    Context mContext; // Context mContext ;
     private final String WATING_GREETINGS = "please wating ~ ^ ^ ";
     ArrayList<HashMap<String, String>> smsList = new ArrayList<>();
     ArrayList<HashMap<String, String>> tmpList = new ArrayList<>();
-    MessageAdapter adapter, tmpadapter;
+    MessageAdapter adapter;
     ProgressDialog progressDialog;
     int name_count = 0;
     int null_name_count = 0;
@@ -71,7 +77,7 @@ public class MessageFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
         setHasOptionsMenu(true);
         initRecyclerView(binding.rcvMsg);
-        initCollapsingToolbar();
+        initCollapsingToolbar(binding.collapsingToolbar);
         new LoadSmsAsyncTask().execute();
     }
 
@@ -83,14 +89,14 @@ public class MessageFragment extends Fragment {
         rcv.setAdapter(adapter);
     }
 
-    private void initCollapsingToolbar() {
-        binding.collapsingToolbar.setTitle("");
+    private void initCollapsingToolbar(CollapsingToolbarLayout ctl) {
+        ctl.setTitle("");
         binding.appbar.setExpanded(true);
         try {
             tmpList = (ArrayList<HashMap<String, String>>) MessageModel.readCachedFile(getContext(), "smsapp");
-            binding.collapsingToolbar.setTitle("메세지 개수 : " + tmpList.size());
-            binding.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
-            binding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
+            ctl.setTitle("메세지 개수 : " + tmpList.size());
+            ctl.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
+            ctl.setExpandedTitleTextAppearance(R.style.coll_expand_title);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -174,15 +180,6 @@ public class MessageFragment extends Fragment {
         protected void onPostExecute(String xml) {
 
             if (!tmpList.equals(smsList)) {
-//                adapter = new FragmentMessageAdapter(getContext(), smsList);
-//                fragmentMessageBinding.listView.setAdapter(adapter);
-//                fragmentMessageBinding.listView.setOnItemClickListener((parent, view, position, id) -> {
-//                    Intent intent = new Intent(getContext(), ChatActivity.class);
-//                    intent.putExtra("name", smsList.get(+position).get(MessageModel.KEY_NAME));
-//                    intent.putExtra("address", tmpList.get(+position).get(MessageModel.KEY_PHONE));
-//                    intent.putExtra("thread_id", smsList.get(+position).get(MessageModel.KEY_THREAD_ID));
-//                    startActivity(intent);
-//                });
                 binding.rcvMsg.setAdapter(adapter);
             }
             progressDialog.dismiss();
@@ -207,29 +204,82 @@ public class MessageFragment extends Fragment {
         smsList.clear();
         try {
             tmpList = (ArrayList<HashMap<String, String>>) MessageModel.readCachedFile(getContext(), "smsapp");
-//            Log.d("SmsActivity.qwe", "tmpList : " + tmpList.size());
-//            binding.tvMessageCount.setText("메시지개수 : " + tmpList.size());
-//            tmpadapter = new FragmentMessageAdapter(getContext(), tmpList);
-//            binding.listView.setAdapter(tmpadapter);
-//
-//            binding.listView.setOnItemClickListener((parent, view, position, id) -> {
-//                loadSmsAsyncTask.cancel(true);
-//                Intent intent = new Intent(getActivity(), ChatActivity.class);
-//                intent.putExtra("name", tmpList.get(+position).get(MessageModel.KEY_NAME));
-//                intent.putExtra("address", tmpList.get(+position).get(MessageModel.KEY_PHONE));
-//                intent.putExtra("thread_id", tmpList.get(+position).get(MessageModel.KEY_THREAD_ID));
-//                startActivity(intent);
-//            });
-//        } catch (Exception e) {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        tmpadapter = new MessageAdapter(tmpList, getContext());
-        binding.rcvMsg.setAdapter(tmpadapter);
+        adapter = new MessageAdapter(tmpList, getContext());
+        binding.rcvMsg.setAdapter(adapter);
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        getActivity().getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        changeSearchViewTextColor(searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+//                키보드의 검색 버튼을 누르면 이 함수가 호출됩니다.
+                if (!searchView.isIconified()) {
+                    searchView.setIconified(true);
+                }
+                item.collapseActionView();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+//                이 함수는 searchview에 입력 할 때마다 호출됩니다.
+                final List<HashMap<String, String>> filtermodellist = filter(tmpList, newText);
+                adapter.setfileter(filtermodellist);
+                return false;
+            }
+        });
+    }
+
+    private List<HashMap<String, String>> filter(List<HashMap<String, String>> p1, String query) {
+        query = query.toLowerCase();
+        final List<HashMap<String, String>> filteredModelList = new ArrayList<>();
+        for (HashMap<String, String> model : p1) {
+            final String text = model.get(MessageModel.KEY_NAME).toLowerCase();
+            if (text.startsWith(query)) {
+                filteredModelList.add(model);
+
+            }
+        }
+        return filteredModelList;
+    }
+
+
+    private void changeSearchViewTextColor(View view) {
+        if (view != null) {
+            if (view instanceof TextView) {
+                ((TextView) view).setTextColor(Color.BLACK);
+                return;
+            } else if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
+                for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                    changeSearchViewTextColor(viewGroup.getChildAt(i));
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+//        다른 메뉴 항목 클릭을 여기에서 처리하십시오.
+        if (id == R.id.action_settings) {
+            Toast.makeText(getContext(), "Settings", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.action_voice) {
+            Toast.makeText(getContext(), "Voice", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onResume() {
