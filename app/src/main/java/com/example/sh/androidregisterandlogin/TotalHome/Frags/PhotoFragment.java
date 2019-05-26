@@ -103,16 +103,11 @@ public class PhotoFragment extends Fragment {
         Uri uri;
         Cursor cursor;
         int column_index_data, column_index_folder_name;
-        ArrayList<PhotoFolderDataItem> photoFolderDataItems = new ArrayList<>();
-
         String absolutePathOfImage = null;
         uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-
         String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
-
         final String orderBy = MediaStore.Images.Media.DATE_TAKEN;
         cursor = getContext().getContentResolver().query(uri, projection, null, null, orderBy + " DESC");
-
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
         column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
 
@@ -134,11 +129,13 @@ public class PhotoFragment extends Fragment {
                 al_path.addAll(al_images.get(int_position).getAl_imagepath());
                 al_path.add(absolutePathOfImage);
                 al_images.get(int_position).setAl_imagepath(al_path);
+                // 폴더를 보여주게 된다.
             } else {
                 ArrayList<String> al_path = new ArrayList<>();
                 al_path.add(absolutePathOfImage);
                 PhotoFolderDataItem obj_model = new PhotoFolderDataItem(cursor.getString(column_index_folder_name), al_path);
                 al_images.add(obj_model);
+                // 파일 하나하나 를 보여주게된다.
             }
         }
 
@@ -152,6 +149,7 @@ public class PhotoFragment extends Fragment {
         return al_images;
     }
 
+    //   권한
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -167,6 +165,7 @@ public class PhotoFragment extends Fragment {
             }
         }
     }
+//    ActionBar 구현하는 부분
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

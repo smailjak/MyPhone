@@ -209,19 +209,12 @@ public class MainFragment extends Fragment {
                     binding.speechInputTxt.setText(result.get(0));  //분홍색 글씨
                     String voice_result = binding.speechInputTxt.getText().toString();   // 이렇게적으면 안녕으로 바뀌게 된다 .
                     String text, text1 = "안녕", test2 = "누구야";
-                    String pic = "사진", pic2 = "이미지";
                     String app = "어플", battry = "배터리", music = "음악", music2 = "오디오", music3 = "노래";
                     String music_start1 = "음악재생", music_start2 = "노래재생", music_title_start = "틀어줘";
-                    String message = "메세지", message2 = "문자", message3 = "메시지";
-                    String address = "연락처";
                     String result1 = voice_result.trim().replaceAll(" ", "");
-
                     if (result1.replaceAll(" ", "").contains(text1) || result1.contains(test2)) {
                         text = "네 안녕하세요. 저는 혀니 입니다.";
                         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
-                    } else if (result1.contains(pic) || result1.contains(pic2)) {
-                        Intent intent = new Intent(getContext(), PhotoFragment.class);
-                        startActivity(intent);
                     } else if (result1.contains(music_title_start)) {
                         Intent intent = new Intent(getContext(), TotalMusicActivity.class);
                         String title = result1.replaceAll("틀어줘", "");
@@ -238,9 +231,6 @@ public class MainFragment extends Fragment {
                         Intent intent = new Intent(getContext(), TotalMusicActivity.class);
                         intent.putExtra("music_start", 1);
                         startActivity(intent);
-                    } else if (result1.contains(address)) {
-                        Intent intent = new Intent(getContext(), PhoneBookFragment.class);
-                        startActivity(intent);
                     } else if (result1.contains(app)) {
                         Intent intent = new Intent(getContext(), UserAppsActivity.class);
                         startActivity(intent);
@@ -249,9 +239,6 @@ public class MainFragment extends Fragment {
                         startActivity(intent);
                     } else if (result1.contains(music) || result1.contains(music2) || result1.contains(music3)) {
                         Intent intent = new Intent(getContext(), TotalMusicActivity.class);
-                        startActivity(intent);
-                    } else if (result1.contains(message) || result1.contains(message2) || result1.contains(message3)) {
-                        Intent intent = new Intent(getContext(), MessageFragment.class);
                         startActivity(intent);
                     }
                 }

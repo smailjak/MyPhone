@@ -36,6 +36,7 @@
             </intent-filter>
         </activity>
 
+
         <service
             android:name=".TotalMusic.AudioService"
             android:enabled="true"
@@ -47,6 +48,8 @@
                 <action android:name="CLOSE" />
             </intent-filter>
         </service>
+
+
         <activity android:name=".TotalHome.HomeActivity" />
         <activity android:name=".TotalMusic.MusicPlayer" />
         <activity android:name=".CompanyIntroActivity" />
@@ -59,8 +62,8 @@
         <activity android:name=".TotalBattery.BatteryActivity" />
         <activity android:name=".TotalMemory.MemoryActivity" />
         <activity android:name=".TotalPhoneInfo.PhoneInfoActivity" />
-
         <activity android:name=".PhonePriceWebView" />
+
     </application>
 
 </manifest>

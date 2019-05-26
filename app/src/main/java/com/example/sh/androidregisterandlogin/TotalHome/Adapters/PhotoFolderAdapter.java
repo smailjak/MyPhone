@@ -2,6 +2,7 @@ package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -35,25 +36,34 @@ public class PhotoFolderAdapter extends BaseRecyclerViewAdapter<PhotoFolderDataI
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
+
         ItemPhotofolderBinding binding = ItemPhotofolderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         ViewHolder holder = new ViewHolder(binding);
-        binding.adapterPhotoLayout.setOnClickListener(v -> {
+
+        holder.binding.consLayoutPhotoFolder.setOnClickListener(v -> {
             Intent intent = new Intent(context, PhotosActivity.class);
+            Log.d("qweqwe", "onCreateViewHolder: " + getItem(position).getStr_folder());
+            intent.putExtra("value", 0);
             context.startActivity(intent);
         });
+
         return holder;
     }
+
 
     @Override
     public void onBindView(ViewHolder holder, int position) {
 
         holder.binding.tvFolderName.setText(getItem(position).getStr_folder());
         holder.binding.tvFolderCount.setText(Integer.toString(getItem(position).getAl_imagepath().size()));
+
         RequestOptions circleOptions = new RequestOptions().circleCrop();
         Glide.with(context).load("file://" + getItem(position)
                 .getAl_imagepath().get(0)).apply(circleOptions)
                 .into(holder.binding.ivImage);
+
     }
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ItemPhotofolderBinding binding;
@@ -61,6 +71,7 @@ public class PhotoFolderAdapter extends BaseRecyclerViewAdapter<PhotoFolderDataI
         public ViewHolder(ItemPhotofolderBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
         }
     }
 }
