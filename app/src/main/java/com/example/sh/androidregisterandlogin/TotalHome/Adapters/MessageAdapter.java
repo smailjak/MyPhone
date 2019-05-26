@@ -9,39 +9,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageModel;
 import com.example.sh.androidregisterandlogin.TotalMessage.Chat.ChatActivity;
+import com.example.sh.androidregisterandlogin.data.SmsMessage;
 import com.example.sh.androidregisterandlogin.databinding.ItemMessageBinding;
 import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
-import java.util.HashMap;
 import java.util.List;
 
-public class MessageAdapter extends BaseRecyclerViewAdapter<HashMap<String, String>, MessageAdapter.ViewHolder> {
-    List<HashMap<String, String>> dataSet;
-
-    public MessageAdapter(List<HashMap<String, String>> dataSet) {
+public class MessageAdapter extends BaseRecyclerViewAdapter<SmsMessage, MessageAdapter.ViewHolder> {
+    public MessageAdapter(List<SmsMessage> dataSet) {
         super(dataSet);
-        this.dataSet = dataSet;
     }
 
     @Override
     public void onBindView(ViewHolder holder, int position) {
-        holder.binding.tvUser.setText(getItem(position).get(MessageModel.KEY_NAME));
-        holder.binding.tvContent.setText(getItem(position).get(MessageModel.KEY_MSG));
-        holder.binding.tvDate.setText(getItem(position).get(MessageModel.KEY_TIME));
+        holder.binding.tvUser.setText(getItem(position).getAddress());
+        holder.binding.tvContent.setText(getItem(position).getBody());
+        holder.binding.tvDate.setText(getItem(position).getTimestamp());
 
-        String firstLetter = String.valueOf(getItem(position).get(MessageModel.KEY_NAME).charAt(0));
+        String firstLetter = String.valueOf(getItem(position).getContactId_string().charAt(0));
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(getItem(position));
         TextDrawable drawable = TextDrawable.builder()
                 .buildRound(firstLetter, color);
         holder.binding.ivImage.setImageDrawable(drawable);
-    }
-
-    @Override
-    public void setfileter(List<HashMap<String, String>> listitem) {
-        super.setfileter(listitem);
     }
 
     @NonNull
@@ -52,9 +43,9 @@ public class MessageAdapter extends BaseRecyclerViewAdapter<HashMap<String, Stri
 
         viewHolder.binding.conversationListLayout.setOnClickListener(v -> {
             Intent intent = new Intent(parent.getContext(), ChatActivity.class);
-            intent.putExtra("name", dataSet.get(+viewHolder.getAdapterPosition()).get(MessageModel.KEY_NAME));
-            intent.putExtra("address", dataSet.get(+viewHolder.getAdapterPosition()).get(MessageModel.KEY_PHONE));
-            intent.putExtra("thread_id", dataSet.get(+viewHolder.getAdapterPosition()).get(MessageModel.KEY_THREAD_ID));
+            intent.putExtra("name", getItem(viewHolder.getAdapterPosition()).getContactId_string());
+            intent.putExtra("address", getItem(viewHolder.getAdapterPosition()).getAddress());
+            intent.putExtra("thread_id", getItem(viewHolder.getAdapterPosition()).getThreadId());
             parent.getContext().startActivity(intent);
         });
         return viewHolder;

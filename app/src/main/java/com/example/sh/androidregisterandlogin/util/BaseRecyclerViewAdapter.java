@@ -46,6 +46,17 @@ public abstract class BaseRecyclerViewAdapter<T, VH extends RecyclerView.ViewHol
         notifyItemRangeInserted(currentSize, items.size());
     }
 
+    public void addItem(T item) {
+        if (dataSet == null) {
+            dataSet = new ArrayList<>();
+        }
+
+        int currentSize = getItemCount();
+        dataSet.add(item);
+
+        notifyItemRangeInserted(currentSize, currentSize + 1);
+    }
+
     public void updateItems(List<T> items) {
         if (dataSet == null) {
             dataSet = new ArrayList<>();
