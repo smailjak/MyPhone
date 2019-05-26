@@ -3,17 +3,52 @@
 
     <string name="speech_prompt">혀니 : 말하세요 ! !&#8230;</string>
     <string name="speech_not_supported"> 뭐라고?</string>
-    <!--<string name="app_intro">\n 안녕하세요. myBook 입니다 .보다 다양한 메모장 어플을 만들고 싶어서 만들어 봤습니다.</string>-->
     <string name="app_intro">\n 안녕하세요. Myphone 입니다 .폰 내부 파일 관리에 대한 폰 입니다.</string>
     <string name="long_text">안녕하세요 myphone 의 첫번째 이미지입니다 !!! ^ ^ 까꿍 행복하세요 까까까꿍</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-
     <!-- Menu -->
     <string name="menu_home">메인</string>
     <string name="menu_photo">사진</string>
     <string name="menu_phonebook">폰북</string>
     <string name="menu_message">메세지</string>
+    <string name="main_frag_price">판매가</string>
+    <string name="main_frag_support">공시일</string>
+    <string name="main_frag_app_name">App Name</string>
+    <string name="main_frag_package_name">App Package Name</string>
+    <string name="main_frag_version_num">1.0.1</string>
+    <string name="main_frag_promotion_name">Name</string>
+    <string name="music_frag_title">Sample Title</string>
+    <string name="music_frag_subtitle">Sample Subtitle</string>
+    <string name="music_frag_time">03:00</string>
+    <string name="phonebook_frag_name">아무개</string>
+    <string name="phonebook_frag_number">000-0000-0000</string>
+    <string name="phoneinfo_desc">테스트2</string>
+    <string name="u_amp_soft_company"><![CDATA[U&Soft Company]]></string>
+    <string name="fragment_main_promotion">Promotion</string>
+    <string name="fragment_main_support_money">공시지원금</string>
+    <string name="fragment_main_more_show">더보기</string>
+    <string name="fragment_message_user">user</string>
+    <string name="fragment_message_content">mesage</string>
+    <string name="fragment_message_date">date</string>
+    <string name="fragment_photo_name">name</string>
+    <string name="fragment_photo_count">count</string>
+    <string name="fragment_photo_file_name">name</string>
+    <string name="activity_app_count">count</string>
+    <string name="activity_music_count">음악개수 :</string>
+    <string name="activity_music_player_title">TextView</string>
+    <string name="activity_memory_title">램</string>
+    <string name="activity_memory_percent">퍼센트</string>
+    <string name="activity_memory_free">Free</string>
+    <string name="activity_memory_used">Used</string>
+    <string name="activity_memory_total">Total</string>
+    <string name="activity_manage_main">main</string>
+    <string name="activity_manage_ai">A.I</string>
+    <string name="activity_battery_percent">퍼센트</string>
+    <string name="activity_battery_title">title</string>
+    <string name="activity_battery_description">description</string>
+    <string name="activity_message_user_name">name</string>
+    <string name="fragment_message_count">메세지 개수 :</string>
 </resources>

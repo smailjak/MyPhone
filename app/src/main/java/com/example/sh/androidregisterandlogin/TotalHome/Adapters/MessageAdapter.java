@@ -1,7 +1,10 @@
 package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageModel;
+import com.example.sh.androidregisterandlogin.TotalMessage.Chat.ChatActivity;
+
 import com.example.sh.androidregisterandlogin.databinding.ItemMessageBinding;
 import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
@@ -16,8 +21,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MessageAdapter extends BaseRecyclerViewAdapter<HashMap<String, String>, MessageAdapter.ViewHolder> {
-    public MessageAdapter(List<HashMap<String, String>> dataSet) {
+    List<HashMap<String, String>> dataSet;
+    Context context;
+
+    public MessageAdapter(List<HashMap<String, String>> dataSet, Context context) {
         super(dataSet);
+        this.dataSet = dataSet;
+        this.context = context;
+
     }
 
     @Override
@@ -34,12 +45,25 @@ public class MessageAdapter extends BaseRecyclerViewAdapter<HashMap<String, Stri
         holder.binding.ivImage.setImageDrawable(drawable);
     }
 
+    @Override
+    public void setfileter(List<HashMap<String, String>> listitem) {
+        super.setfileter(listitem);
+    }
+
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int position) {
         ItemMessageBinding binding = ItemMessageBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         ViewHolder viewHolder = new ViewHolder(binding);
 
+            viewHolder.binding.conversationListLayout.setOnClickListener(v -> {
+                Toast.makeText(context, "Test Click Num : " + viewHolder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, ChatActivity.class);
+            intent.putExtra("name", dataSet.get(+viewHolder.getAdapterPosition()).get(MessageModel.KEY_NAME));
+            intent.putExtra("address", dataSet.get(+viewHolder.getAdapterPosition()).get(MessageModel.KEY_PHONE));
+            intent.putExtra("thread_id", dataSet.get(+viewHolder.getAdapterPosition()).get(MessageModel.KEY_THREAD_ID));
+            context.startActivity(intent);
+        });
         return viewHolder;
     }
 
@@ -52,3 +76,4 @@ public class MessageAdapter extends BaseRecyclerViewAdapter<HashMap<String, Stri
         }
     }
 }
+

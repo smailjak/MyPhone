@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="15dp"
+    android:background="@color/colorWhite"
     android:layout_marginBottom="5dp">
 
     <TextView
@@ -50,6 +52,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:text="모델명"
+        android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@+id/iv_image_phone"
         app:layout_constraintTop_toBottomOf="@+id/tv_support_money" />
 
@@ -60,6 +63,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:text="출고가"
+        android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@+id/iv_image_phone"
         app:layout_constraintTop_toBottomOf="@+id/tv_my_model_name" />
 
@@ -69,7 +73,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
-        android:text="판매가"
+        android:text="@string/main_frag_price"
+        android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/iv_image_phone"
         app:layout_constraintTop_toBottomOf="@+id/tv_my_model_shipment" />
@@ -80,7 +85,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
-        android:text="공시일"
+        android:text="@string/main_frag_support"
+        android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@+id/iv_image_phone"
         app:layout_constraintTop_toBottomOf="@+id/tv_my_sell_money" />
 

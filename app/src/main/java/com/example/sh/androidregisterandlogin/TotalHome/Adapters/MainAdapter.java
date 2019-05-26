@@ -3,15 +3,12 @@ package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.TotalApp.UserAppsActivity;
@@ -25,13 +22,12 @@ import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentMainAdapter extends BaseRecyclerViewAdapter<AdditionalFeature, FragmentMainAdapter.ViewHolder> implements Filterable {
+public class MainAdapter extends BaseRecyclerViewAdapter<AdditionalFeature, MainAdapter.ViewHolder> {
 
     ArrayList<AdditionalFeature> filterList;
-    MainFilter mainFilter;
     private RequestManager requestManager;
 
-    public FragmentMainAdapter(List<AdditionalFeature> dataSet) {
+    public MainAdapter(List<AdditionalFeature> dataSet) {
         super(dataSet);
     }
 
@@ -58,7 +54,6 @@ public class FragmentMainAdapter extends BaseRecyclerViewAdapter<AdditionalFeatu
     public void onBindView(ViewHolder viewHolder, int position) {
         viewHolder.binding.tvName.setText(getItem(position).getName());
         requestManager.load(getItem(position).getImg())
-                .apply(RequestOptions.bitmapTransform(new CenterCrop()))
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
                 .into(viewHolder.binding.ivImage);
     }
@@ -72,11 +67,4 @@ public class FragmentMainAdapter extends BaseRecyclerViewAdapter<AdditionalFeatu
         }
     }
 
-    @Override
-    public Filter getFilter() {
-        if (mainFilter == null) {
-            mainFilter = new MainFilter(filterList, this);
-        }
-        return mainFilter;
-    }
 }

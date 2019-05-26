@@ -3,9 +3,7 @@
 
     <data>
 
-
     </data>
-
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ll_main_player"
@@ -34,14 +32,14 @@
                 android:id="@+id/txt_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sample Title"
+                android:text="@string/music_frag_title"
                 android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/txt_sub_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sample Subtitle"
+                android:text="@string/music_frag_subtitle"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12dp" />
 
@@ -52,7 +50,8 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="03:00"
+            android:text="@string/music_frag_time"
             android:textSize="12dp" />
+
     </LinearLayout>
 </layout>

@@ -16,11 +16,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
@@ -29,28 +29,32 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sh.androidregisterandlogin.CompanyIntroActivity;
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalApp.UserAppsActivity;
-import com.example.sh.androidregisterandlogin.TotalMusic.TotalMusicActivity;
 import com.example.sh.androidregisterandlogin.TotalBattery.BatteryActivity;
-import com.example.sh.androidregisterandlogin.TotalHome.Adapters.FragmentMainAdapter;
+import com.example.sh.androidregisterandlogin.TotalHome.Adapters.MainAdapter;
+import com.example.sh.androidregisterandlogin.TotalMusic.TotalMusicActivity;
 import com.example.sh.androidregisterandlogin.data.AdditionalFeature;
-import com.example.sh.androidregisterandlogin.TotalPhoto.TotalFolder.TotalPhotoActivity;
 import com.example.sh.androidregisterandlogin.databinding.FragmentMainBinding;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class MainFragment extends Fragment {
-    private FragmentMainBinding fragmentMainBinding;
-    private FragmentMainAdapter fragmentMainAdapter;
+    private FragmentMainBinding binding;
+    private MainAdapter adapter;
     private SearchView searchView;
+    ArrayList<AdditionalFeature> additionalFeatures = new ArrayList<>();
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private TextToSpeech tts;
 
-    public MainFragment() {}
+    public MainFragment() {
+    }
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -58,43 +62,44 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        fragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
-        return fragmentMainBinding.getRoot();
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).setSupportActionBar(fragmentMainBinding.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
         setHasOptionsMenu(true);
-        initCollapsingToolbar();
-        initRcv();
+        initCollapsingToolbar(binding.collapsingToolbar);
+        initRcv(binding.rcvMain);
 
-        fragmentMainBinding.imgCompanyIntro.setOnClickListener(a -> {
+        binding.imgCompanyIntro.setOnClickListener(a -> {
             Intent intent = new Intent(getContext(), CompanyIntroActivity.class);
             startActivity(intent);
         });
     }
 
-    private void initRcv() {
-        fragmentMainAdapter = new FragmentMainAdapter(getModels());
+    private void initRcv(RecyclerView rcv) {
+        adapter = new MainAdapter(getModels());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        fragmentMainBinding.rcvMain.setLayoutManager(linearLayoutManager);
-        fragmentMainBinding.rcvMain.setHasFixedSize(true);
-        fragmentMainBinding.rcvMain.setAdapter(fragmentMainAdapter);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rcv.setLayoutManager(linearLayoutManager);
+        rcv.setHasFixedSize(true);
+        rcv.setAdapter(adapter);
     }
 
-    private void initCollapsingToolbar() {
-        fragmentMainBinding.collapsingToolbar.setTitle("");
-        fragmentMainBinding.appbar.setExpanded(true);
-        fragmentMainBinding.collapsingToolbar.setTitle("U&Soft Company");
-        fragmentMainBinding.collapsingToolbar.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
-        fragmentMainBinding.collapsingToolbar.setExpandedTitleTextAppearance(R.style.coll_expand_title);
+    private void initCollapsingToolbar(CollapsingToolbarLayout ctl) {
+        ctl.setTitle("");
+        binding.appbar.setExpanded(true);
+        ctl.setTitle("U&Soft Company");
+        ctl.setCollapsedTitleTextAppearance(R.style.coll_main_basic_title);
+        ctl.setExpandedTitleTextAppearance(R.style.coll_expand_title);
     }
 
     private ArrayList<AdditionalFeature> getModels() {
-        ArrayList<AdditionalFeature> additionalFeatures = new ArrayList<>();
+
         AdditionalFeature additionalFeature;
 
         additionalFeature = new AdditionalFeature();
@@ -109,7 +114,7 @@ public class MainFragment extends Fragment {
 
         additionalFeature = new AdditionalFeature();
         additionalFeature.setName("App");
-        additionalFeature.setImg(R.drawable.ic_main_app);
+        additionalFeature.setImg(R.drawable.appimage);
         additionalFeatures.add(additionalFeature);
 
         additionalFeature = new AdditionalFeature();
@@ -126,20 +131,37 @@ public class MainFragment extends Fragment {
         getActivity().getMenuInflater().inflate(R.menu.menu, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) item.getActionView();
+        ((EditText) searchView.findViewById(R.id.search_src_text)).setHintTextColor(getResources().getColor(R.color.colorPrimary));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String s) {
-                fragmentMainAdapter.getFilter().filter(s);
+                if (!searchView.isIconified()) {
+                    searchView.setIconified(true);
+                }
+                item.collapseActionView();
                 return false;
             }
 
             @Override
-            public boolean onQueryTextChange(String s) {
-                fragmentMainAdapter.getFilter().filter(s);
+            public boolean onQueryTextChange(String newText) {
+                final List<AdditionalFeature> filtermodellist = filter(additionalFeatures, newText);
+                adapter.setfileter(filtermodellist);
                 return false;
             }
         });
+    }
+
+    private List<AdditionalFeature> filter(List<AdditionalFeature> p1, String query) {
+        query = query.toLowerCase();
+        final List<AdditionalFeature> filteredModelList = new ArrayList<>();
+        for (AdditionalFeature model : p1) {
+            final String text = model.getName().toLowerCase();
+            if (text.startsWith(query)) {
+                filteredModelList.add(model);
+
+            }
+        }
+        return filteredModelList;
     }
 
     @Override
@@ -183,22 +205,15 @@ public class MainFragment extends Fragment {
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-                    fragmentMainBinding.speechInputTxt.setText(result.get(0));  //분홍색 글씨
-                    String voice_result = fragmentMainBinding.speechInputTxt.getText().toString();   // 이렇게적으면 안녕으로 바뀌게 된다 .
+                    binding.speechInputTxt.setText(result.get(0));  //분홍색 글씨
+                    String voice_result = binding.speechInputTxt.getText().toString();   // 이렇게적으면 안녕으로 바뀌게 된다 .
                     String text, text1 = "안녕", test2 = "누구야";
-                    String pic = "사진", pic2 = "이미지";
                     String app = "어플", battry = "배터리", music = "음악", music2 = "오디오", music3 = "노래";
                     String music_start1 = "음악재생", music_start2 = "노래재생", music_title_start = "틀어줘";
-                    String message = "메세지", message2 = "문자", message3 = "메시지";
-                    String address = "연락처";
                     String result1 = voice_result.trim().replaceAll(" ", "");
-
                     if (result1.replaceAll(" ", "").contains(text1) || result1.contains(test2)) {
                         text = "네 안녕하세요. 저는 혀니 입니다.";
                         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
-                    } else if (result1.contains(pic) || result1.contains(pic2)) {
-                        Intent intent = new Intent(getContext(), TotalPhotoActivity.class);
-                        startActivity(intent);
                     } else if (result1.contains(music_title_start)) {
                         Intent intent = new Intent(getContext(), TotalMusicActivity.class);
                         String title = result1.replaceAll("틀어줘", "");
@@ -215,9 +230,6 @@ public class MainFragment extends Fragment {
                         Intent intent = new Intent(getContext(), TotalMusicActivity.class);
                         intent.putExtra("music_start", 1);
                         startActivity(intent);
-                    } else if (result1.contains(address)) {
-                        Intent intent = new Intent(getContext(), PhoneBookFragment.class);
-                        startActivity(intent);
                     } else if (result1.contains(app)) {
                         Intent intent = new Intent(getContext(), UserAppsActivity.class);
                         startActivity(intent);
@@ -226,9 +238,6 @@ public class MainFragment extends Fragment {
                         startActivity(intent);
                     } else if (result1.contains(music) || result1.contains(music2) || result1.contains(music3)) {
                         Intent intent = new Intent(getContext(), TotalMusicActivity.class);
-                        startActivity(intent);
-                    } else if (result1.contains(message) || result1.contains(message2) || result1.contains(message3)) {
-                        Intent intent = new Intent(getContext(), MessageFragment.class);
                         startActivity(intent);
                     }
                 }
@@ -244,6 +253,7 @@ public class MainFragment extends Fragment {
             getAudioListFromMediaDatabase();
         }
     }
+
 
     private void getAudioListFromMediaDatabase() {
         (getActivity()).getSupportLoaderManager().initLoader(0, null, new LoaderManager.LoaderCallbacks<Cursor>() {

@@ -35,7 +35,7 @@ public class GeneralAdapter extends BaseRecyclerViewAdapter<PhoneInfoDataItem, G
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.tworow, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_phoneinfo, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
 
 

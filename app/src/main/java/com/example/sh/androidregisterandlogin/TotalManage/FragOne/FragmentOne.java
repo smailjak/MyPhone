@@ -4,6 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,17 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.jsoup.nodes.Element;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.sh.androidregisterandlogin.R;
-import com.example.sh.androidregisterandlogin.TotalDataItem.FragOneDataItem;
+import com.example.sh.androidregisterandlogin.TotalHome.Adapters.PhonePriceAdapter;
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.PhonePriceDataItem;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -29,13 +28,12 @@ import java.util.ArrayList;
 
 public class FragmentOne extends Fragment {
 
-    View view;
+    private View view;
     private final String WATING_GREETINGS = "please wating ~ ^ ^ ";
-    private ArrayList<FragOneDataItem> list = new ArrayList();
-    RecyclerView recyclerView;
-    Context context;
-    ProgressDialog progressDialog;
-
+    private ArrayList<PhonePriceDataItem> list = new ArrayList();
+    private RecyclerView recyclerView;
+    Context mContext;
+    private ProgressDialog progressDialog;
 
     public FragmentOne() {
 
@@ -81,8 +79,10 @@ public class FragmentOne extends Fragment {
                     String myModel_name = "모델명 : " + elem.select("td").next().first().text();
                     String myShipment = "출고가 : " + elem.select("td").next().next().first().text();
                     String mySellMoney = "판매가 : " + elem.select("td").next().next().next().next().first().text();
+//                    판매가 순위로 정해서 나타내기 .
 
-                    list.add(new FragOneDataItem(myTitle, myImgUrl, myGosi, myBirthday, myModel_name, myShipment, mySellMoney));
+
+                    list.add(new PhonePriceDataItem(myTitle, myImgUrl, myGosi, myBirthday, myModel_name, myShipment, mySellMoney));
                 }
 
             } catch (IOException e) {
@@ -94,11 +94,11 @@ public class FragmentOne extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
 
-            TotalManageFragmentAdapter totalManageFragmentAdapter = new TotalManageFragmentAdapter(list, view.getContext());
+            PhonePriceAdapter phonePriceAdapter = new PhonePriceAdapter(list, view.getContext());
             recyclerView = view.findViewById(R.id.rcv_fragment_one);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
             recyclerView.setHasFixedSize(true);
-            recyclerView.setAdapter(totalManageFragmentAdapter);
+            recyclerView.setAdapter(phonePriceAdapter);
             progressDialog.dismiss();
 
         }

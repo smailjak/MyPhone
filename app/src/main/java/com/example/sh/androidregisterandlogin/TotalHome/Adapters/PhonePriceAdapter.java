@@ -1,4 +1,4 @@
-package com.example.sh.androidregisterandlogin.TotalManage.FragOne;
+package com.example.sh.androidregisterandlogin.TotalHome.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,29 +12,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.sh.androidregisterandlogin.R;
-import com.example.sh.androidregisterandlogin.TotalDataItem.FragOneDataItem;
+import com.example.sh.androidregisterandlogin.TotalHome.Datas.PhonePriceDataItem;
 
 import java.util.ArrayList;
 
-public class TotalManageFragmentAdapter extends RecyclerView.Adapter<TotalManageFragmentAdapter.ViewHolder> {
+public class PhonePriceAdapter extends RecyclerView.Adapter<PhonePriceAdapter.ViewHolder> {
 
-    private ArrayList<FragOneDataItem> mList;
+    private ArrayList<PhonePriceDataItem> mList;
     Context context;
 
-    public TotalManageFragmentAdapter(ArrayList<FragOneDataItem> list, Context context) {
+    public PhonePriceAdapter(ArrayList<PhonePriceDataItem> list, Context context) {
         this.mList = list;
         this.context = context;
     }
 
     //
     @Override
-    public TotalManageFragmentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_data, parent, false);
+    public PhonePriceAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_phoneprice, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(TotalManageFragmentAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(PhonePriceAdapter.ViewHolder holder, int position) {
 
         holder.tvPhoneName.setText(String.valueOf(mList.get(position).getTitle()));
         holder.tvSupportMoney.setText(String.valueOf(mList.get(position).getRelease()));

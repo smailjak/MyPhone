@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="U&amp;Soft Company"
+            android:text="@string/u_amp_soft_company"
             android:textColor="@color/colorGrin"
             android:textSize="26sp"
             android:textStyle="bold"
