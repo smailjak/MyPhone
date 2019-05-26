@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +37,6 @@ import com.example.sh.androidregisterandlogin.databinding.FragmentMessageBinding
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.lifeofcoding.cacheutlislibrary.CacheUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -46,17 +44,18 @@ import java.util.List;
 
 
 public class MessageFragment extends Fragment {
-
     private FragmentMessageBinding binding;
     static final int REQUEST_PERMISSION_KEY = 1;
     private final String WATING_GREETINGS = "please wating ~ ^ ^ ";
     ArrayList<HashMap<String, String>> smsList = new ArrayList<>();
-    ArrayList<HashMap<String, String>> tmpList = new ArrayList<>();
     MessageAdapter adapter;
 
-    ProgressDialog progressDialog;
+
     int name_count = 0;
     int null_name_count = 0;
+
+    private ProgressDialog progressDialog;
+    private LoadSmsAsyncTask loadSmsAsyncTask = new LoadSmsAsyncTask();
 
     public MessageFragment() {
     }
@@ -77,13 +76,12 @@ public class MessageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
         setHasOptionsMenu(true);
-        initRecyclerView(binding.rcvMsg);
-        initCollapsingToolbar(binding.collapsingToolbar);
-        new LoadSmsAsyncTask().execute();
+        initMessageRcv(binding.rcvMsg);
+        loadSmsAsyncTask.execute();
     }
 
-    private void initRecyclerView(RecyclerView rcv) {
-        adapter = new MessageAdapter(smsList, getContext());
+    private void initMessageRcv(RecyclerView rcv) {
+        adapter = new MessageAdapter(smsList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         rcv.setLayoutManager(linearLayoutManager);
         rcv.setHasFixedSize(true);
@@ -93,16 +91,9 @@ public class MessageFragment extends Fragment {
     private void initCollapsingToolbar(CollapsingToolbarLayout ctl) {
         ctl.setTitle("");
         binding.appbar.setExpanded(true);
-        try {
-            tmpList = (ArrayList<HashMap<String, String>>) MessageModel.readCachedFile(getContext(), "smsapp");
-            ctl.setTitle("메세지 개수 : " + tmpList.size());
-            ctl.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
-            ctl.setExpandedTitleTextAppearance(R.style.coll_expand_title);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        ctl.setTitle("메세지 개수 : " + smsList.size());
+        ctl.setCollapsedTitleTextAppearance(R.style.coll_basic_title);
+        ctl.setExpandedTitleTextAppearance(R.style.coll_expand_title);
     }
 
     public class LoadSmsAsyncTask extends AsyncTask<String, Void, String> {
@@ -140,16 +131,13 @@ public class MessageFragment extends Fragment {
                         phone = cursor.getString(cursor.getColumnIndexOrThrow("address"));
 
                         name = CacheUtils.readFile(thread_id);
-                        Log.d("MainActivity.test", "msg : " + msg);
                         name_count++;
-                        // 이렇게 하면 17 번 돌게됩니다.
+
                         if (name == null) {
                             null_name_count++;
-                            Log.d("MainActivity.test", " 저장안된 사람 : " + null_name_count);
                             name = MessageModel.getContactbyPhoneNumber(getActivity(), cursor.getString(cursor.getColumnIndexOrThrow("address")));
                             CacheUtils.writeFile(thread_id, name);
                         }
-                        Log.d("MainActivity.test", "이름 갯수 : " + name_count);
                         smsList.add(MessageModel.mappingInbox(_id, thread_id, name, phone, msg, type, timestamp, MessageModel.converToTime(timestamp)));
                         cursor.moveToNext();
                     }
@@ -161,23 +149,14 @@ public class MessageFragment extends Fragment {
             }
 
             Collections.sort(smsList, new MessageComparator(MessageModel.KEY_TIMESTAMP, "dsc")); // Arranging sms by timestamp decending
-            ArrayList<HashMap<String, String>> purified = MessageModel.removeDuplicates(smsList); // Removing duplicates from inbox & sent
-            smsList.clear();
-            smsList.addAll(purified);
 
-            try {
-                MessageModel.createCachedFile(getContext(), "smsapp", smsList);
-            } catch (Exception e) {
-            }
             return xml;
         }
 
         @Override
         protected void onPostExecute(String xml) {
-            if (!tmpList.equals(smsList)) {
-                binding.rcvMsg.setAdapter(adapter);
-            }
             progressDialog.dismiss();
+            initCollapsingToolbar(binding.collapsingToolbar);
         }
     }
 
@@ -187,25 +166,12 @@ public class MessageFragment extends Fragment {
         switch (requestCode) {
             case REQUEST_PERMISSION_KEY: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    init();
+
                 } else {
                     Toast.makeText(getContext(), "You must accept permissions.", Toast.LENGTH_LONG).show();
                 }
             }
         }
-    }
-
-    public void init() {
-        smsList.clear();
-        try {
-            tmpList = (ArrayList<HashMap<String, String>>) MessageModel.readCachedFile(getContext(), "smsapp");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        adapter = new MessageAdapter(tmpList, getContext());
-        binding.rcvMsg.setAdapter(adapter);
     }
 
     @Override
@@ -218,7 +184,6 @@ public class MessageFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-//                키보드의 검색 버튼을 누르면 이 함수가 호출됩니다.
                 if (!searchView.isIconified()) {
                     searchView.setIconified(true);
                 }
@@ -228,8 +193,7 @@ public class MessageFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                이 함수는 searchview에 입력 할 때마다 호출됩니다.
-                final List<HashMap<String, String>> filtermodellist = filter(tmpList, newText);
+                final List<HashMap<String, String>> filtermodellist = filter(smsList, newText);
                 adapter.setfileter(filtermodellist);
                 return false;
             }
@@ -243,7 +207,6 @@ public class MessageFragment extends Fragment {
             final String text = model.get(MessageModel.KEY_NAME).toLowerCase();
             if (text.startsWith(query)) {
                 filteredModelList.add(model);
-
             }
         }
         return filteredModelList;
@@ -265,26 +228,19 @@ public class MessageFragment extends Fragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-//        다른 메뉴 항목 클릭을 여기에서 처리하십시오.
-        if (id == R.id.action_settings) {
-            Toast.makeText(getContext(), "Settings", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.action_voice) {
-            Toast.makeText(getContext(), "Voice", Toast.LENGTH_SHORT).show();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         String[] PERMISSIONS = {Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS,
                 Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS};
         if (!MessageModel.hasPermissions(getContext(), PERMISSIONS)) {
             ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, REQUEST_PERMISSION_KEY);
-        } else {
-            init();
         }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        loadSmsAsyncTask.cancel(true);
+        super.onDestroy();
     }
 }

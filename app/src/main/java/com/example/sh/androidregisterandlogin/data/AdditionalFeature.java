@@ -19,4 +19,12 @@ public class AdditionalFeature {
     public void setImg(int img) {
         this.img = img;
     }
+
+    public AdditionalFeature(String name, int img) {
+        this.name = name;
+        this.img = img;
+    }
+
+    public AdditionalFeature() {
+    }
 }

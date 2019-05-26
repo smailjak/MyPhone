@@ -30,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sh.androidregisterandlogin.R;
 import com.example.sh.androidregisterandlogin.TotalHome.Adapters.PhonebookAdapter;
-import com.example.sh.androidregisterandlogin.TotalHome.Datas.AddressDataItem;
+import com.example.sh.androidregisterandlogin.data.AddressData;
 import com.example.sh.androidregisterandlogin.databinding.FragmentPhonebookBinding;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -42,7 +42,7 @@ public class PhoneBookFragment extends Fragment {
 
     private FragmentPhonebookBinding binding;
     PhonebookAdapter adapter;
-    ArrayList<AddressDataItem> contactlist = new ArrayList<>();
+    ArrayList<AddressData> contactlist = new ArrayList<>();
     public PhoneBookFragment() {
     }
 
@@ -101,7 +101,7 @@ public class PhoneBookFragment extends Fragment {
         rcv.setAdapter(adapter);
     }
 
-    private ArrayList<AddressDataItem> getContactList() {
+    private ArrayList<AddressData> getContactList() {
 
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 
@@ -129,7 +129,7 @@ public class PhoneBookFragment extends Fragment {
                         + phonenumber.substring(7);
             }
 
-            AddressDataItem acontact = new AddressDataItem();
+            AddressData acontact = new AddressData();
             acontact.setPhotoid(contactCursor.getLong(0));
             acontact.setPhonenum(phonenumber);
             Log.d("qweqwe", "getContactList: " +contactCursor.getString(2));
@@ -162,7 +162,7 @@ public class PhoneBookFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
 //                이 함수는 searchview에 입력 할 때마다 호출됩니다.
-                final List<AddressDataItem> filtermodellist = filter(contactlist, newText);
+                final List<AddressData> filtermodellist = filter(contactlist, newText);
                 adapter.setfileter(filtermodellist);
                 return false;
             }
@@ -181,10 +181,10 @@ public class PhoneBookFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private List<AddressDataItem> filter(List<AddressDataItem> p1, String query) {
+    private List<AddressData> filter(List<AddressData> p1, String query) {
         query = query.toLowerCase();
-        final List<AddressDataItem> filteredModelList = new ArrayList<>();
-        for (AddressDataItem model : p1) {
+        final List<AddressData> filteredModelList = new ArrayList<>();
+        for (AddressData model : p1) {
             final String text = model.getName().toLowerCase();
             if (text.startsWith(query)) {
                 filteredModelList.add(model);

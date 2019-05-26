@@ -10,17 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.example.sh.androidregisterandlogin.TotalHome.Datas.AddressDataItem;
+import com.example.sh.androidregisterandlogin.data.AddressData;
 import com.example.sh.androidregisterandlogin.databinding.ItemPhonebookBinding;
 import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PhonebookAdapter extends BaseRecyclerViewAdapter<AddressDataItem, PhonebookAdapter.ViewHolder> {
+public class PhonebookAdapter extends BaseRecyclerViewAdapter<AddressData, PhonebookAdapter.ViewHolder> {
 
 
-    public PhonebookAdapter( ArrayList<AddressDataItem> dataSet) {
+    public PhonebookAdapter( ArrayList<AddressData> dataSet) {
         super(dataSet);
     }
 
@@ -37,7 +37,7 @@ public class PhonebookAdapter extends BaseRecyclerViewAdapter<AddressDataItem, P
     }
 
     @Override
-    public void setfileter(List<AddressDataItem> listitem) {
+    public void setfileter(List<AddressData> listitem) {
         super.setfileter(listitem);
     }
 
@@ -47,7 +47,7 @@ public class PhonebookAdapter extends BaseRecyclerViewAdapter<AddressDataItem, P
         ItemPhonebookBinding binding = ItemPhonebookBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         final ViewHolder viewHolder = new ViewHolder(binding);
         binding.constraintMain.setOnClickListener(v -> {
-            AddressDataItem phonenumber = getItem(viewHolder.getAdapterPosition());
+            AddressData phonenumber = getItem(viewHolder.getAdapterPosition());
             if (phonenumber == null) {
                 return;
             }
