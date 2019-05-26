@@ -13,6 +13,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.example.sh.androidregisterandlogin.TotalHome.Datas.MessageModel;
 import com.example.sh.androidregisterandlogin.TotalMessage.Chat.ChatActivity;
+
 import com.example.sh.androidregisterandlogin.databinding.ItemMessageBinding;
 import com.example.sh.androidregisterandlogin.util.BaseRecyclerViewAdapter;
 
@@ -20,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MessageAdapter extends BaseRecyclerViewAdapter<HashMap<String, String>, MessageAdapter.ViewHolder> {
-
     List<HashMap<String, String>> dataSet;
     Context context;
 
@@ -28,6 +28,7 @@ public class MessageAdapter extends BaseRecyclerViewAdapter<HashMap<String, Stri
         super(dataSet);
         this.dataSet = dataSet;
         this.context = context;
+
     }
 
     @Override
@@ -75,3 +76,4 @@ public class MessageAdapter extends BaseRecyclerViewAdapter<HashMap<String, Stri
         }
     }
 }
+

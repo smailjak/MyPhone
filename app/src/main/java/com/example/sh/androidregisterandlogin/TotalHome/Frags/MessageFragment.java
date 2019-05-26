@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,6 +53,7 @@ public class MessageFragment extends Fragment {
     ArrayList<HashMap<String, String>> smsList = new ArrayList<>();
     ArrayList<HashMap<String, String>> tmpList = new ArrayList<>();
     MessageAdapter adapter;
+
     ProgressDialog progressDialog;
     int name_count = 0;
     int null_name_count = 0;
@@ -73,7 +75,6 @@ public class MessageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         ((AppCompatActivity) getActivity()).setSupportActionBar(binding.toolbar);
         setHasOptionsMenu(true);
         initRecyclerView(binding.rcvMsg);
@@ -108,22 +109,18 @@ public class MessageFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-//           또 들어갈 수 있으니깐 일단 비워준다.
             smsList.clear();
             progressDialog = new ProgressDialog(getContext());
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setMessage(WATING_GREETINGS);
             progressDialog.show();
-
         }
 
-        protected String doInBackground(String... args) { // ?? String ... 가 무엇일까요 ??
+        protected String doInBackground(String... args) {
             String xml = "";
-
             try {
                 Uri uriInbox = Uri.parse("content://sms/inbox");
                 Cursor inbox = getContext().getContentResolver().query(uriInbox, null, "address IS NOT NULL) GROUP BY (thread_id", null, null); // 2nd null = "address IS NOT NULL) GROUP BY (address"
-//               이것들 하나하나 뭐하는 녀석들인지 알아야함 .
                 Uri uriSent = Uri.parse("content://sms/sent");
                 Cursor sent = getContext().getContentResolver().query(uriSent, null, "address IS NOT NULL) GROUP BY (thread_id", null, null); // 2nd null = "address IS NOT NULL) GROUP BY (address"
                 Cursor cursor = new MergeCursor(new Cursor[]{inbox, sent}); // Attaching inbox and sent sms
@@ -141,6 +138,7 @@ public class MessageFragment extends Fragment {
                         String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                         String timestamp = cursor.getString(cursor.getColumnIndexOrThrow("date"));
                         phone = cursor.getString(cursor.getColumnIndexOrThrow("address"));
+
                         name = CacheUtils.readFile(thread_id);
                         Log.d("MainActivity.test", "msg : " + msg);
                         name_count++;
@@ -159,7 +157,6 @@ public class MessageFragment extends Fragment {
                 cursor.close();
 
             } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -167,18 +164,16 @@ public class MessageFragment extends Fragment {
             ArrayList<HashMap<String, String>> purified = MessageModel.removeDuplicates(smsList); // Removing duplicates from inbox & sent
             smsList.clear();
             smsList.addAll(purified);
-            // Updating cache data
+
             try {
                 MessageModel.createCachedFile(getContext(), "smsapp", smsList);
             } catch (Exception e) {
             }
-            // Updating cache data
             return xml;
         }
 
         @Override
         protected void onPostExecute(String xml) {
-
             if (!tmpList.equals(smsList)) {
                 binding.rcvMsg.setAdapter(adapter);
             }
@@ -284,7 +279,6 @@ public class MessageFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         String[] PERMISSIONS = {Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS,
                 Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS};
         if (!MessageModel.hasPermissions(getContext(), PERMISSIONS)) {
